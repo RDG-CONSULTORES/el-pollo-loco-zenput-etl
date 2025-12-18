@@ -430,6 +430,122 @@ def debug_sucursales():
             'timestamp': datetime.now().isoformat()
         }), 500
 
+@app.route('/etl/load-real-data')
+def load_real_epl_data():
+    """Cargar estructura real completa de El Pollo Loco (86 sucursales, 20 grupos)"""
+    
+    if not DATABASE_URL:
+        return jsonify({'error': 'DATABASE_URL not configured'}), 400
+    
+    try:
+        import csv
+        import os
+        
+        conn = psycopg2.connect(DATABASE_URL)
+        cursor = conn.cursor()
+        
+        # 1. CARGAR 20 GRUPOS OPERATIVOS REALES
+        print("👥 Cargando 20 grupos operativos reales...")
+        
+        grupos_reales = [
+            ('TEPEYAC', 'LOCAL'),
+            ('OGAS', 'LOCAL'), 
+            ('EFM', 'LOCAL'),
+            ('TEC', 'LOCAL'),
+            ('EXPO', 'LOCAL'),
+            ('EPL SO', 'LOCAL'),
+            ('GRUPO CENTRITO', 'LOCAL'),
+            ('PLOG NUEVO LEON', 'FORANEA'),
+            ('PLOG LAGUNA', 'FORANEA'),
+            ('PLOG QUERETARO', 'FORANEA'),
+            ('GRUPO SALTILLO', 'FORANEA'),
+            ('OCHTER TAMPICO', 'FORANEA'),
+            ('GRUPO MATAMOROS', 'FORANEA'),
+            ('CRR', 'FORANEA'),
+            ('RAP', 'FORANEA'),
+            ('GRUPO RIO BRAVO', 'FORANEA'),
+            ('GRUPO NUEVO LAREDO (RUELAS)', 'FORANEA'),
+            ('GRUPO PIEDRAS NEGRAS', 'FORANEA'),
+            ('GRUPO SABINAS HIDALGO', 'FORANEA'),
+            ('GRUPO CANTERA ROSA (MORELIA)', 'FORANEA')
+        ]
+        
+        for nombre, clasificacion in grupos_reales:
+            cursor.execute("""
+                INSERT INTO grupos_operativos (nombre, clasificacion)
+                VALUES (%s, %s)
+                ON CONFLICT (nombre) DO UPDATE SET clasificacion = EXCLUDED.clasificacion;
+            """, (nombre, clasificacion))
+        
+        grupos_loaded = len(grupos_reales)
+        
+        # 2. CARGAR 86 SUCURSALES REALES DESDE CSV
+        print("🏪 Cargando 86 sucursales reales...")
+        
+        csv_path = '/Users/robertodavila/el-pollo-loco-zenput-etl/data/86_sucursales_master.csv'
+        sucursales_loaded = 0
+        
+        if os.path.exists(csv_path):
+            with open(csv_path, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    # Obtener grupo_id
+                    cursor.execute("SELECT id FROM grupos_operativos WHERE nombre = %s;", (row['Grupo_Operativo'],))
+                    grupo_result = cursor.fetchone()
+                    
+                    if grupo_result:
+                        grupo_id = grupo_result[0]
+                        
+                        cursor.execute("""
+                            INSERT INTO sucursales (external_key, nombre, ciudad, estado, latitude, longitude, grupo_operativo_id)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s)
+                            ON CONFLICT (external_key) DO UPDATE SET
+                                nombre = EXCLUDED.nombre,
+                                grupo_operativo_id = EXCLUDED.grupo_operativo_id,
+                                latitude = EXCLUDED.latitude,
+                                longitude = EXCLUDED.longitude;
+                        """, (
+                            row['Numero_Sucursal'],
+                            row['Nombre_Sucursal'],
+                            row['Ciudad'],
+                            row['Estado'],
+                            float(row['Latitude']) if row['Latitude'] else None,
+                            float(row['Longitude']) if row['Longitude'] else None,
+                            grupo_id
+                        ))
+                        sucursales_loaded += 1
+        
+        # 3. VERIFICAR CARGA
+        cursor.execute("SELECT COUNT(*) FROM grupos_operativos;")
+        total_grupos = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM sucursales;")
+        total_sucursales = cursor.fetchone()[0]
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+        return jsonify({
+            'status': 'real_data_loaded',
+            'message': 'Estructura completa de El Pollo Loco cargada',
+            'data': {
+                'grupos_operativos': total_grupos,
+                'sucursales': total_sucursales,
+                'grupos_loaded': grupos_loaded,
+                'sucursales_loaded': sucursales_loaded
+            },
+            'ready_for_etl': True,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
 @app.route('/etl/full')
 def run_full_etl():
     """Ejecutar ETL COMPLETO - todas las supervisiones 2025"""
