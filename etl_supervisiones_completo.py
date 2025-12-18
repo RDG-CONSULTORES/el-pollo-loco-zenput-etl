@@ -49,45 +49,71 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
     page = 1
     
     while True:
-        url = f"{ZENPUT_CONFIG['base_url']}/submissions"
-        params = {
-            'form_id': form_id,
-            'submitted_at_start': fecha_desde,
-            'submitted_at_end': fecha_hasta,
-            'page': page,
-            'per_page': 100
-        }
+        # Probar diferentes endpoints hasta encontrar el correcto
+        endpoints_to_try = [
+            f"{ZENPUT_CONFIG['base_url']}/forms/{form_id}/submissions",
+            f"{ZENPUT_CONFIG['base_url']}/submissions", 
+            f"{ZENPUT_CONFIG['base_url']}/form/{form_id}/submissions"
+        ]
         
-        try:
-            response = requests.get(url, headers=ZENPUT_CONFIG['headers'], params=params)
+        success = False
+        
+        for endpoint_url in endpoints_to_try:
+            params = {
+                'submitted_at_start': fecha_desde,
+                'submitted_at_end': fecha_hasta,
+                'page': page,
+                'per_page': 100
+            }
             
-            if response.status_code == 200:
-                data = response.json()
-                submissions = data.get('submissions', [])
+            # Si no es el endpoint con form_id en URL, agregar como parámetro
+            if f'/{form_id}/' not in endpoint_url:
+                params['form_id'] = form_id
+        
+            try:
+                response = requests.get(endpoint_url, headers=ZENPUT_CONFIG['headers'], params=params)
                 
-                # Debug información de API response
-                print(f"   🔍 API Response: {response.status_code}")
-                print(f"   📊 Total found in API: {data.get('total', 'N/A')}")
-                print(f"   📄 Current page: {data.get('current_page', page)}")
-                print(f"   📄 Per page: {data.get('per_page', 100)}")
-                print(f"   🔢 Items this page: {len(submissions)}")
+                print(f"   🧪 Testing endpoint: {endpoint_url}")
+                print(f"   🔍 Response: {response.status_code}")
                 
-                if not submissions:
-                    break
-                
-                all_submissions.extend(submissions)
-                print(f"   📄 Página {page}: {len(submissions)} submissions")
-                
-                page += 1
-                time.sleep(0.5)  # Rate limiting
-                
-            else:
-                print(f"❌ Error API: {response.status_code}")
-                break
-                
-        except Exception as e:
-            print(f"❌ Error extrayendo submissions: {e}")
+                if response.status_code == 200:
+                    data = response.json()
+                    submissions = data.get('submissions', [])
+                    
+                    print(f"   ✅ SUCCESS with endpoint: {endpoint_url}")
+                    print(f"   📊 Total found in API: {data.get('total', 'N/A')}")
+                    print(f"   📄 Current page: {data.get('current_page', page)}")
+                    print(f"   📄 Per page: {data.get('per_page', 100)}")
+                    print(f"   🔢 Items this page: {len(submissions)}")
+                    
+                    if not submissions:
+                        print(f"   📄 No more submissions on page {page}")
+                        return all_submissions
+                    
+                    all_submissions.extend(submissions)
+                    print(f"   📄 Página {page}: {len(submissions)} submissions agregados")
+                    
+                    page += 1
+                    success = True
+                    break  # Salir del loop de endpoints, continuar con siguiente página
+                    
+                elif response.status_code == 403:
+                    print(f"   ❌ 403 Forbidden: {endpoint_url}")
+                    continue  # Probar siguiente endpoint
+                else:
+                    print(f"   ❌ Error {response.status_code}: {endpoint_url}")
+                    continue  # Probar siguiente endpoint
+                    
+            except Exception as e:
+                print(f"   ❌ Exception con {endpoint_url}: {e}")
+                continue  # Probar siguiente endpoint
+        
+        # Si ningún endpoint funcionó, terminar
+        if not success:
+            print(f"❌ No se pudo acceder a ningún endpoint para form {form_id}")
             break
+            
+        time.sleep(0.5)  # Rate limiting
     
     print(f"✅ Total extraído form {form_id}: {len(all_submissions)} submissions")
     return all_submissions
