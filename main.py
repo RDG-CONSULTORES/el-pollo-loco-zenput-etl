@@ -287,6 +287,61 @@ def test_connection():
     
     return jsonify(results)
 
+@app.route('/etl/full')
+def run_full_etl():
+    """Ejecutar ETL COMPLETO - todas las supervisiones 2025"""
+    
+    if not DATABASE_URL:
+        return jsonify({'error': 'DATABASE_URL not configured'}), 400
+    
+    try:
+        # Importar y ejecutar nuestro ETL completo
+        import subprocess
+        import os
+        
+        # Configurar environment variables
+        env = os.environ.copy()
+        env['DATABASE_URL'] = DATABASE_URL
+        
+        # Ejecutar ETL completo
+        result = subprocess.run(
+            ['python3', 'etl_supervisiones_completo.py'],
+            capture_output=True,
+            text=True,
+            timeout=1800,  # 30 minutos max
+            env=env
+        )
+        
+        if result.returncode == 0:
+            return jsonify({
+                'status': 'etl_completed',
+                'message': 'ETL completo ejecutado exitosamente',
+                'output': result.stdout[-1000:],  # Últimas 1000 chars
+                'timestamp': datetime.now().isoformat()
+            })
+        else:
+            return jsonify({
+                'status': 'etl_failed',
+                'error': result.stderr,
+                'output': result.stdout,
+                'return_code': result.returncode,
+                'timestamp': datetime.now().isoformat()
+            }), 500
+            
+    except subprocess.TimeoutExpired:
+        return jsonify({
+            'status': 'etl_timeout',
+            'error': 'ETL execution timed out (30 minutes)',
+            'timestamp': datetime.now().isoformat()
+        }), 500
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'etl_error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
 def extract_and_count_submissions(form_id, zenput_config, max_pages=3):
     """Extraer y contar submissions de un formulario"""
     

@@ -10,9 +10,9 @@ import json
 from datetime import datetime, date
 import time
 
-# CONFIGURACIÓN ZENPUT
+# CONFIGURACIÓN ZENPUT - URL CORRECTA
 ZENPUT_CONFIG = {
-    'base_url': 'https://api.zenput.com/api/v3',
+    'base_url': 'https://www.zenput.com/api/v3',
     'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
 }
 
