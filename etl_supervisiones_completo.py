@@ -134,9 +134,13 @@ def procesar_submission_operativa(submission):
     smetadata = submission.get('smetadata') or {}
     location = smetadata.get('location') or {}
     
-    # Extraer sucursal_id y nombre directamente de smetadata.location
-    sucursal_id = location.get('external_key')  # "53"
+    # Extraer sucursal_id con fallback a location.id si external_key es None
+    sucursal_id = location.get('external_key') or location.get('id')
     sucursal_nombre = location.get('name', '')  # "53 - Lienzo Charro"
+    
+    # Debug para ver qué está pasando
+    if not sucursal_id:
+        print(f"   ⚠️ DEBUG submission {submission_id}: location = {location}")
     
     metadata = smetadata  # Ya validado arriba
     created_by = metadata.get('created_by') or {}
@@ -203,9 +207,13 @@ def procesar_submission_seguridad(submission):
     smetadata = submission.get('smetadata') or {}
     location = smetadata.get('location') or {}
     
-    # Extraer sucursal_id y nombre directamente de smetadata.location
-    sucursal_id = location.get('external_key')  # "53" 
+    # Extraer sucursal_id con fallback a location.id si external_key es None
+    sucursal_id = location.get('external_key') or location.get('id')
     sucursal_nombre = location.get('name', '')  # "53 - Lienzo Charro"
+    
+    # Debug para ver qué está pasando
+    if not sucursal_id:
+        print(f"   ⚠️ DEBUG submission {submission_id}: location = {location}")
     
     metadata = smetadata  # Ya validado arriba
     created_by = metadata.get('created_by') or {}
