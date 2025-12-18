@@ -45,96 +45,71 @@ def conectar_railway():
         return None
 
 def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2025-12-18'):
-    """Extraer submissions de Zenput para un formulario específico"""
+    """Extraer TODAS las submissions de Zenput para un formulario específico con paginación completa"""
     
-    print(f"🔄 Extrayendo submissions form {form_id} desde {fecha_desde}...")
+    print(f"🔄 Extrayendo TODAS las submissions form {form_id} desde {fecha_desde}...")
     
     all_submissions = []
     page = 1
+    max_pages = 100  # Límite de seguridad para evitar loops infinitos
     
-    while True:
-        # Probar diferentes versiones de API y endpoints hasta encontrar el correcto
-        endpoints_to_try = []
+    while page <= max_pages:
+        print(f"   📄 Procesando página {page}...")
         
         # USAR SOLO v3 COMO EN TU GITHUB ACTIONS EXITOSO
-        base_url = ZENPUT_CONFIG['base_urls']['v3']  # Solo v3, no v1
-        endpoints_to_try = [
-            f"{base_url}/submissions"  # Endpoint principal que usa tu GitHub Actions
-        ]
+        endpoint_url = f"{ZENPUT_CONFIG['base_urls']['v3']}/submissions"
         
-        success = False
+        # PARÁMETROS EXACTOS COMO TU GITHUB ACTIONS + FECHAS PARA 2025
+        params = {
+            'form_template_id': form_id,
+            'limit': 100,  # Máximo por página
+            'offset': (page - 1) * 100,  # Zenput puede usar offset en lugar de page
+            'created_after': fecha_desde,
+            'created_before': fecha_hasta
+        }
         
-        for endpoint_url in endpoints_to_try:
-            params = {
-                'limit': 100,  # Zenput usa 'limit' no 'per_page'
-                'page': page
-            }
+        try:
+            response = requests.get(endpoint_url, headers=ZENPUT_CONFIG['headers'], params=params, timeout=30)
             
-            # USAR EL PATRÓN EXACTO QUE FUNCIONA EN TU ETL
-            if f'/{form_id}/' not in endpoint_url:
-                # Zenput funciona con form_template_id, no form_id
-                params['form_template_id'] = form_id
-                params['form_id'] = form_id  # Mantener ambos por compatibilidad
+            print(f"   🧪 API v3 endpoint: {endpoint_url}")
+            print(f"   📋 Params: form_template_id={form_id}, offset={params['offset']}, limit={params['limit']}")
+            print(f"   🔍 Response: {response.status_code}")
             
-            # USAR LOS PARÁMETROS DE FECHA CORRECTOS
-            params['created_after'] = fecha_desde
-            params['created_before'] = fecha_hasta
-            # Mantener otros formatos por si acaso
-            params['submitted_at_start'] = fecha_desde
-            params['submitted_at_end'] = fecha_hasta
-            
-            # Para v1, algunos endpoints pueden necesitar parámetros diferentes
-            if '/api/v1/' in endpoint_url:
-                params['start_date'] = fecha_desde
-                params['end_date'] = fecha_hasta
-        
-            try:
-                response = requests.get(endpoint_url, headers=ZENPUT_CONFIG['headers'], params=params)
+            if response.status_code == 200:
+                data = response.json()
+                # Tu ETL funcional usa 'data' como array principal
+                submissions = data.get('data', [])
                 
-                api_version = 'v3' if '/api/v3/' in endpoint_url else 'v1'
-                print(f"   🧪 Testing {api_version} endpoint: {endpoint_url}")
-                print(f"   🔍 Response: {response.status_code}")
+                print(f"   ✅ SUCCESS with API v3")
+                print(f"   📊 Total found in API: {data.get('count', len(submissions))}")
+                print(f"   🔢 Items this page: {len(submissions)}")
                 
-                if response.status_code == 200:
-                    data = response.json()
-                    # Zenput v1 y v3 pueden usar nombres diferentes para el array de datos
-                    # Tu ETL funcional usa 'data' como array principal
-                    submissions = data.get('data', data.get('submissions', data.get('responses', [])))
-                    
-                    print(f"   ✅ SUCCESS with endpoint: {endpoint_url}")
-                    print(f"   📊 Total found in API: {data.get('total', 'N/A')}")
-                    print(f"   📄 Current page: {data.get('current_page', page)}")
-                    print(f"   📄 Per page: {data.get('per_page', 100)}")
-                    print(f"   🔢 Items this page: {len(submissions)}")
-                    
-                    if not submissions:
-                        print(f"   📄 No more submissions on page {page}")
-                        return all_submissions
-                    
-                    all_submissions.extend(submissions)
-                    print(f"   📄 Página {page}: {len(submissions)} submissions agregados")
-                    
-                    page += 1
-                    success = True
-                    break  # Salir del loop de endpoints, continuar con siguiente página
-                    
-                elif response.status_code == 403:
-                    print(f"   ❌ 403 Forbidden: {endpoint_url}")
-                    continue  # Probar siguiente endpoint
-                else:
-                    print(f"   ❌ Error {response.status_code}: {endpoint_url}")
-                    continue  # Probar siguiente endpoint
-                    
-            except Exception as e:
-                print(f"   ❌ Exception con {endpoint_url}: {e}")
-                continue  # Probar siguiente endpoint
-        
-        # Si ningún endpoint funcionó, terminar
-        if not success:
-            print(f"❌ No se pudo acceder a ningún endpoint para form {form_id}")
+                if not submissions:
+                    print(f"   📄 No more submissions on page {page} - Finished!")
+                    break
+                
+                all_submissions.extend(submissions)
+                print(f"   📄 Página {page}: {len(submissions)} submissions agregados")
+                print(f"   📈 Total acumulado: {len(all_submissions)} submissions")
+                
+                page += 1
+                
+                # Rate limiting entre páginas
+                time.sleep(0.5)
+                
+            elif response.status_code == 403:
+                print(f"   ❌ 403 Forbidden - Token sin permisos")
+                break
+            elif response.status_code == 404:
+                print(f"   ❌ 404 Not Found - Endpoint o form_id incorrecto")  
+                break
+            else:
+                print(f"   ❌ Error {response.status_code}: {response.text[:200]}")
+                break
+                
+        except Exception as e:
+            print(f"   ❌ Exception: {e}")
             break
-            
-        time.sleep(0.5)  # Rate limiting
     
     print(f"✅ Total extraído form {form_id}: {len(all_submissions)} submissions")
     return all_submissions
