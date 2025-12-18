@@ -131,15 +131,15 @@ def procesar_submission_operativa(submission):
     submission_id = submission.get('id')
     
     # USAR LA ESTRUCTURA REAL DE ZENPUT: smetadata.location  
-    smetadata = submission.get('smetadata', {})
-    location = smetadata.get('location', {})
+    smetadata = submission.get('smetadata') or {}
+    location = smetadata.get('location') or {}
     
     # Extraer sucursal_id y nombre directamente de smetadata.location
     sucursal_id = location.get('external_key')  # "53"
     sucursal_nombre = location.get('name', '')  # "53 - Lienzo Charro"
     
-    metadata = submission.get('smetadata', {})
-    created_by = metadata.get('created_by', {})
+    metadata = smetadata  # Ya validado arriba
+    created_by = metadata.get('created_by') or {}
     auditor_nombre = created_by.get('display_name', '')
     auditor_email = created_by.get('email', '')
     
@@ -200,15 +200,15 @@ def procesar_submission_seguridad(submission):
     submission_id = submission.get('id')
     
     # USAR LA ESTRUCTURA REAL DE ZENPUT: smetadata.location
-    smetadata = submission.get('smetadata', {})
-    location = smetadata.get('location', {})
+    smetadata = submission.get('smetadata') or {}
+    location = smetadata.get('location') or {}
     
     # Extraer sucursal_id y nombre directamente de smetadata.location
     sucursal_id = location.get('external_key')  # "53" 
     sucursal_nombre = location.get('name', '')  # "53 - Lienzo Charro"
     
-    metadata = submission.get('smetadata', {})
-    created_by = metadata.get('created_by', {})
+    metadata = smetadata  # Ya validado arriba
+    created_by = metadata.get('created_by') or {}
     auditor_nombre = created_by.get('display_name', '')
     auditor_email = created_by.get('email', '')
     
