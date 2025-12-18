@@ -291,12 +291,32 @@ def cargar_supervisions_railway(conn, supervisions_data):
         
         for supervision in supervisions_data:
             try:
-                # Validar sucursal existe
+                # Validar sucursal existe o crearla automáticamente
                 sucursal_key = str(supervision['sucursal_id'])
                 if sucursal_key not in sucursales_map:
-                    print(f"   ⚠️ Sucursal no encontrada: {sucursal_key}")
-                    errores += 1
-                    continue
+                    # AUTO-CREAR sucursal faltante basada en datos de Zenput
+                    print(f"   🔄 Auto-creando sucursal faltante: {sucursal_key} - {supervision['sucursal_nombre']}")
+                    
+                    try:
+                        cursor.execute("""
+                            INSERT INTO sucursales (external_key, nombre, latitude, longitude, grupo_operativo_id)
+                            VALUES (%s, %s, %s, %s, 1)
+                            RETURNING id;
+                        """, (
+                            sucursal_key,
+                            supervision['sucursal_nombre'],
+                            supervision.get('latitude'),
+                            supervision.get('longitude')
+                        ))
+                        
+                        new_sucursal_id = cursor.fetchone()[0]
+                        sucursales_map[sucursal_key] = {'id': new_sucursal_id, 'grupo_id': 1}
+                        print(f"   ✅ Sucursal creada: {sucursal_key} con ID {new_sucursal_id}")
+                        
+                    except Exception as e:
+                        print(f"   ❌ Error creando sucursal {sucursal_key}: {e}")
+                        errores += 1
+                        continue
                 
                 sucursal_info = sucursales_map[sucursal_key]
                 supervision['grupo_operativo_id'] = sucursal_info['grupo_id']
