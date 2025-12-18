@@ -70,24 +70,27 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
         
         for endpoint_url in endpoints_to_try:
             params = {
-                'submitted_at_start': fecha_desde,
-                'submitted_at_end': fecha_hasta,
-                'page': page,
-                'per_page': 100
+                'limit': 100,  # Zenput usa 'limit' no 'per_page'
+                'page': page
             }
             
-            # Si no es el endpoint con form_id en URL, agregar como parámetro
+            # USAR EL PATRÓN EXACTO QUE FUNCIONA EN TU ETL
             if f'/{form_id}/' not in endpoint_url:
-                params['form_id'] = form_id
+                # Zenput funciona con form_template_id, no form_id
+                params['form_template_id'] = form_id
+                params['form_id'] = form_id  # Mantener ambos por compatibilidad
+            
+            # USAR LOS PARÁMETROS DE FECHA CORRECTOS
+            params['created_after'] = fecha_desde
+            params['created_before'] = fecha_hasta
+            # Mantener otros formatos por si acaso
+            params['submitted_at_start'] = fecha_desde
+            params['submitted_at_end'] = fecha_hasta
             
             # Para v1, algunos endpoints pueden necesitar parámetros diferentes
             if '/api/v1/' in endpoint_url:
-                # v1 puede usar names diferentes para los parámetros
                 params['start_date'] = fecha_desde
                 params['end_date'] = fecha_hasta
-                # Mantener también los originales por si acaso
-                params['submitted_at_start'] = fecha_desde
-                params['submitted_at_end'] = fecha_hasta
         
             try:
                 response = requests.get(endpoint_url, headers=ZENPUT_CONFIG['headers'], params=params)
@@ -99,7 +102,8 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
                 if response.status_code == 200:
                     data = response.json()
                     # Zenput v1 y v3 pueden usar nombres diferentes para el array de datos
-                    submissions = data.get('submissions', data.get('responses', data.get('data', [])))
+                    # Tu ETL funcional usa 'data' como array principal
+                    submissions = data.get('data', data.get('submissions', data.get('responses', [])))
                     
                     print(f"   ✅ SUCCESS with endpoint: {endpoint_url}")
                     print(f"   📊 Total found in API: {data.get('total', 'N/A')}")
