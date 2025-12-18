@@ -88,6 +88,16 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
                     print(f"   📄 No more submissions on page {page} - Finished!")
                     break
                 
+                # DEBUG: Mostrar estructura del primer submission para entender el formato
+                if page == 1 and len(submissions) > 0:
+                    print(f"   🔍 DEBUG - Estructura del primer submission:")
+                    first_sub = submissions[0]
+                    print(f"   📋 Keys disponibles: {list(first_sub.keys())}")
+                    print(f"   🏪 Location data: {first_sub.get('location')}")
+                    print(f"   📊 SMetadata: {first_sub.get('smetadata', {}).keys()}")
+                    if first_sub.get('smetadata'):
+                        print(f"   📍 SMetadata.location: {first_sub.get('smetadata', {}).get('location')}")
+                
                 all_submissions.extend(submissions)
                 print(f"   📄 Página {page}: {len(submissions)} submissions agregados")
                 print(f"   📈 Total acumulado: {len(all_submissions)} submissions")
