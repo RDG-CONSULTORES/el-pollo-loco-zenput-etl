@@ -482,7 +482,7 @@ def load_real_epl_data():
         # 2. CARGAR 86 SUCURSALES REALES DESDE CSV
         print("🏪 Cargando 86 sucursales reales...")
         
-        csv_path = '/Users/robertodavila/el-pollo-loco-zenput-etl/data/86_sucursales_master.csv'
+        csv_path = 'data/86_sucursales_master.csv'
         sucursales_loaded = 0
         
         if os.path.exists(csv_path):

@@ -134,13 +134,18 @@ def procesar_submission_operativa(submission):
     smetadata = submission.get('smetadata') or {}
     location = smetadata.get('location') or {}
     
-    # Extraer sucursal_id con fallback a location.id si external_key es None
-    sucursal_id = location.get('external_key') or location.get('id')
-    sucursal_nombre = location.get('name', '')  # "53 - Lienzo Charro"
+    # Extraer sucursal_id con validaciones completas
+    sucursal_id = None
+    sucursal_nombre = ''
     
-    # Debug para ver qué está pasando
+    if location and isinstance(location, dict):
+        sucursal_id = location.get('external_key') or location.get('id')
+        sucursal_nombre = location.get('name', '')
+    
+    # Si aún no tenemos sucursal_id, SKIP esta submission
     if not sucursal_id:
-        print(f"   ⚠️ DEBUG submission {submission_id}: location = {location}")
+        print(f"   ⚠️ SKIP submission {submission_id}: sin location válida")
+        return None  # No procesar esta submission
     
     metadata = smetadata  # Ya validado arriba
     created_by = metadata.get('created_by') or {}
@@ -207,13 +212,18 @@ def procesar_submission_seguridad(submission):
     smetadata = submission.get('smetadata') or {}
     location = smetadata.get('location') or {}
     
-    # Extraer sucursal_id con fallback a location.id si external_key es None
-    sucursal_id = location.get('external_key') or location.get('id')
-    sucursal_nombre = location.get('name', '')  # "53 - Lienzo Charro"
+    # Extraer sucursal_id con validaciones completas
+    sucursal_id = None
+    sucursal_nombre = ''
     
-    # Debug para ver qué está pasando
+    if location and isinstance(location, dict):
+        sucursal_id = location.get('external_key') or location.get('id')
+        sucursal_nombre = location.get('name', '')
+    
+    # Si aún no tenemos sucursal_id, SKIP esta submission
     if not sucursal_id:
-        print(f"   ⚠️ DEBUG submission {submission_id}: location = {location}")
+        print(f"   ⚠️ SKIP submission {submission_id}: sin location válida")
+        return None  # No procesar esta submission
     
     metadata = smetadata  # Ya validado arriba
     created_by = metadata.get('created_by') or {}
@@ -290,6 +300,12 @@ def cargar_supervisions_railway(conn, supervisions_data):
         errores = 0
         
         for supervision in supervisions_data:
+            # Filtrar submissions con sucursal_id None ANTES de cualquier operación DB
+            if not supervision.get('sucursal_id'):
+                print(f"   ⚠️ SKIP supervision sin sucursal_id válida")
+                errores += 1
+                continue
+                
             try:
                 # Validar sucursal existe o crearla automáticamente
                 sucursal_key = str(supervision['sucursal_id'])
@@ -426,7 +442,8 @@ def main():
             supervisions_operativa = []
             for submission in submissions_operativa:
                 supervision = procesar_submission_operativa(submission)
-                supervisions_operativa.append(supervision)
+                if supervision:  # Solo agregar si no es None
+                    supervisions_operativa.append(supervision)
             
             cargadas = cargar_supervisions_railway(conn, supervisions_operativa)
             total_cargadas += cargadas
@@ -450,7 +467,8 @@ def main():
             supervisions_seguridad = []
             for submission in submissions_seguridad:
                 supervision = procesar_submission_seguridad(submission)
-                supervisions_seguridad.append(supervision)
+                if supervision:  # Solo agregar si no es None
+                    supervisions_seguridad.append(supervision)
             
             cargadas = cargar_supervisions_railway(conn, supervisions_seguridad)
             total_cargadas += cargadas
