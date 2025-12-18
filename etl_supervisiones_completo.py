@@ -10,9 +10,12 @@ import json
 from datetime import datetime, date
 import time
 
-# CONFIGURACIÓN ZENPUT - URL CORRECTA
+# CONFIGURACIÓN ZENPUT - URL CORRECTA con fallback v1
 ZENPUT_CONFIG = {
-    'base_url': 'https://www.zenput.com/api/v3',
+    'base_urls': {
+        'v3': 'https://www.zenput.com/api/v3',
+        'v1': 'https://www.zenput.com/api/v1'
+    },
     'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
 }
 
@@ -49,12 +52,19 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
     page = 1
     
     while True:
-        # Probar diferentes endpoints hasta encontrar el correcto
-        endpoints_to_try = [
-            f"{ZENPUT_CONFIG['base_url']}/forms/{form_id}/submissions",
-            f"{ZENPUT_CONFIG['base_url']}/submissions", 
-            f"{ZENPUT_CONFIG['base_url']}/form/{form_id}/submissions"
-        ]
+        # Probar diferentes versiones de API y endpoints hasta encontrar el correcto
+        endpoints_to_try = []
+        
+        # Probar tanto v3 como v1 con diferentes patrones de endpoint
+        for version in ['v3', 'v1']:
+            base_url = ZENPUT_CONFIG['base_urls'][version]
+            endpoints_to_try.extend([
+                f"{base_url}/forms/{form_id}/submissions",
+                f"{base_url}/submissions", 
+                f"{base_url}/form/{form_id}/submissions",
+                f"{base_url}/forms/{form_id}/responses",  # Algunas APIs usan "responses"
+                f"{base_url}/responses"  # Endpoint alternativo
+            ])
         
         success = False
         
@@ -69,16 +79,27 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
             # Si no es el endpoint con form_id en URL, agregar como parámetro
             if f'/{form_id}/' not in endpoint_url:
                 params['form_id'] = form_id
+            
+            # Para v1, algunos endpoints pueden necesitar parámetros diferentes
+            if '/api/v1/' in endpoint_url:
+                # v1 puede usar names diferentes para los parámetros
+                params['start_date'] = fecha_desde
+                params['end_date'] = fecha_hasta
+                # Mantener también los originales por si acaso
+                params['submitted_at_start'] = fecha_desde
+                params['submitted_at_end'] = fecha_hasta
         
             try:
                 response = requests.get(endpoint_url, headers=ZENPUT_CONFIG['headers'], params=params)
                 
-                print(f"   🧪 Testing endpoint: {endpoint_url}")
+                api_version = 'v3' if '/api/v3/' in endpoint_url else 'v1'
+                print(f"   🧪 Testing {api_version} endpoint: {endpoint_url}")
                 print(f"   🔍 Response: {response.status_code}")
                 
                 if response.status_code == 200:
                     data = response.json()
-                    submissions = data.get('submissions', [])
+                    # Zenput v1 y v3 pueden usar nombres diferentes para el array de datos
+                    submissions = data.get('submissions', data.get('responses', data.get('data', [])))
                     
                     print(f"   ✅ SUCCESS with endpoint: {endpoint_url}")
                     print(f"   📊 Total found in API: {data.get('total', 'N/A')}")
