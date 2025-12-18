@@ -184,9 +184,9 @@ def run_etl():
     if not DATABASE_URL:
         return jsonify({'error': 'DATABASE_URL not configured'}), 400
     
-    # Configuración Zenput - usar DNS alternativo
+    # Configuración Zenput - URL CORRECTA
     zenput_config = {
-        'base_url': 'https://api.zenput.com/api/v3',
+        'base_url': 'https://www.zenput.com/api/v3',
         'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
     }
     
@@ -262,24 +262,28 @@ def test_connection():
     except Exception as e:
         results['tests']['external_http'] = {'status': 'FAILED', 'error': str(e)}
     
-    # Test 3: Zenput API with direct IP (bypass DNS)
-    try:
-        zenput_response = requests.get(
-            'https://104.26.10.13/api/v3/forms',
-            headers={
-                'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5',
-                'Host': 'api.zenput.com'
-            },
-            timeout=15,
-            verify=False  # Skip SSL verification for IP access
-        )
-        results['tests']['zenput_direct_ip'] = {
-            'status': 'OK' if zenput_response.status_code == 200 else 'ERROR',
-            'code': zenput_response.status_code,
-            'method': 'direct_ip_bypass_dns'
-        }
-    except Exception as e:
-        results['tests']['zenput_direct_ip'] = {'status': 'FAILED', 'error': str(e)}
+    # Test 3: Zenput API with MULTIPLE VERSIONS
+    api_tests = [
+        ('v3_forms', 'https://www.zenput.com/api/v3/forms'),
+        ('v1_forms', 'https://www.zenput.com/api/v1/forms'),
+        ('v3_submissions', 'https://www.zenput.com/api/v3/submissions'),
+        ('v1_submissions', 'https://www.zenput.com/api/v1/submissions')
+    ]
+    
+    for test_name, api_url in api_tests:
+        try:
+            response = requests.get(
+                api_url,
+                headers={'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'},
+                timeout=10
+            )
+            results['tests'][test_name] = {
+                'status': 'OK' if response.status_code == 200 else 'ERROR',
+                'code': response.status_code,
+                'url': api_url
+            }
+        except Exception as e:
+            results['tests'][test_name] = {'status': 'FAILED', 'error': str(e), 'url': api_url}
     
     return jsonify(results)
 

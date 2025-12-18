@@ -1,0 +1,58 @@
+name: 🚀 El Pollo Loco ETL to Railway PostgreSQL
+
+on:
+  schedule:
+    # Ejecutar todos los días a las 6:00 AM México (12:00 UTC)
+    - cron: '0 12 * * *'
+  
+  workflow_dispatch:
+    # Permite ejecutar manualmente desde GitHub
+    inputs:
+      date_range:
+        description: 'Días hacia atrás para extraer (default: 1)'
+        required: false
+        default: '1'
+        type: string
+
+jobs:
+  etl-to-railway:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install psycopg2-binary requests python-dotenv
+        
+    - name: 🔧 Setup Environment
+      env:
+        ZENPUT_API_TOKEN: ${{ secrets.ZENPUT_API_TOKEN }}
+        RAILWAY_DATABASE_URL: ${{ secrets.RAILWAY_DATABASE_URL }}
+      run: |
+        echo "ZENPUT_API_TOKEN=${ZENPUT_API_TOKEN}" >> .env
+        echo "RAILWAY_DATABASE_URL=${RAILWAY_DATABASE_URL}" >> .env
+        
+    - name: 🚀 Execute ETL to Railway
+      run: python3 github_actions_etl_railway.py
+      env:
+        ZENPUT_API_TOKEN: ${{ secrets.ZENPUT_API_TOKEN }}
+        RAILWAY_DATABASE_URL: ${{ secrets.RAILWAY_DATABASE_URL }}
+        DATE_RANGE_DAYS: ${{ github.event.inputs.date_range || '1' }}
+        
+    - name: 📊 Upload ETL Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: etl-results-${{ github.run_id }}
+        path: |
+          etl_results.json
+          etl_errors.log
+        retention-days: 30
