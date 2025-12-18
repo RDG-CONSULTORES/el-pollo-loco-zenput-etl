@@ -184,34 +184,32 @@ def run_etl():
     if not DATABASE_URL:
         return jsonify({'error': 'DATABASE_URL not configured'}), 400
     
-    # Configuración Zenput - usar IP directo para evitar DNS
+    # Configuración Zenput - usar DNS alternativo
     zenput_config = {
-        'base_url': 'https://104.26.10.13/api/v3',  # IP directo de api.zenput.com
-        'headers': {
-            'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5',
-            'Host': 'api.zenput.com'  # Mantener el host header
-        }
+        'base_url': 'https://api.zenput.com/api/v3',
+        'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
     }
     
     try:
-        # Test DNS resolution first
-        import socket
-        try:
-            socket.gethostbyname('api.zenput.com')
-            dns_resolved = True
-        except socket.gaierror as dns_error:
-            return jsonify({
-                'error': 'DNS Resolution Failed',
-                'dns_error': str(dns_error),
-                'host': 'api.zenput.com',
-                'solution': 'Railway DNS issue - try again in a few minutes'
-            }), 500
+        # Configurar sesión con retry automático y DNS backup
+        session = requests.Session()
+        from requests.adapters import HTTPAdapter
+        from requests.packages.urllib3.util.retry import Retry
         
-        # Test conexión Zenput
-        zenput_test = requests.get(
+        retry_strategy = Retry(
+            total=3,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        
+        # Test conexión Zenput con retry
+        zenput_test = session.get(
             f"{zenput_config['base_url']}/forms", 
             headers=zenput_config['headers'],
-            timeout=15
+            timeout=20
         )
         
         if zenput_test.status_code != 200:
