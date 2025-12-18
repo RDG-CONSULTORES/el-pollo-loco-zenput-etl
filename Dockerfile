@@ -1,15 +1,15 @@
-# Use Python 3.11 slim image
-FROM python:3.11-slim
+# Use Python 3.11 alpine for smaller size
+FROM python:3.11-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies including curl
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
+# Install system dependencies
+RUN apk add --no-cache \
+    postgresql-dev \
     gcc \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    musl-dev \
+    curl
 
 # Copy requirements first for better caching
 COPY requirements.txt .
@@ -17,8 +17,10 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . .
+# Copy only essential files
+COPY main.py .
+COPY railway_deploy_script.py .
+COPY etl_supervisiones_completo.py .
 
 # Set environment variables  
 ENV PORT=8080
