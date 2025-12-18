@@ -357,6 +357,79 @@ def debug_submission_structure():
             'timestamp': datetime.now().isoformat()
         }), 500
 
+@app.route('/etl/debug-sucursales')
+def debug_sucursales():
+    """Debug para ver qué sucursales IDs tenemos en Railway vs Zenput"""
+    
+    if not DATABASE_URL:
+        return jsonify({'error': 'DATABASE_URL not configured'}), 400
+    
+    try:
+        # 1. Ver sucursales en Railway PostgreSQL
+        conn = psycopg2.connect(DATABASE_URL)
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT external_key, id, nombre FROM sucursales WHERE external_key IS NOT NULL ORDER BY external_key;")
+        railway_sucursales = cursor.fetchall()
+        
+        cursor.close()
+        conn.close()
+        
+        # 2. Ver sucursales de Zenput (sample de 5 submissions)
+        zenput_config = {
+            'base_url': 'https://www.zenput.com/api/v3',
+            'headers': {'X-API-TOKEN': 'cb908e0d4e0f5501c635325c611db314'}
+        }
+        
+        endpoint_url = f"{zenput_config['base_url']}/submissions"
+        params = {
+            'form_template_id': '877138',
+            'limit': 10,
+            'created_after': '2025-01-01',
+            'created_before': '2025-12-18'
+        }
+        
+        response = requests.get(endpoint_url, headers=zenput_config['headers'], params=params, timeout=30)
+        
+        zenput_sucursales = []
+        if response.status_code == 200:
+            data = response.json()
+            submissions = data.get('data', [])
+            
+            for submission in submissions[:5]:  # Solo 5 para debug
+                smetadata = submission.get('smetadata') or {}
+                location = smetadata.get('location') or {}
+                
+                sucursal_id = location.get('external_key') or location.get('id')
+                sucursal_nombre = location.get('name', '')
+                
+                zenput_sucursales.append({
+                    'submission_id': submission.get('id'),
+                    'sucursal_id': sucursal_id,
+                    'sucursal_nombre': sucursal_nombre,
+                    'external_key': location.get('external_key'),
+                    'location_id': location.get('id')
+                })
+        
+        return jsonify({
+            'status': 'debug_success',
+            'railway_sucursales_count': len(railway_sucursales),
+            'railway_sucursales_sample': railway_sucursales[:10],
+            'zenput_sucursales_sample': zenput_sucursales,
+            'comparison': {
+                'railway_external_keys': [str(row[0]) for row in railway_sucursales],
+                'zenput_sucursal_ids': [str(item['sucursal_id']) for item in zenput_sucursales if item['sucursal_id']]
+            },
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
 @app.route('/etl/full')
 def run_full_etl():
     """Ejecutar ETL COMPLETO - todas las supervisiones 2025"""
