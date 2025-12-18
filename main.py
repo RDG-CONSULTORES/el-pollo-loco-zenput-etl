@@ -191,11 +191,24 @@ def run_etl():
     }
     
     try:
+        # Test DNS resolution first
+        import socket
+        try:
+            socket.gethostbyname('api.zenput.com')
+            dns_resolved = True
+        except socket.gaierror as dns_error:
+            return jsonify({
+                'error': 'DNS Resolution Failed',
+                'dns_error': str(dns_error),
+                'host': 'api.zenput.com',
+                'solution': 'Railway DNS issue - try again in a few minutes'
+            }), 500
+        
         # Test conexión Zenput
         zenput_test = requests.get(
             f"{zenput_config['base_url']}/forms", 
             headers=zenput_config['headers'],
-            timeout=10
+            timeout=15
         )
         
         if zenput_test.status_code != 200:
@@ -223,6 +236,47 @@ def run_etl():
             'error': str(e),
             'timestamp': datetime.now().isoformat()
         }), 500
+
+@app.route('/etl/test-connection')
+def test_connection():
+    """Test conectividad y DNS para diagnostico"""
+    import socket
+    
+    results = {
+        'timestamp': datetime.now().isoformat(),
+        'tests': {}
+    }
+    
+    # Test 1: DNS Resolution
+    try:
+        ip = socket.gethostbyname('api.zenput.com')
+        results['tests']['dns'] = {'status': 'OK', 'ip': ip}
+    except Exception as e:
+        results['tests']['dns'] = {'status': 'FAILED', 'error': str(e)}
+    
+    # Test 2: Basic HTTP to external site
+    try:
+        test_response = requests.get('https://httpbin.org/status/200', timeout=10)
+        results['tests']['external_http'] = {'status': 'OK', 'code': test_response.status_code}
+    except Exception as e:
+        results['tests']['external_http'] = {'status': 'FAILED', 'error': str(e)}
+    
+    # Test 3: Zenput API if DNS works
+    if results['tests']['dns']['status'] == 'OK':
+        try:
+            zenput_response = requests.get(
+                'https://api.zenput.com/api/v3/forms',
+                headers={'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'},
+                timeout=15
+            )
+            results['tests']['zenput_api'] = {
+                'status': 'OK' if zenput_response.status_code == 200 else 'ERROR',
+                'code': zenput_response.status_code
+            }
+        except Exception as e:
+            results['tests']['zenput_api'] = {'status': 'FAILED', 'error': str(e)}
+    
+    return jsonify(results)
 
 def extract_and_count_submissions(form_id, zenput_config, max_pages=3):
     """Extraer y contar submissions de un formulario"""
