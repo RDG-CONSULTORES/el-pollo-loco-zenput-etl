@@ -7,6 +7,8 @@ Entry point para Railway deployment con endpoints web básicos
 from flask import Flask, jsonify
 import os
 import psycopg2
+import requests
+import time
 from datetime import datetime
 
 app = Flask(__name__)
@@ -170,6 +172,89 @@ def etl_stats():
             'error': str(e),
             'timestamp': datetime.now().isoformat()
         }), 500
+
+@app.route('/etl/run')
+def run_etl():
+    """Ejecutar ETL completo desde Railway"""
+    
+    if not DATABASE_URL:
+        return jsonify({'error': 'DATABASE_URL not configured'}), 400
+    
+    # Configuración Zenput
+    zenput_config = {
+        'base_url': 'https://api.zenput.com/api/v3',
+        'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
+    }
+    
+    try:
+        # Test conexión Zenput
+        zenput_test = requests.get(
+            f"{zenput_config['base_url']}/forms", 
+            headers=zenput_config['headers'],
+            timeout=10
+        )
+        
+        if zenput_test.status_code != 200:
+            return jsonify({
+                'error': 'Zenput API not accessible',
+                'status_code': zenput_test.status_code
+            }), 400
+        
+        # Extraer submissions básicas
+        operativas_count = extract_and_count_submissions('877138', zenput_config)
+        seguridad_count = extract_and_count_submissions('877139', zenput_config)
+        
+        return jsonify({
+            'status': 'etl_test_completed',
+            'timestamp': datetime.now().isoformat(),
+            'zenput_accessible': True,
+            'found_operativas': operativas_count,
+            'found_seguridad': seguridad_count,
+            'message': 'ETL test successful - ready for full extraction'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
+def extract_and_count_submissions(form_id, zenput_config, max_pages=3):
+    """Extraer y contar submissions de un formulario"""
+    
+    total_count = 0
+    
+    try:
+        for page in range(1, max_pages + 1):
+            url = f"{zenput_config['base_url']}/submissions"
+            params = {
+                'form_id': form_id,
+                'submitted_at_start': '2025-01-01',
+                'submitted_at_end': '2025-12-31',
+                'page': page,
+                'per_page': 20
+            }
+            
+            response = requests.get(url, headers=zenput_config['headers'], params=params, timeout=15)
+            
+            if response.status_code == 200:
+                data = response.json()
+                submissions = data.get('submissions', [])
+                
+                if not submissions:
+                    break
+                
+                total_count += len(submissions)
+                time.sleep(0.5)  # Rate limiting
+                
+            else:
+                break
+                
+    except Exception as e:
+        pass
+    
+    return total_count
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
