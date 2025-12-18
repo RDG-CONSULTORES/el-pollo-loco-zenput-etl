@@ -16,13 +16,13 @@ ZENPUT_CONFIG = {
     'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
 }
 
-# CONFIGURACIÓN RAILWAY (reemplazar con tus credenciales)
+# CONFIGURACIÓN RAILWAY - Roberto's PostgreSQL Credentials
 RAILWAY_CONFIG = {
-    'host': 'YOUR_RAILWAY_HOST',
-    'port': 'YOUR_RAILWAY_PORT', 
-    'database': 'YOUR_RAILWAY_DATABASE',
-    'user': 'YOUR_RAILWAY_USER',
-    'password': 'YOUR_RAILWAY_PASSWORD'
+    'host': 'turntable.proxy.rlwy.net',
+    'port': '24097', 
+    'database': 'railway',
+    'user': 'postgres',
+    'password': 'qGgdIUuKYKMKGtSNYzARpyapBWHsloOt'
 }
 
 # FORMS DE SUPERVISIÓN
