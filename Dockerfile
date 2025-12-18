@@ -20,8 +20,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY main.py .
 COPY etl_supervisiones_completo.py .
 
-# Copy data directory with CSV files
-COPY data/ ./data/
+# Create data directory and copy essential CSV
+RUN mkdir -p data
+COPY data/86_sucursales_master.csv ./data/
 
 # Set environment variables  
 ENV PORT=8080
