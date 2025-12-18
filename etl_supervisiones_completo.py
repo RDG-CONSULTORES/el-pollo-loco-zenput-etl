@@ -56,16 +56,11 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
         # Probar diferentes versiones de API y endpoints hasta encontrar el correcto
         endpoints_to_try = []
         
-        # Probar tanto v3 como v1 con diferentes patrones de endpoint
-        for version in ['v3', 'v1']:
-            base_url = ZENPUT_CONFIG['base_urls'][version]
-            endpoints_to_try.extend([
-                f"{base_url}/forms/{form_id}/submissions",
-                f"{base_url}/submissions", 
-                f"{base_url}/form/{form_id}/submissions",
-                f"{base_url}/forms/{form_id}/responses",  # Algunas APIs usan "responses"
-                f"{base_url}/responses"  # Endpoint alternativo
-            ])
+        # USAR SOLO v3 COMO EN TU GITHUB ACTIONS EXITOSO
+        base_url = ZENPUT_CONFIG['base_urls']['v3']  # Solo v3, no v1
+        endpoints_to_try = [
+            f"{base_url}/submissions"  # Endpoint principal que usa tu GitHub Actions
+        ]
         
         success = False
         
