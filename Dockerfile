@@ -16,8 +16,9 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy only essential files
+# Copy essential files for ETL
 COPY main.py .
+COPY etl_supervisiones_completo.py .
 
 # Set environment variables  
 ENV PORT=8080
