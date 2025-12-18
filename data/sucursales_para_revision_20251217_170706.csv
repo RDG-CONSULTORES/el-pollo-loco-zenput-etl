@@ -1,0 +1,88 @@
+Numero,Nombre_Zenput,Ciudad,Estado,Direccion,Lat,Lon,Tags,Campos_Adicionales
+1,1 - Pino Suarez,Monterrey,NL,"Av. Pino Suarez
+#500 sur Col. Centro",,,All Locations; EPL CAS; Tepeyac,region:; time_zone:America/Monterrey
+10,10 - Barragan,San Nicolas de los Garza,NL,Av. Manuel I. Barragán #1401,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+11,11 - Lincoln,Monterrey,NL,Av. Paseo de Cumbres #1001-C,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+12,12 - Concordia,Apodaca,NL,Av. Concordia # 300 Apodaca,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+13,13 - Escobedo,Escobedo,NL,Av. Raúl Salinas #555 Escobedo,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+14,14 - Aztlan,Monterrey,NL,Av. Solidaridad #5151 Monterrey,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+15,15 - Ruiz Cortinez,Monterrey,NL,"Av. Ruiz Cortínez #5600 Col. Valle de Infonavit,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+16,16 - Solidaridad,Monterrey,NL,"Av. Luis Donaldo Colosio #2200 A, Col. Barrio Acero,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+17,17 - Romulo Garza,San Nicolas de los Garza,NL,"Calle de los Pinos #990, Col. Hacienda los Morales 2do sector",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+18,18 - Linda Vista,Guadalupe,NL,Av. Miguel Alemán #210 A Col. 10 de mayo,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+19,19 - Valle Soleado,Guadalupe,NL,"Carretera Dulces Nombres #400 C, Col. Valle Soleado",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+2,2 - Madero,Monterrey,NL,Av. Francisco I. Madero #843 pte. Col. Centro,,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+20,20 - Tecnológico,Monterrey,NL,Calle Ave. Eugenio Garza Sada # 2788 Col. Alta Vista Sur,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+21,21 - Chapultepec,Guadalupe,NL,"Av. Chapultepec #180, Int. PB-01-E Col. Paraíso",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+22,22 - Satelite,Monterrey,NL,Av. Eugenio Garza Sada #6044 Col. Mederos,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+23,23 - Guasave,Guasave,SI,"Av. Vicente Guerrero #517, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Mazatlan
+24,24 - Exposicion,Guadalupe,NL,"Av. Benito Juárez #1210, Col. La Hacienda",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+25,25 - Juarez,Benito Juarez,NL,"Carretera a Reynosa #1000, Col. Centro,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+26,26 - Cadereyta,Cadereyta,NL,Zaragoza #102 Col. Centro,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+27,27 - Santiago,Santiago,NL,"Carretera Nacional #209, Col. Centro,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+28,28 - Guerrero,Nuevo Laredo,TM,"Guerrero #619, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+29,29 - Pablo Livas,Guadalupe,NL,"Av. Pablo Livas #7601, Col. Rincón de Guadalupe",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+3,3 - Matamoros,Monterrey,NL,"Juárez #701, Col. Centro, Monterrey",,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+30,30 - Carrizo,Nuevo Laredo,TM,"Belden #7412, Col. Buena Vista",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+31,31 - Las Quintas,Guadalupe,NL,"Av. López Mateos #301, Col. Residencial las quintas",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+32,32 - Allende,Allende,NL,"Carretera Nacional #702, Col. Hacienda San Javier",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+33,33 - Eloy Cavazos,Guadalupe,NL,"Av. Eloy Cavazos #5100, Col. San Eduardo",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+34,34 - Montemorelos,Montemorelos,NL,"Av. Capitán Alonso de León #1203, Col. Zaragoza",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+35,35 - Apodaca,Apodaca,NL,Miguel Alemán #549 Col. El Milagro,,,All Locations,region:None; time_zone:America/Monterrey
+36,36 - Apodaca Centro,Apodaca,NL,"Gral. Ignacio Zaragoza 510, Cabecera Municipal, Apodaca Centro",,,All Locations,region:None; time_zone:America/Monterrey
+37,37 - Stiva,Apodaca,NL,BLVD. Rogelio González Caballero no.100 Local 9,,,All Locations,region:None; time_zone:America/Monterrey
+38,38 - Gomez Morin,San Pedro Garza García,NL,Missouri #458-A ote.,,,All Locations,region:None; time_zone:America/Monterrey
+39,39 - Lazaro Cardenas,Monterrey,NL,"Lázaro Cárdenas #2810 G, esq. Camino al Mirador, Col. Mirador",,,All Locations,region:None; time_zone:America/Monterrey
+4,4 - Santa Catarina,Santa Catarina,NL,"Av. Manuel Ordoñez #700-R, Col. Centro",,,All Locations; Hornos; Comedor; Baños Clientes; Baños Empleados; Dispensador Refrescos; Cuarto Frio 2; AutoLoco; EPL CAS,region:; time_zone:America/Monterrey
+40,40 - Plaza 1500,Escobedo,NL,"Av. Acapulco #800, Col. Josefa Sozaya",,,All Locations,region:None; time_zone:America/Monterrey
+41,41 - Vasconcelos,San Pedro Garza García,NL,"Los Aldama #123, Casco Urbano",,,All Locations,region:None; time_zone:America/Monterrey
+42,42 - Independencia,Torreon,CO,Javier Mina #585 Nte. Col. Centro,,,All Locations,region:None; time_zone:America/Monterrey
+43,43 - Revolucion,Torreon,CO,Blvd. Torreón- Matamoros #4630 Col. Ex Hacienda los Ángeles,,,All Locations,region:None; time_zone:America/Monterrey
+44,44 - Senderos,Torreon,CO,Carretera Torreón-San Pedro #2010 Km 3.3. Col. La Unión,,,All Locations,region:None; time_zone:America/Monterrey
+45,45 - Triana,Torreon,CO,"Blvd, Rodríguez Triana #950, Col. Las Misiones,",,,All Locations,region:None; time_zone:America/Monterrey
+46,46 - Campestre,Gomez Palacio,DG,"Blvd. Miguel Alemán #717, Col. El Campestre",,,All Locations,region:None; time_zone:America/Mexico_City
+47,47 - San Antonio,Gomez Palacio,DG,"Blvd. Ejército Mexicano #396, Fraccionamiento San Antonio",,,All Locations,region:None; time_zone:America/Mexico_City
+48,48 - Refugio,Queretaro,QT,"Anillo vial F.J. Serra #151 Col. El Refugio. Querétaro, QRO",,,All Locations,region:None; time_zone:America/Mexico_City
+49,49 - Pueblito,Corregidora,QT,Paseo Constituyentes #1527 Col. Pueblito,,,All Locations,region:None; time_zone:America/Mexico_City
+5,5 - Felix U. Gomez,Monterrey,NL,Av. Francisco I. Madero #1536 ote. Col. Centro,,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+50,50 - Patio,Queretaro,QT,Ave. Revolución #99 Col. Puertas del Sol,,,All Locations,region:None; time_zone:America/Mexico_City
+51,51 - Constituyentes,Queretaro,QT,Ave. Constituyentes #274 Col. Casablanca,,,All Locations,region:None; time_zone:America/Mexico_City
+52,52 - Venustiano Carranza,Saltillo,CO,"BLVD. Venustiano Carranza, No.3680 col. Jardín",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+53,53 - Lienzo Charro,Saltillo,CO,"Periférico. Luis Echeverria Álvarez, No. 540 Col. Lourdes",,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+54,54 - Ramos Arizpe,Ramos Arizpe,CO,"BLVD. Miguel Ramos Arizpe Sur, No. 18 Col. Ramos Arizpe Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+55,55 - Eulalio Gutierrez,Saltillo,CO,"Eulalio Gutiérrez Treviño, No. 600 Col. Ex Hacienda de los Cerritos",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+56,56 - Luis Echeverria,Saltillo,CO,Periférico. Luis Echeverría Hacienda No.1980 Col. La Magueyada,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+57,57 - Harold R. Pape,Monclova,CO,"Harold R. Pape No.1903, Col. La Salle",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+58,58 - Universidad (Tampico),Tampico,TM,"Av. Universidad #1702, Col. Universidad sur,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+59,59 - Plaza 3601,Tampico,TM,"Av. Hidalgo #3601, Col. Guadalupe",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+6,6 - Garcia,Garcia,NL,"Av. Heberto Castillo Martínez #1360 int. 14, Col. Mirador de Garcia",,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+60,60 - Centro (Tampico),Tampico,TM,"Diaz Miron #115 local 2, Col. Centro,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+61,61 - Aeropuerto (Tampico),Tampico,TM,"Carretera Tampico-Mante #6904, Col, Arenal,",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+62,62 - Lazaro Cardenas (Morelia),Morelia,MI,"Av. Lázaro Cárdenas No,2995, Chapultepec Norte",,,All Locations; EPL CAS,region:None; time_zone:America/Mexico_City
+63,63 - Madero (Morelia),Morelia,MI,"Av. Madero Pte. No. 1086, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Mexico_City
+64,64 - Huerta,Morelia,MI,"Periférico Paseo de la Republica No. 3140, Col. Ex – hacienda de la Huerta",,,All Locations; EPL CAS,region:None; time_zone:America/Mexico_City
+65,65 - Pedro Cardenas,Matamoros,TM,"Av. Pedro Cárdenas 4001 A, Jaumave Fraccionamiento",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+66,66 - Lauro Villar,Matamoros,TM,"Av. Gral. Lauro Villar 1, Treviño Zapata",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+67,67 - Centro (Matamoros),Matamoros,TM,"Cinco 50, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+68,68 - Avenida del Niño,Matamoros,TM,"Lib. Emilio Portes Gil SN-C, San Fernando",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+69,69 - Puerto Rico,Matamoros,TM,Ave. Puerto Rico #84 Col. Fracc. Rincón Colonial,,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+7,7 - La Huasteca,Santa Catarina,NL,"Av. Morones Prieto #1100 local 8 y 9, Col. Las Montañas",,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+70,70 - Coahuila Comidas,Piedras Negras,CO,Av. Carranza #609 Col. González,,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+71,71 - Centrito Valle,San Pedro Garza García,NL,"Rio Tamazunchale Nte. #317 D3, Col. Del Valle",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+72,72 - Sabinas Hidalgo,Sabinas Hidalgo,NL,"Carretera Nacional #915, Barrio el dólar",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+73,73 - Anzalduas,Reynosa,TM,"Lateral Canal Anzalduas s/n, Col. Ferrocarril Pte",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+74,74 - Hidalgo (Reynosa),Reynosa,TM,"Blvd. Hidalgo #199, Col. Fuentes del Valle",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+75,75 - Libramiento (Reynosa),Reynosa,TM,"Carretera a Matamoros #520, Col. Fundadores",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+76,76 - Aeropuerto (Reynosa),Reynosa,TM,Carretera Federal Reynosa a Matamoros km 84 s/n col Almaguer,,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+77,77 - Boulevard Morelos,Reynosa,TM,"Boulevard Morelos 2418 Sur, Col. Ampliación Rodríguez",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+78,78 - Alcala,Reynosa,TM,Carretera Fed. De Reynosa a San Fernando KM 2.5 Parque Industrial Estiva Alcalá Reynosa,,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+79,79 - Rio Bravo,Rio Bravo,TM,"Av. Constitución #105, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+8,8 - Gonzalitos,Monterrey,NL,Av. José Eleuterio González #150 Nte. Monterrey,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
+80,80 - Guerrero 2 (Ruelas),Nuevo Laredo,TM,"Av. Guerrero #2454, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+81,81 - Reforma (Ruelas),Nuevo Laredo,TM,"Reforma #5701, Pad#6, Col. Centro",,,All Locations; EPL CAS,region:None; time_zone:America/Matamoros
+82,82 - Aeropuerto Nuevo Laredo,Nuevo Laredo,Tamaulipas,8717 Calle Medellín,,,All Locations; EPL CAS,region:; time_zone:America/Matamoros
+83,83 - Cerradas de Anahuac,Ciudad General Escobedo,Nuevo León,401 Avenida Concordia,,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+84,84 - Aeropuerto del Norte,Ciénega de Flores,NL,Km. 23.2 Autopista Monterrey - Nuevo Laredo,,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+85,85 - Diego Diaz,San Nicolás de los Garza,Nuevo León,198 Avenida Diego Díaz de Berlanga,,,All Locations; EPL CAS,region:; time_zone:America/Monterrey
+86,86 - Miguel de la Madrid,Guadalupe,Nuevo León,Km 10 Autopista Monterrey- Reynosa,,,All Locations,region:; time_zone:America/Monterrey
+9,9 - Anahuac,San Nicolas de los Garza,NL,Av. Alfonso Reyes # 504 Nte.,,,All Locations; EPL CAS,region:None; time_zone:America/Monterrey
