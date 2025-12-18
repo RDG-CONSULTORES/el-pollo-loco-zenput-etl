@@ -19,12 +19,15 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 @app.route('/')
 def home():
     """Endpoint principal - status del sistema"""
+    print(f"🌐 Home endpoint accessed at {datetime.now()}")
     return jsonify({
         'project': 'El Pollo Loco Zenput ETL',
         'status': 'active',
         'timestamp': datetime.now().isoformat(),
         'description': 'ETL System for El Pollo Loco México - Zenput API Integration',
         'version': '1.0.0',
+        'environment': 'Railway',
+        'port': os.environ.get('PORT', '8080'),
         'services': {
             'database': 'PostgreSQL on Railway',
             'api': 'Zenput API v3',
@@ -34,7 +37,8 @@ def home():
             '/': 'System status',
             '/health': 'Health check',
             '/database': 'Database connection test',
-            '/stats': 'ETL statistics'
+            '/stats': 'ETL statistics',
+            '/etl/run': 'Execute ETL process'
         }
     })
 
@@ -258,4 +262,5 @@ def extract_and_count_submissions(form_id, zenput_config, max_pages=3):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port)
+    print(f"🚀 Starting Flask app on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=False)
