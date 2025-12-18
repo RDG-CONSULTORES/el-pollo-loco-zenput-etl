@@ -119,9 +119,26 @@ def procesar_submission_operativa(submission):
     
     # Extraer información básica
     submission_id = submission.get('id')
+    
+    # Probar diferentes formas de obtener location info
     location = submission.get('location', {})
-    sucursal_id = location.get('external_key')
+    if not location:
+        # Probar en smetadata como en GitHub Actions
+        smetadata = submission.get('smetadata', {})
+        location = smetadata.get('location', {})
+    
+    # Múltiples formas de obtener sucursal_id
+    sucursal_id = (
+        location.get('external_key') or 
+        location.get('id') or 
+        location.get('location_id') or
+        str(location.get('name', '')).split(' - ')[-1] if location.get('name') else None
+    )
+    
     sucursal_nombre = location.get('name', '')
+    
+    print(f"   🏪 DEBUG location: {location}")
+    print(f"   🔑 DEBUG sucursal_id: {sucursal_id}")
     
     metadata = submission.get('smetadata', {})
     created_by = metadata.get('created_by', {})
@@ -183,9 +200,26 @@ def procesar_submission_seguridad(submission):
     
     # Extraer información básica
     submission_id = submission.get('id')
+    
+    # Probar diferentes formas de obtener location info
     location = submission.get('location', {})
-    sucursal_id = location.get('external_key')
+    if not location:
+        # Probar en smetadata como en GitHub Actions
+        smetadata = submission.get('smetadata', {})
+        location = smetadata.get('location', {})
+    
+    # Múltiples formas de obtener sucursal_id
+    sucursal_id = (
+        location.get('external_key') or 
+        location.get('id') or 
+        location.get('location_id') or
+        str(location.get('name', '')).split(' - ')[-1] if location.get('name') else None
+    )
+    
     sucursal_nombre = location.get('name', '')
+    
+    print(f"   🏪 DEBUG location: {location}")
+    print(f"   🔑 DEBUG sucursal_id: {sucursal_id}")
     
     metadata = submission.get('smetadata', {})
     created_by = metadata.get('created_by', {})
@@ -379,7 +413,9 @@ def main():
             cargadas = cargar_supervisions_railway(conn, supervisions_operativa)
             total_cargadas += cargadas
             
-            # Guardar respaldo
+            # Guardar respaldo (crear directorio si no existe)
+            import os
+            os.makedirs('data', exist_ok=True)
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f'data/etl_operativa_{timestamp}.json'
             with open(filename, 'w') as f:
@@ -401,7 +437,8 @@ def main():
             cargadas = cargar_supervisions_railway(conn, supervisions_seguridad)
             total_cargadas += cargadas
             
-            # Guardar respaldo
+            # Guardar respaldo (crear directorio si no existe)
+            os.makedirs('data', exist_ok=True)
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f'data/etl_seguridad_{timestamp}.json'
             with open(filename, 'w') as f:
