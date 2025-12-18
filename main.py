@@ -184,10 +184,13 @@ def run_etl():
     if not DATABASE_URL:
         return jsonify({'error': 'DATABASE_URL not configured'}), 400
     
-    # Configuración Zenput
+    # Configuración Zenput - usar IP directo para evitar DNS
     zenput_config = {
-        'base_url': 'https://api.zenput.com/api/v3',
-        'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
+        'base_url': 'https://104.26.10.13/api/v3',  # IP directo de api.zenput.com
+        'headers': {
+            'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5',
+            'Host': 'api.zenput.com'  # Mantener el host header
+        }
     }
     
     try:
@@ -261,20 +264,24 @@ def test_connection():
     except Exception as e:
         results['tests']['external_http'] = {'status': 'FAILED', 'error': str(e)}
     
-    # Test 3: Zenput API if DNS works
-    if results['tests']['dns']['status'] == 'OK':
-        try:
-            zenput_response = requests.get(
-                'https://api.zenput.com/api/v3/forms',
-                headers={'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'},
-                timeout=15
-            )
-            results['tests']['zenput_api'] = {
-                'status': 'OK' if zenput_response.status_code == 200 else 'ERROR',
-                'code': zenput_response.status_code
-            }
-        except Exception as e:
-            results['tests']['zenput_api'] = {'status': 'FAILED', 'error': str(e)}
+    # Test 3: Zenput API with direct IP (bypass DNS)
+    try:
+        zenput_response = requests.get(
+            'https://104.26.10.13/api/v3/forms',
+            headers={
+                'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5',
+                'Host': 'api.zenput.com'
+            },
+            timeout=15,
+            verify=False  # Skip SSL verification for IP access
+        )
+        results['tests']['zenput_direct_ip'] = {
+            'status': 'OK' if zenput_response.status_code == 200 else 'ERROR',
+            'code': zenput_response.status_code,
+            'method': 'direct_ip_bypass_dns'
+        }
+    except Exception as e:
+        results['tests']['zenput_direct_ip'] = {'status': 'FAILED', 'error': str(e)}
     
     return jsonify(results)
 
