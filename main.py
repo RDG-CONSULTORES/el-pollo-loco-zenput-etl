@@ -184,10 +184,10 @@ def run_etl():
     if not DATABASE_URL:
         return jsonify({'error': 'DATABASE_URL not configured'}), 400
     
-    # Configuración Zenput - URL CORRECTA
+    # Configuración Zenput - USAR TOKEN DEL ETL FUNCIONAL
     zenput_config = {
         'base_url': 'https://www.zenput.com/api/v3',
-        'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
+        'headers': {'X-API-TOKEN': 'cb908e0d4e0f5501c635325c611db314'}  # Token del ETL de 189 días
     }
     
     try:
@@ -274,7 +274,7 @@ def test_connection():
         try:
             response = requests.get(
                 api_url,
-                headers={'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'},
+                headers={'X-API-TOKEN': 'cb908e0d4e0f5501c635325c611db314'},
                 timeout=10
             )
             results['tests'][test_name] = {

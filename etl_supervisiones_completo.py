@@ -10,13 +10,14 @@ import json
 from datetime import datetime, date
 import time
 
-# CONFIGURACIÓN ZENPUT - URL CORRECTA con fallback v1
+# CONFIGURACIÓN ZENPUT - USAR MISMO TOKEN QUE GITHUB ACTIONS EXITOSO
+# Roberto: El token hard-coded no funciona, necesitamos el de GitHub Actions
 ZENPUT_CONFIG = {
     'base_urls': {
         'v3': 'https://www.zenput.com/api/v3',
         'v1': 'https://www.zenput.com/api/v1'
     },
-    'headers': {'X-API-TOKEN': 'e52c41a1-c026-42fb-8264-d8a6e7c2aeb5'}
+    'headers': {'X-API-TOKEN': 'cb908e0d4e0f5501c635325c611db314'}  # Token del ETL funcional
 }
 
 # CONFIGURACIÓN RAILWAY - Roberto's PostgreSQL Credentials
