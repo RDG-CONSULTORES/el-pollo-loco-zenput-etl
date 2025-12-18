@@ -4,10 +4,11 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies including curl
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
@@ -19,12 +20,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Expose port
-EXPOSE 8080
-
-# Set environment variables
+# Set environment variables  
 ENV PORT=8080
 ENV PYTHONUNBUFFERED=1
+
+# Expose the port
+EXPOSE 8080
 
 # Run the application
 CMD ["python", "main.py"]
