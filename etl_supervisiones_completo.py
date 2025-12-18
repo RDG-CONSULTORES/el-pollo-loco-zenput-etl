@@ -40,7 +40,7 @@ def conectar_railway():
         print(f"❌ Error conectando a Railway: {e}")
         return None
 
-def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2025-12-31'):
+def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2025-12-18'):
     """Extraer submissions de Zenput para un formulario específico"""
     
     print(f"🔄 Extrayendo submissions form {form_id} desde {fecha_desde}...")
@@ -55,7 +55,7 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
             'submitted_at_start': fecha_desde,
             'submitted_at_end': fecha_hasta,
             'page': page,
-            'per_page': 50
+            'per_page': 100
         }
         
         try:
@@ -64,6 +64,13 @@ def extraer_submissions_zenput(form_id, fecha_desde='2025-01-01', fecha_hasta='2
             if response.status_code == 200:
                 data = response.json()
                 submissions = data.get('submissions', [])
+                
+                # Debug información de API response
+                print(f"   🔍 API Response: {response.status_code}")
+                print(f"   📊 Total found in API: {data.get('total', 'N/A')}")
+                print(f"   📄 Current page: {data.get('current_page', page)}")
+                print(f"   📄 Per page: {data.get('per_page', 100)}")
+                print(f"   🔢 Items this page: {len(submissions)}")
                 
                 if not submissions:
                     break

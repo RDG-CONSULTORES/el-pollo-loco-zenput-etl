@@ -353,9 +353,9 @@ def extract_and_count_submissions(form_id, zenput_config, max_pages=3):
             params = {
                 'form_id': form_id,
                 'submitted_at_start': '2025-01-01',
-                'submitted_at_end': '2025-12-31',
+                'submitted_at_end': '2025-12-18',
                 'page': page,
-                'per_page': 20
+                'per_page': 100
             }
             
             response = requests.get(url, headers=zenput_config['headers'], params=params, timeout=15)
@@ -363,6 +363,9 @@ def extract_and_count_submissions(form_id, zenput_config, max_pages=3):
             if response.status_code == 200:
                 data = response.json()
                 submissions = data.get('submissions', [])
+                
+                # Debug: mostrar información de la respuesta
+                print(f"🔍 Form {form_id} Page {page}: {len(submissions)} submissions found")
                 
                 if not submissions:
                     break
