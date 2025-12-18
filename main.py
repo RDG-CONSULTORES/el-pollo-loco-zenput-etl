@@ -287,6 +287,76 @@ def test_connection():
     
     return jsonify(results)
 
+@app.route('/etl/debug')
+def debug_submission_structure():
+    """Debug para ver estructura de submissions sin cargar a DB"""
+    
+    if not DATABASE_URL:
+        return jsonify({'error': 'DATABASE_URL not configured'}), 400
+    
+    # Configuración Zenput
+    zenput_config = {
+        'base_url': 'https://www.zenput.com/api/v3',
+        'headers': {'X-API-TOKEN': 'cb908e0d4e0f5501c635325c611db314'}
+    }
+    
+    try:
+        # Obtener solo 1 submission para debug
+        endpoint_url = f"{zenput_config['base_url']}/submissions"
+        params = {
+            'form_template_id': '877138',
+            'limit': 1,
+            'created_after': '2025-01-01',
+            'created_before': '2025-12-18'
+        }
+        
+        response = requests.get(endpoint_url, headers=zenput_config['headers'], params=params, timeout=30)
+        
+        if response.status_code == 200:
+            data = response.json()
+            submissions = data.get('data', [])
+            
+            if submissions:
+                first_submission = submissions[0]
+                
+                return jsonify({
+                    'status': 'debug_success',
+                    'api_response_structure': {
+                        'total_count': data.get('count', len(submissions)),
+                        'keys_in_response': list(data.keys()),
+                        'submissions_count': len(submissions)
+                    },
+                    'submission_structure': {
+                        'available_keys': list(first_submission.keys()),
+                        'location': first_submission.get('location'),
+                        'smetadata_keys': list(first_submission.get('smetadata', {}).keys()) if first_submission.get('smetadata') else None,
+                        'smetadata_location': first_submission.get('smetadata', {}).get('location') if first_submission.get('smetadata') else None,
+                        'sample_answers_count': len(first_submission.get('answers', [])),
+                        'form_template': first_submission.get('form_template'),
+                        'id': first_submission.get('id')
+                    },
+                    'timestamp': datetime.now().isoformat()
+                })
+            else:
+                return jsonify({
+                    'status': 'no_submissions',
+                    'message': 'No submissions found',
+                    'api_response': data
+                })
+        else:
+            return jsonify({
+                'status': 'api_error',
+                'status_code': response.status_code,
+                'error': response.text
+            })
+            
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
 @app.route('/etl/full')
 def run_full_etl():
     """Ejecutar ETL COMPLETO - todas las supervisiones 2025"""
