@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 });
 
 // ============================================================================
-// 🔧 OPERATIVAS ENDPOINTS - SIMPLIFICADOS
+// 🔧 OPERATIVAS ENDPOINTS - CON DRILL-DOWN COMPLETO
 // ============================================================================
 
 // KPIs Operativas
@@ -129,8 +129,146 @@ app.get('/api/operativas/dashboard', async (req, res) => {
     }
 });
 
+// Detalle Grupo Operativo
+app.get('/api/operativas/grupo/:grupo', async (req, res) => {
+    try {
+        const { grupo } = req.params;
+        console.log(`📊 Cargando grupo operativo: ${grupo}`);
+        
+        const result = await pool.query(`
+            SELECT 
+                s.id as sucursal_id,
+                s.nombre as sucursal_nombre,
+                s.numero as sucursal_numero,
+                s.tipo_sucursal,
+                s.ciudad,
+                s.estado,
+                s.latitud,
+                s.longitud,
+                COUNT(sup.id) as total_supervisiones,
+                ROUND(AVG(sup.calificacion_general), 1) as promedio_calificacion,
+                MIN(sup.calificacion_general) as min_calificacion,
+                MAX(sup.calificacion_general) as max_calificacion,
+                MAX(sup.fecha_supervision) as ultima_supervision,
+                MIN(sup.fecha_supervision) as primera_supervision
+            FROM sucursales s
+            LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id 
+                AND sup.tipo_supervision = 'operativas'
+            WHERE s.grupo_operativo = $1
+            GROUP BY s.id, s.nombre, s.numero, s.tipo_sucursal, s.ciudad, s.estado, s.latitud, s.longitud
+            ORDER BY promedio_calificacion DESC NULLS LAST
+        `, [grupo]);
+        
+        console.log(`✅ Grupo ${grupo}: ${result.rows.length} sucursales`);
+        res.json(result.rows);
+        
+    } catch (err) {
+        console.error('❌ Error detalle grupo operativo:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Detalle Sucursal Completo
+app.get('/api/operativas/sucursal/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`📊 Cargando sucursal: ${id}`);
+        
+        // Información básica sucursal
+        const sucursalQuery = await pool.query(`
+            SELECT 
+                s.*,
+                COUNT(sup.id) as total_supervisiones,
+                ROUND(AVG(sup.calificacion_general), 1) as promedio_calificacion,
+                MIN(sup.calificacion_general) as min_calificacion,
+                MAX(sup.calificacion_general) as max_calificacion,
+                MAX(sup.fecha_supervision) as ultima_supervision,
+                MIN(sup.fecha_supervision) as primera_supervision
+            FROM sucursales s
+            LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id 
+                AND sup.tipo_supervision = 'operativas'
+            WHERE s.id = $1
+            GROUP BY s.id
+        `, [id]);
+        
+        if (sucursalQuery.rows.length === 0) {
+            return res.status(404).json({ error: 'Sucursal no encontrada' });
+        }
+        
+        // Supervisiones detalladas
+        const supervisionesQuery = await pool.query(`
+            SELECT 
+                sup.id,
+                sup.fecha_supervision,
+                sup.calificacion_general,
+                sup.usuario,
+                sup.areas_evaluadas
+            FROM supervisiones sup
+            WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = 'operativas'
+            ORDER BY sup.fecha_supervision DESC
+        `, [id]);
+        
+        // Áreas evaluadas
+        const areasQuery = await pool.query(`
+            SELECT 
+                ac.area_nombre,
+                ROUND(AVG(ac.calificacion), 1) as promedio_area,
+                COUNT(ac.id) as total_evaluaciones,
+                MIN(ac.calificacion) as min_calificacion,
+                MAX(ac.calificacion) as max_calificacion
+            FROM areas_calificaciones ac
+            JOIN supervisiones sup ON ac.supervision_id = sup.id
+            WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = 'operativas'
+            GROUP BY ac.area_nombre
+            ORDER BY promedio_area DESC
+        `, [id]);
+        
+        const response = {
+            sucursal: sucursalQuery.rows[0],
+            supervisiones: supervisionesQuery.rows,
+            areas: areasQuery.rows
+        };
+        
+        console.log(`✅ Sucursal ${id}: ${supervisionesQuery.rows.length} supervisiones, ${areasQuery.rows.length} áreas`);
+        res.json(response);
+        
+    } catch (err) {
+        console.error('❌ Error detalle sucursal:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Histórico Sucursal
+app.get('/api/operativas/sucursal/:id/historico', async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`📈 Cargando histórico sucursal: ${id}`);
+        
+        const result = await pool.query(`
+            SELECT 
+                DATE_TRUNC('week', sup.fecha_supervision) as semana,
+                ROUND(AVG(sup.calificacion_general), 1) as promedio_semanal,
+                COUNT(sup.id) as total_supervisiones,
+                MIN(sup.calificacion_general) as min_semanal,
+                MAX(sup.calificacion_general) as max_semanal
+            FROM supervisiones sup
+            WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = 'operativas'
+            GROUP BY DATE_TRUNC('week', sup.fecha_supervision)
+            ORDER BY semana DESC
+            LIMIT 24
+        `, [id]);
+        
+        console.log(`✅ Histórico sucursal ${id}: ${result.rows.length} semanas`);
+        res.json(result.rows);
+        
+    } catch (err) {
+        console.error('❌ Error histórico sucursal:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // ============================================================================
-// 🛡️ SEGURIDAD ENDPOINTS - SIMPLIFICADOS
+// 🛡️ SEGURIDAD ENDPOINTS - CON DRILL-DOWN COMPLETO
 // ============================================================================
 
 // KPIs Seguridad
@@ -199,6 +337,144 @@ app.get('/api/seguridad/dashboard', async (req, res) => {
         
     } catch (err) {
         console.error('❌ Error dashboard seguridad:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Detalle Grupo Operativo Seguridad
+app.get('/api/seguridad/grupo/:grupo', async (req, res) => {
+    try {
+        const { grupo } = req.params;
+        console.log(`📊 Cargando grupo seguridad: ${grupo}`);
+        
+        const result = await pool.query(`
+            SELECT 
+                s.id as sucursal_id,
+                s.nombre as sucursal_nombre,
+                s.numero as sucursal_numero,
+                s.tipo_sucursal,
+                s.ciudad,
+                s.estado,
+                s.latitud,
+                s.longitud,
+                COUNT(sup.id) as total_supervisiones,
+                ROUND(AVG(sup.calificacion_general), 1) as promedio_calificacion,
+                MIN(sup.calificacion_general) as min_calificacion,
+                MAX(sup.calificacion_general) as max_calificacion,
+                MAX(sup.fecha_supervision) as ultima_supervision,
+                MIN(sup.fecha_supervision) as primera_supervision
+            FROM sucursales s
+            LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id 
+                AND sup.tipo_supervision = 'seguridad'
+            WHERE s.grupo_operativo = $1
+            GROUP BY s.id, s.nombre, s.numero, s.tipo_sucursal, s.ciudad, s.estado, s.latitud, s.longitud
+            ORDER BY promedio_calificacion DESC NULLS LAST
+        `, [grupo]);
+        
+        console.log(`✅ Grupo seguridad ${grupo}: ${result.rows.length} sucursales`);
+        res.json(result.rows);
+        
+    } catch (err) {
+        console.error('❌ Error detalle grupo seguridad:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Detalle Sucursal Seguridad
+app.get('/api/seguridad/sucursal/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`📊 Cargando sucursal seguridad: ${id}`);
+        
+        // Información básica sucursal
+        const sucursalQuery = await pool.query(`
+            SELECT 
+                s.*,
+                COUNT(sup.id) as total_supervisiones,
+                ROUND(AVG(sup.calificacion_general), 1) as promedio_calificacion,
+                MIN(sup.calificacion_general) as min_calificacion,
+                MAX(sup.calificacion_general) as max_calificacion,
+                MAX(sup.fecha_supervision) as ultima_supervision,
+                MIN(sup.fecha_supervision) as primera_supervision
+            FROM sucursales s
+            LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id 
+                AND sup.tipo_supervision = 'seguridad'
+            WHERE s.id = $1
+            GROUP BY s.id
+        `, [id]);
+        
+        if (sucursalQuery.rows.length === 0) {
+            return res.status(404).json({ error: 'Sucursal no encontrada' });
+        }
+        
+        // Supervisiones detalladas
+        const supervisionesQuery = await pool.query(`
+            SELECT 
+                sup.id,
+                sup.fecha_supervision,
+                sup.calificacion_general,
+                sup.usuario,
+                sup.areas_evaluadas
+            FROM supervisiones sup
+            WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = 'seguridad'
+            ORDER BY sup.fecha_supervision DESC
+        `, [id]);
+        
+        // Áreas evaluadas
+        const areasQuery = await pool.query(`
+            SELECT 
+                ac.area_nombre,
+                ROUND(AVG(ac.calificacion), 1) as promedio_area,
+                COUNT(ac.id) as total_evaluaciones,
+                MIN(ac.calificacion) as min_calificacion,
+                MAX(ac.calificacion) as max_calificacion
+            FROM areas_calificaciones ac
+            JOIN supervisiones sup ON ac.supervision_id = sup.id
+            WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = 'seguridad'
+            GROUP BY ac.area_nombre
+            ORDER BY promedio_area DESC
+        `, [id]);
+        
+        const response = {
+            sucursal: sucursalQuery.rows[0],
+            supervisiones: supervisionesQuery.rows,
+            areas: areasQuery.rows
+        };
+        
+        console.log(`✅ Sucursal seguridad ${id}: ${supervisionesQuery.rows.length} supervisiones, ${areasQuery.rows.length} áreas`);
+        res.json(response);
+        
+    } catch (err) {
+        console.error('❌ Error detalle sucursal seguridad:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Histórico Sucursal Seguridad
+app.get('/api/seguridad/sucursal/:id/historico', async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`📈 Cargando histórico seguridad: ${id}`);
+        
+        const result = await pool.query(`
+            SELECT 
+                DATE_TRUNC('week', sup.fecha_supervision) as semana,
+                ROUND(AVG(sup.calificacion_general), 1) as promedio_semanal,
+                COUNT(sup.id) as total_supervisiones,
+                MIN(sup.calificacion_general) as min_semanal,
+                MAX(sup.calificacion_general) as max_semanal
+            FROM supervisiones sup
+            WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = 'seguridad'
+            GROUP BY DATE_TRUNC('week', sup.fecha_supervision)
+            ORDER BY semana DESC
+            LIMIT 24
+        `, [id]);
+        
+        console.log(`✅ Histórico seguridad ${id}: ${result.rows.length} semanas`);
+        res.json(result.rows);
+        
+    } catch (err) {
+        console.error('❌ Error histórico seguridad:', err);
         res.status(500).json({ error: err.message });
     }
 });
