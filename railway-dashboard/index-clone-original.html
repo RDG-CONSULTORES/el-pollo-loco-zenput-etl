@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="light-content">
+    <title>El Pollo Loco CAS - Dashboard Completo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            /* iOS System Colors */
+            --ios-blue: #007AFF;
+            --ios-green: #34C759;
+            --ios-red: #FF3B30;
+            --ios-yellow: #FFCC00;
+            --ios-orange: #FF9500;
+            --ios-gray: #8E8E93;
+            --ios-gray-2: #AEAEB2;
+            --ios-gray-3: #C7C7CC;
+            --ios-gray-4: #D1D1D6;
+            --ios-gray-5: #E5E5EA;
+            --ios-gray-6: #F2F2F7;
+            --ios-background: #F2F2F7;
+            --ios-secondary-background: #FFFFFF;
+            --ios-grouped-background: #F2F2F7;
+            --ios-label: #000000;
+            --ios-secondary-label: #3C3C43;
+            --ios-tertiary-label: #3C3C43;
+            --ios-quaternary-label: #3C3C43;
+            --ios-separator: rgba(60, 60, 67, 0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            background: var(--ios-background);
+            color: var(--ios-label);
+            line-height: 1.47059;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(242, 242, 247, 0.94);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 0.5px solid var(--ios-separator);
+            padding: 0 16px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-label);
+            text-align: center;
+            flex: 1;
+        }
+
+        .nav-button {
+            color: var(--ios-blue);
+            font-size: 17px;
+            font-weight: 400;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        /* Large Title */
+        .large-title-container {
+            background: var(--ios-background);
+            padding: 8px 16px 0;
+        }
+
+        .large-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--ios-label);
+            margin-bottom: 8px;
+        }
+
+        .large-subtitle {
+            color: var(--ios-gray);
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        /* Toggle Switch for operativas/seguridad */
+        .toggle-container {
+            margin: 16px;
+            background: var(--ios-secondary-background);
+            border-radius: 8px;
+            padding: 4px;
+            display: flex;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .toggle-option {
+            flex: 1;
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            border-radius: 6px;
+            color: var(--ios-gray);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-option.active {
+            background: var(--ios-blue);
+            color: white;
+        }
+
+        /* Content Sections */
+        .content {
+            padding-bottom: 83px; /* Space for tab bar */
+        }
+
+        .tab-view {
+            display: none;
+        }
+
+        .tab-view.active {
+            display: block;
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-top: 0.5px solid var(--ios-separator);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 49px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 8px;
+            color: var(--ios-gray);
+            cursor: pointer;
+            transition: color 0.2s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab.active {
+            color: var(--ios-blue);
+        }
+
+        .tab-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+
+        .tab-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--ios-secondary-background);
+            margin: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 0.5px solid var(--ios-separator);
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-label);
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        /* List Items */
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 0.5px solid var(--ios-separator);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .list-item:hover {
+            background-color: var(--ios-gray-6);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-main {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .list-item-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .rank-1 { background: #FFD700; }
+        .rank-2 { background: #C0C0C0; }
+        .rank-3 { background: #CD7F32; }
+        .rank-good { background: var(--ios-green); }
+        .rank-warning { background: var(--ios-orange); }
+        .rank-critical { background: var(--ios-red); }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--ios-label);
+            margin-bottom: 2px;
+        }
+
+        .list-item-subtitle {
+            font-size: 13px;
+            color: var(--ios-gray);
+        }
+
+        .list-item-end {
+            text-align: right;
+        }
+
+        .list-item-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ios-label);
+        }
+
+        .performance-value {
+            color: var(--ios-green);
+        }
+
+        .performance-value.warning {
+            color: var(--ios-orange);
+        }
+
+        .performance-value.danger {
+            color: var(--ios-red);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 16px;
+        }
+
+        .kpi-card {
+            background: var(--ios-secondary-background);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ios-blue);
+            margin-bottom: 4px;
+        }
+
+        .kpi-label {
+            font-size: 13px;
+            color: var(--ios-gray);
+            font-weight: 500;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Map Container */
+        .map-container {
+            height: 400px;
+            margin: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--ios-secondary-background);
+            border-radius: 12px;
+            width: 320px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 16px;
+            border-bottom: 0.5px solid var(--ios-separator);
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-label);
+        }
+
+        .modal-content {
+            padding: 16px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--ios-blue);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px 16px;
+            color: var(--ios-gray);
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--ios-gray-5);
+            border-top: 3px solid var(--ios-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .modal {
+                width: 400px;
+            }
+        }
+
+        /* Safe area handling */
+        @supports (padding: max(0px)) {
+            .tab-bar {
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+            }
+            
+            .content {
+                padding-bottom: max(83px, calc(83px + env(safe-area-inset-bottom)));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <button class="nav-button" onclick="showFilters()">Filtrar</button>
+        <div class="nav-title" id="nav-title">Dashboard CAS</div>
+        <button class="nav-button" onclick="refreshData()">Actualizar</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard-view" class="tab-view active">
+            <!-- Large Title -->
+            <div class="large-title-container">
+                <h1 class="large-title">El Pollo Loco</h1>
+                <p class="large-subtitle">Sistema CAS Railway</p>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="toggle-container">
+                <button class="toggle-option active" data-type="operativas">
+                    🔧 Operativas
+                </button>
+                <button class="toggle-option" data-type="seguridad">
+                    🛡️ Seguridad  
+                </button>
+            </div>
+
+            <!-- KPIs -->
+            <div class="kpi-grid" id="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-promedio">-</div>
+                    <div class="kpi-label">Promedio</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-supervisiones">-</div>
+                    <div class="kpi-label">Supervisiones</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-sucursales">-</div>
+                    <div class="kpi-label">Sucursales</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-grupos">-</div>
+                    <div class="kpi-label">Grupos</div>
+                </div>
+            </div>
+
+            <!-- Grupos Operativos -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Ranking Grupos Operativos</div>
+                </div>
+                <div id="grupos-list">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando grupos...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Distribución de Performance</div>
+                </div>
+                <div class="card-content">
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Tab -->
+        <div id="mapa-view" class="tab-view">
+            <div class="large-title-container">
+                <h1 class="large-title">Mapa</h1>
+                <p class="large-subtitle">Ubicaciones y rendimiento</p>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="toggle-container">
+                <button class="toggle-option active" data-type="operativas">
+                    🔧 Operativas
+                </button>
+                <button class="toggle-option" data-type="seguridad">
+                    🛡️ Seguridad  
+                </button>
+            </div>
+
+            <div class="map-container" id="map"></div>
+        </div>
+
+        <!-- Historical Tab -->
+        <div id="tendencias-view" class="tab-view">
+            <div class="large-title-container">
+                <h1 class="large-title">Histórico</h1>
+                <p class="large-subtitle">Tendencias y evolución</p>
+            </div>
+
+            <!-- Toggle Switch -->
+            <div class="toggle-container">
+                <button class="toggle-option active" data-type="operativas">
+                    🔧 Operativas
+                </button>
+                <button class="toggle-option" data-type="seguridad">
+                    🛡️ Seguridad  
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Tendencia Semanal</div>
+                </div>
+                <div class="card-content">
+                    <div class="chart-container">
+                        <canvas id="historicalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts Tab -->
+        <div id="alertas-view" class="tab-view">
+            <div class="large-title-container">
+                <h1 class="large-title">Alertas</h1>
+                <p class="large-subtitle">Notificaciones y avisos</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Alertas Críticas</div>
+                </div>
+                <div class="card-content">
+                    <p style="color: var(--ios-gray); text-align: center; padding: 20px;">
+                        No hay alertas críticas en este momento
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <div class="tab active" onclick="switchTab('dashboard')">
+            <div class="tab-icon"><i class="fas fa-chart-bar"></i></div>
+            <div class="tab-label">Dashboard</div>
+        </div>
+        <div class="tab" onclick="switchTab('mapa')">
+            <div class="tab-icon"><i class="fas fa-map-pin"></i></div>
+            <div class="tab-label">Mapa</div>
+        </div>
+        <div class="tab" onclick="switchTab('tendencias')">
+            <div class="tab-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="tab-label">Histórico</div>
+        </div>
+        <div class="tab" onclick="switchTab('alertas')">
+            <div class="tab-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="tab-label">Alertas</div>
+        </div>
+    </div>
+
+    <!-- Group Detail Modal -->
+    <div class="modal-overlay" id="groupDetailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="detail-group-name">Grupo Operativo</h3>
+                <button class="modal-close" onclick="closeGroupDetail()">Cerrar</button>
+            </div>
+            <div class="modal-content">
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <div style="font-size: 24px; font-weight: 700; color: var(--ios-blue);" id="detail-performance">-</div>
+                    <div style="color: var(--ios-gray);" id="detail-meta">-</div>
+                </div>
+                <div id="group-sucursales">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando sucursales...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sucursal Detail Modal -->
+    <div class="modal-overlay" id="sucursalDetailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="sucursal-detail-name">Sucursal</h3>
+                <button class="modal-close" onclick="closeSucursalDetail()">Cerrar</button>
+            </div>
+            <div class="modal-content">
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <div style="font-size: 24px; font-weight: 700; color: var(--ios-blue);" id="sucursal-performance">-</div>
+                    <div style="color: var(--ios-gray);" id="sucursal-meta">-</div>
+                </div>
+                <div id="sucursal-areas">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando áreas...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Modal -->
+    <div class="modal-overlay" id="filterModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Filtros</h3>
+                <button class="modal-close" onclick="closeFilters()">Cerrar</button>
+            </div>
+            <div class="modal-content">
+                <p style="color: var(--ios-gray); text-align: center;">
+                    Funcionalidad de filtros en desarrollo
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentType = 'operativas';
+        let currentTab = 'dashboard';
+        let allGroups = [];
+        let map = null;
+        let performanceChart = null;
+        let historicalChart = null;
+
+        // API Base URL
+        const API_BASE = window.location.origin + '/api';
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            loadDashboard();
+        });
+
+        // Event Listeners
+        function initializeEventListeners() {
+            // Toggle switches
+            document.querySelectorAll('.toggle-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const type = this.dataset.type;
+                    switchType(type);
+                });
+            });
+        }
+
+        // Switch supervision type
+        function switchType(type) {
+            currentType = type;
+            
+            // Update all toggle switches
+            document.querySelectorAll('.toggle-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.type === type) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // Reload current tab data
+            loadDashboard();
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab bar
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Hide all views
+            document.querySelectorAll('.tab-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Show selected view
+            document.getElementById(`${tab}-view`).classList.add('active');
+            
+            // Load tab-specific data
+            switch(tab) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'mapa':
+                    if (!map) initializeMap();
+                    loadMapData();
+                    break;
+                case 'tendencias':
+                    loadHistoricalData();
+                    break;
+                case 'alertas':
+                    // Alerts functionality
+                    break;
+            }
+        }
+
+        // Load dashboard data
+        async function loadDashboard() {
+            if (currentTab !== 'dashboard') return;
+            
+            try {
+                await Promise.all([
+                    loadKPIs(),
+                    loadGroups(),
+                    loadPerformanceChart()
+                ]);
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // Load KPIs
+        async function loadKPIs() {
+            try {
+                const response = await fetch(`${API_BASE}/kpis?type=${currentType}`);
+                const kpis = await response.json();
+                
+                document.getElementById('kpi-promedio').textContent = `${kpis.promedio_general}%`;
+                document.getElementById('kpi-supervisiones').textContent = kpis.total_supervisiones;
+                document.getElementById('kpi-sucursales').textContent = kpis.total_sucursales;
+                document.getElementById('kpi-grupos').textContent = kpis.total_grupos;
+                
+            } catch (error) {
+                console.error('Error loading KPIs:', error);
+            }
+        }
+
+        // Load groups
+        async function loadGroups() {
+            try {
+                const response = await fetch(`${API_BASE}/grupos?type=${currentType}`);
+                allGroups = await response.json();
+                
+                const container = document.getElementById('grupos-list');
+                container.innerHTML = allGroups.map(group => `
+                    <div class="list-item" onclick="showGroupDetail('${group.name}')">
+                        <div class="list-item-main">
+                            <div class="list-item-number rank-${group.rank}">${group.rank}</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title">${group.name}</div>
+                                <div class="list-item-subtitle">${group.sucursales} sucursales • ${group.supervisiones} supervisiones</div>
+                            </div>
+                        </div>
+                        <div class="list-item-end">
+                            <div class="list-item-value performance-value">${group.performance.toFixed(1)}%</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading groups:', error);
+            }
+        }
+
+        // Load performance chart
+        async function loadPerformanceChart() {
+            try {
+                // Use grupos data for chart
+                if (!allGroups || allGroups.length === 0) return;
+                
+                const ranges = {
+                    'Excelente (90-100%)': 0,
+                    'Bueno (80-89%)': 0,
+                    'Regular (70-79%)': 0,
+                    'Bajo (<70%)': 0
+                };
+                
+                allGroups.forEach(group => {
+                    const score = group.performance;
+                    if (score >= 90) ranges['Excelente (90-100%)']++;
+                    else if (score >= 80) ranges['Bueno (80-89%)']++;
+                    else if (score >= 70) ranges['Regular (70-79%)']++;
+                    else ranges['Bajo (<70%)']++;
+                });
+                
+                const ctx = document.getElementById('performanceChart');
+                
+                if (performanceChart) {
+                    performanceChart.destroy();
+                }
+                
+                performanceChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(ranges),
+                        datasets: [{
+                            data: Object.values(ranges),
+                            backgroundColor: [
+                                '#34C759',
+                                '#007AFF', 
+                                '#FF9500',
+                                '#FF3B30'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 15,
+                                    font: {
+                                        family: '-apple-system, BlinkMacSystemFont',
+                                        size: 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading performance chart:', error);
+            }
+        }
+
+        // Show group detail
+        async function showGroupDetail(groupName) {
+            const group = allGroups.find(g => g.name === groupName);
+            if (!group) return;
+
+            // Update modal header
+            document.getElementById('detail-group-name').textContent = group.name;
+            document.getElementById('detail-performance').textContent = group.performance.toFixed(2) + '%';
+            document.getElementById('detail-performance').style.color = 
+                group.performance >= 90 ? '#34C759' :
+                group.performance >= 80 ? '#007AFF' :
+                group.performance >= 70 ? '#FFCC00' : '#FF3B30';
+            document.getElementById('detail-meta').textContent = 
+                `${group.sucursales} sucursales • ${group.supervisiones} supervisiones`;
+
+            // Load sucursales
+            try {
+                const response = await fetch(`${API_BASE}/sucursales-ranking?grupo=${encodeURIComponent(groupName)}&type=${currentType}`);
+                const sucursales = await response.json();
+                
+                const container = document.getElementById('group-sucursales');
+                container.innerHTML = sucursales.length > 0 
+                    ? sucursales.map((suc, index) => `
+                        <div class="list-item" onclick="showSucursalDetail('${suc.sucursal}', '${suc.estado}', '${suc.grupo_operativo}')">
+                            <div class="list-item-main">
+                                <div class="list-item-number rank-good">${index + 1}</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">${suc.sucursal || suc.location_name}</div>
+                                    <div class="list-item-subtitle">${suc.estado} • ${suc.evaluaciones} evaluaciones</div>
+                                </div>
+                            </div>
+                            <div class="list-item-end">
+                                <div class="list-item-value">${parseFloat(suc.promedio).toFixed(1)}%</div>
+                            </div>
+                        </div>
+                    `).join('')
+                    : '<div style="padding: 20px; text-align: center; color: var(--ios-gray);">No hay datos disponibles</div>';
+                    
+            } catch (error) {
+                console.error('Error loading sucursales:', error);
+                document.getElementById('group-sucursales').innerHTML = 
+                    '<div style="padding: 20px; text-align: center; color: var(--ios-red);">Error al cargar sucursales</div>';
+            }
+
+            document.getElementById('groupDetailModal').classList.add('active');
+        }
+
+        function closeGroupDetail() {
+            document.getElementById('groupDetailModal').classList.remove('active');
+        }
+
+        // Show sucursal detail
+        async function showSucursalDetail(sucursalName, estado, grupoOperativo) {
+            try {
+                const response = await fetch(`${API_BASE}/analisis-critico?tipo=sucursal&id=${encodeURIComponent(sucursalName)}&estado=${encodeURIComponent(estado)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}`);
+                const data = await response.json();
+                
+                if (data.sucursal) {
+                    document.getElementById('sucursal-detail-name').textContent = data.sucursal.nombre;
+                    document.getElementById('sucursal-performance').textContent = data.sucursal.promedio_calificacion.toFixed(1) + '%';
+                    document.getElementById('sucursal-meta').textContent = 
+                        `${data.sucursal.total_supervisiones} supervisiones • ${data.areas.length} áreas`;
+                    
+                    // Show areas
+                    const container = document.getElementById('sucursal-areas');
+                    container.innerHTML = data.areas.length > 0
+                        ? data.areas.map(area => `
+                            <div class="list-item">
+                                <div class="list-item-content">
+                                    <div class="list-item-title">${area.area_nombre}</div>
+                                    <div class="list-item-subtitle">${area.evaluaciones} evaluaciones</div>
+                                </div>
+                                <div class="list-item-end">
+                                    <div class="list-item-value">${area.promedio_area.toFixed(1)}%</div>
+                                </div>
+                            </div>
+                        `).join('')
+                        : '<div style="padding: 20px; text-align: center; color: var(--ios-gray);">No hay áreas evaluadas</div>';
+                    
+                    document.getElementById('sucursalDetailModal').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error loading sucursal detail:', error);
+            }
+        }
+
+        function closeSucursalDetail() {
+            document.getElementById('sucursalDetailModal').classList.remove('active');
+        }
+
+        // Initialize map
+        function initializeMap() {
+            if (map) return;
+            
+            map = L.map('map').setView([25.6866, -100.3161], 6);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        }
+
+        // Load map data
+        async function loadMapData() {
+            if (!map) return;
+            
+            try {
+                const response = await fetch(`${API_BASE}/${currentType}/mapa`);
+                const locations = await response.json();
+                
+                // Clear existing markers
+                map.eachLayer(layer => {
+                    if (layer instanceof L.CircleMarker) {
+                        map.removeLayer(layer);
+                    }
+                });
+                
+                locations.forEach(location => {
+                    if (location.latitud && location.longitud) {
+                        const score = parseFloat(location.promedio_calificacion) || 0;
+                        const color = score >= 90 ? '#34C759' 
+                                    : score >= 80 ? '#007AFF' 
+                                    : score >= 70 ? '#FF9500' : '#FF3B30';
+                        
+                        L.circleMarker([location.latitud, location.longitud], {
+                            radius: 8,
+                            fillColor: color,
+                            color: 'white',
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        }).bindPopup(`
+                            <strong>${location.sucursal_nombre}</strong><br>
+                            Grupo: ${location.grupo_operativo}<br>
+                            Rendimiento: ${score.toFixed(1)}%<br>
+                            Supervisiones: ${location.total_supervisiones || 0}
+                        `).addTo(map);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading map data:', error);
+            }
+        }
+
+        // Load historical data
+        async function loadHistoricalData() {
+            try {
+                const response = await fetch(`${API_BASE}/${currentType}/historico`);
+                const data = await response.json();
+                
+                const ctx = document.getElementById('historicalChart');
+                
+                if (historicalChart) {
+                    historicalChart.destroy();
+                }
+                
+                historicalChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(d => new Date(d.semana).toLocaleDateString('es-ES', { 
+                            month: 'short', 
+                            day: 'numeric' 
+                        })),
+                        datasets: [{
+                            label: 'Rendimiento Promedio',
+                            data: data.map(d => d.promedio_semanal),
+                            borderColor: '#007AFF',
+                            backgroundColor: 'rgba(0, 122, 255, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 70,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading historical data:', error);
+            }
+        }
+
+        // Utility functions
+        function showFilters() {
+            document.getElementById('filterModal').classList.add('active');
+        }
+
+        function closeFilters() {
+            document.getElementById('filterModal').classList.remove('active');
+        }
+
+        function refreshData() {
+            loadDashboard();
+        }
+
+        // Handle modal clicks to close
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -49,6 +49,15 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
+// ============================================================================
+// 📱 HOME PAGE ROUTE - SERVE iOS CLONE
+// ============================================================================
+
+// Serve the iOS clone as default
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index-clone-original.html'));
+});
+
 // Request logging middleware
 app.use((req, res, next) => {
     console.log(`📡 ${req.method} ${req.path} - ${new Date().toISOString()}`);
@@ -992,8 +1001,13 @@ app.get('/api/kpis', async (req, res) => {
 // 🌐 ROUTES & ERROR HANDLING
 // ============================================================================
 
-// Serve main app
+// Serve main app - Clone exacto del dashboard original Roberto
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index-clone-original.html'));
+});
+
+// Serve old dashboard for comparison
+app.get('/old', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
