@@ -82,6 +82,15 @@ app.get('/fresh', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// NEW FILE - Completely bypass cache
+app.get('/final', (req, res) => {
+    console.log('🎯 FINAL - Brand new file, zero cache');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'dashboard-final.html'));
+});
+
 // Debug route to see what file content
 app.get('/debug-file', (req, res) => {
     const fs = require('fs');
