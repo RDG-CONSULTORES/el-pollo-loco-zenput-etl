@@ -689,13 +689,14 @@ app.get('/', (req, res) => {
 // API root
 app.get('/api', (req, res) => {
     res.json({
-        message: '🚀 Railway API Fixed - El Pollo Loco Dashboard',
-        version: '1.0.1',
+        message: '🚀 Railway API with Drill-Down - El Pollo Loco Dashboard',
+        version: '1.1.0',
         endpoints: {
-            operativas: '/api/operativas/*',
-            seguridad: '/api/seguridad/*',
+            operativas: '/api/operativas/* (kpis, dashboard, grupo/:grupo, sucursal/:id, mapa, areas)',
+            seguridad: '/api/seguridad/* (kpis, dashboard, grupo/:grupo, sucursal/:id, mapa, areas)',
             health: '/health',
-            stats: '/api/stats'
+            stats: '/api/stats',
+            drilldown: 'grupos → sucursales → historico'
         }
     });
 });
