@@ -774,6 +774,221 @@ app.get('/api/stats', async (req, res) => {
 });
 
 // ============================================================================
+// 🔧 ENDPOINTS ORIGINALES COMPATIBLES CON DASHBOARD ROBERTO
+// ============================================================================
+
+// Endpoint /grupos compatible con dashboard original
+app.get('/api/grupos', async (req, res) => {
+    try {
+        const currentType = req.query.type || 'operativas';
+        console.log(`📊 Loading grupos for type: ${currentType}`);
+        
+        const result = await pool.query(`
+            SELECT 
+                s.grupo_operativo,
+                COUNT(sup.id) as supervisiones,
+                COUNT(DISTINCT s.id) as sucursales,
+                ROUND(AVG(sup.calificacion_general), 2) as performance,
+                MIN(sup.calificacion_general) as min_calificacion,
+                MAX(sup.calificacion_general) as max_calificacion
+            FROM sucursales s
+            LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id 
+                AND sup.tipo_supervision = $1
+            WHERE s.grupo_operativo IS NOT NULL
+            GROUP BY s.grupo_operativo
+            HAVING COUNT(sup.id) > 0
+            ORDER BY performance DESC
+        `, [currentType]);
+        
+        // Process and add ranking
+        const processedGroups = result.rows.map((group, index) => ({
+            name: group.grupo_operativo,
+            performance: parseFloat(group.performance) || 0,
+            supervisiones: parseInt(group.supervisiones) || 0,
+            sucursales: parseInt(group.sucursales) || 0,
+            rank: index + 1,
+            trend: Math.random() > 0.5 ? Math.random() * 5 : -Math.random() * 5 // Simulated trend
+        }));
+        
+        console.log(`✅ Grupos loaded: ${processedGroups.length} groups`);
+        res.json(processedGroups);
+        
+    } catch (err) {
+        console.error('❌ Error loading grupos:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Endpoint /sucursales-ranking compatible con dashboard original
+app.get('/api/sucursales-ranking', async (req, res) => {
+    try {
+        const { grupo, estado, type = 'operativas' } = req.query;
+        console.log(`📊 Loading sucursales ranking - Grupo: ${grupo}, Estado: ${estado}, Type: ${type}`);
+        
+        let whereConditions = ['sup.tipo_supervision = $1'];
+        let params = [type];
+        let paramIndex = 2;
+        
+        if (grupo) {
+            whereConditions.push(`s.grupo_operativo = $${paramIndex}`);
+            params.push(grupo);
+            paramIndex++;
+        }
+        
+        if (estado) {
+            whereConditions.push(`s.estado = $${paramIndex}`);
+            params.push(estado);
+            paramIndex++;
+        }
+        
+        const whereClause = whereConditions.join(' AND ');
+        
+        const result = await pool.query(`
+            SELECT 
+                s.nombre as sucursal,
+                s.grupo_operativo,
+                s.estado,
+                s.ciudad,
+                s.latitud,
+                s.longitud,
+                COUNT(sup.id) as evaluaciones,
+                ROUND(AVG(sup.calificacion_general), 2) as promedio
+            FROM sucursales s
+            LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id
+            WHERE ${whereClause}
+            GROUP BY s.id, s.nombre, s.grupo_operativo, s.estado, s.ciudad, s.latitud, s.longitud
+            HAVING COUNT(sup.id) > 0
+            ORDER BY promedio DESC
+            LIMIT 1000
+        `, params);
+        
+        // Process data to match original format
+        const processedSucursales = result.rows.map(suc => ({
+            sucursal: suc.sucursal,
+            location_name: suc.sucursal,
+            grupo_operativo: suc.grupo_operativo,
+            estado: suc.estado,
+            ciudad: suc.ciudad,
+            latitud: parseFloat(suc.latitud),
+            longitud: parseFloat(suc.longitud),
+            evaluaciones: parseInt(suc.evaluaciones) || 0,
+            supervisiones: parseInt(suc.evaluaciones) || 0,
+            promedio: parseFloat(suc.promedio) || 0
+        }));
+        
+        console.log(`✅ Sucursales ranking: ${processedSucursales.length} sucursales`);
+        res.json(processedSucursales);
+        
+    } catch (err) {
+        console.error('❌ Error sucursales ranking:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Endpoint /analisis-critico compatible con dashboard original  
+app.get('/api/analisis-critico', async (req, res) => {
+    try {
+        const { tipo, id, estado, grupo, type = 'operativas' } = req.query;
+        console.log(`📊 Análisis crítico - Tipo: ${tipo}, ID: ${id}, Type: ${type}`);
+        
+        if (tipo === 'sucursal' && id) {
+            // Análisis de sucursal específica
+            const result = await pool.query(`
+                SELECT 
+                    s.*,
+                    COUNT(sup.id) as total_supervisiones,
+                    ROUND(AVG(sup.calificacion_general), 2) as promedio_calificacion,
+                    MIN(sup.calificacion_general) as min_calificacion,
+                    MAX(sup.calificacion_general) as max_calificacion,
+                    MAX(sup.fecha_supervision) as ultima_supervision
+                FROM sucursales s
+                LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id 
+                    AND sup.tipo_supervision = $2
+                WHERE s.nombre = $1
+                GROUP BY s.id
+            `, [id, type]);
+            
+            if (result.rows.length === 0) {
+                return res.status(404).json({ error: 'Sucursal no encontrada' });
+            }
+            
+            const sucursal = result.rows[0];
+            
+            // Obtener áreas de evaluación para esta sucursal
+            const areasResult = await pool.query(`
+                SELECT 
+                    ac.area_nombre,
+                    ROUND(AVG(ac.calificacion), 2) as promedio_area,
+                    COUNT(ac.id) as evaluaciones
+                FROM areas_calificaciones ac
+                JOIN supervisiones sup ON ac.supervision_id = sup.id
+                WHERE sup.sucursal_id = $1 AND sup.tipo_supervision = $2
+                GROUP BY ac.area_nombre
+                ORDER BY promedio_area DESC
+            `, [sucursal.id, type]);
+            
+            const response = {
+                sucursal: {
+                    ...sucursal,
+                    total_supervisiones: parseInt(sucursal.total_supervisiones) || 0,
+                    promedio_calificacion: parseFloat(sucursal.promedio_calificacion) || 0,
+                    min_calificacion: parseFloat(sucursal.min_calificacion) || 0,
+                    max_calificacion: parseFloat(sucursal.max_calificacion) || 0,
+                    latitud: parseFloat(sucursal.latitud),
+                    longitud: parseFloat(sucursal.longitud)
+                },
+                areas: areasResult.rows.map(area => ({
+                    ...area,
+                    promedio_area: parseFloat(area.promedio_area) || 0,
+                    evaluaciones: parseInt(area.evaluaciones) || 0
+                })),
+                tipo: 'sucursal',
+                timestamp: new Date()
+            };
+            
+            console.log(`✅ Análisis sucursal ${id}: ${areasResult.rows.length} áreas`);
+            res.json(response);
+        } else {
+            res.status(400).json({ error: 'Tipo de análisis no válido o parámetros faltantes' });
+        }
+        
+    } catch (err) {
+        console.error('❌ Error análisis crítico:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Endpoint /kpis compatible con dashboard original
+app.get('/api/kpis', async (req, res) => {
+    try {
+        const type = req.query.type || 'operativas';
+        console.log(`📊 Loading KPIs for type: ${type}`);
+        
+        // Reutilizar el endpoint existente pero con formato original
+        const kpisResponse = await fetch(`${req.protocol}://${req.get('host')}/api/${type}/kpis`);
+        const kpis = await kpisResponse.json();
+        
+        // Convertir al formato original esperado
+        const originalFormatKpis = {
+            promedio_general: parseFloat(kpis.promedio_general) || 0,
+            total_supervisiones: parseInt(kpis.total_supervisiones) || 0,
+            total_sucursales: parseInt(kpis.total_sucursales) || 0,
+            total_grupos: parseInt(kpis.total_grupos) || 0,
+            supervisiones_excelentes: parseInt(kpis.supervisiones_excelentes) || 0,
+            supervisiones_buenas: parseInt(kpis.supervisiones_buenas) || 0,
+            ultima_actualizacion: kpis.ultima_actualizacion
+        };
+        
+        console.log('✅ KPIs loaded:', originalFormatKpis);
+        res.json(originalFormatKpis);
+        
+    } catch (err) {
+        console.error('❌ Error loading KPIs:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ============================================================================
 // 🌐 ROUTES & ERROR HANDLING
 // ============================================================================
 
@@ -785,14 +1000,15 @@ app.get('/', (req, res) => {
 // API root
 app.get('/api', (req, res) => {
     res.json({
-        message: '🚀 Railway API with Drill-Down FIXED - El Pollo Loco Dashboard',
-        version: '1.2.0',
+        message: '🚀 Railway API CLONE ORIGINAL - El Pollo Loco Dashboard',
+        version: '1.3.0',
         endpoints: {
+            original: '/api/grupos, /api/kpis, /api/sucursales-ranking, /api/analisis-critico',
             operativas: '/api/operativas/* (kpis, dashboard, grupo/:grupo, sucursal/:id, mapa, areas)',
             seguridad: '/api/seguridad/* (kpis, dashboard, grupo/:grupo, sucursal/:id, mapa, areas)',
             health: '/health',
             stats: '/api/stats',
-            drilldown: 'grupos → sucursales → historico'
+            drilldown: 'grupos → sucursales → detalle sucursal'
         }
     });
 });
