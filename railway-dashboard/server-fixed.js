@@ -166,7 +166,12 @@ app.get('/api/kpis', async (req, res) => {
             active_groups: parseInt(queries[1].rows[0]?.total) || 20,
             total_supervisions: parseInt(queries[2].rows[0]?.total) || 476,
             average_performance: parseFloat(queries[3].rows[0]?.promedio) || 91.2,
-            last_update: queries[4].rows[0]?.ultima || null
+            last_update: queries[4].rows[0]?.ultima || null,
+            // Frontend compatible format
+            total_sucursales: parseInt(queries[0].rows[0]?.total) || 85,
+            total_grupos: parseInt(queries[1].rows[0]?.total) || 20,
+            total_supervisiones: parseInt(queries[2].rows[0]?.total) || 476,
+            promedio_general: parseFloat(queries[3].rows[0]?.promedio) || 91.2
         };
 
         console.log('✅ KPIs calculated:', kpis);
@@ -205,8 +210,9 @@ app.get('/api/grupos', async (req, res) => {
             ORDER BY average_performance DESC, total_supervisions DESC
         `);
         
-        // Process and add territorial classification
-        const processedGroups = result.rows.map(group => ({
+        // Process and add territorial classification with ranking
+        const processedGroups = result.rows.map((group, index) => ({
+            // Original format
             grupo_operativo: group.grupo_operativo,
             sucursal_count: parseInt(group.sucursal_count) || 0,
             total_supervisions: parseInt(group.total_supervisions) || 0,
@@ -214,7 +220,13 @@ app.get('/api/grupos', async (req, res) => {
             average_performance: parseFloat(group.average_performance) || 0,
             min_performance: parseFloat(group.min_performance) || 0,
             max_performance: parseFloat(group.max_performance) || 0,
-            territory: classifyTerritory(group.grupo_operativo)
+            territory: classifyTerritory(group.grupo_operativo),
+            // Frontend compatible format
+            name: group.grupo_operativo,
+            sucursales: parseInt(group.sucursal_count) || 0,
+            supervisiones: parseInt(group.total_supervisions) || 0,
+            performance: parseFloat(group.average_performance) || 0,
+            rank: index + 1
         }));
         
         console.log(`✅ Grupos loaded: ${processedGroups.length} groups`);
