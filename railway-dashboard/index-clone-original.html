@@ -896,7 +896,7 @@
                                 </div>
                             </div>
                             <div class="list-item-end">
-                                <div class="list-item-value">${parseFloat(suc.promedio).toFixed(1)}%</div>
+                                <div class="list-item-value">${(parseFloat(suc.promedio) || 0).toFixed(1)}%</div>
                             </div>
                         </div>
                     `).join('')
@@ -923,7 +923,8 @@
                 
                 if (data.sucursal) {
                     document.getElementById('sucursal-detail-name').textContent = data.sucursal.nombre;
-                    document.getElementById('sucursal-performance').textContent = data.sucursal.promedio_calificacion.toFixed(1) + '%';
+                    const promedio = parseFloat(data.sucursal.promedio_calificacion) || 0;
+                    document.getElementById('sucursal-performance').textContent = promedio.toFixed(1) + '%';
                     document.getElementById('sucursal-meta').textContent = 
                         `${data.sucursal.total_supervisiones} supervisiones • ${data.areas.length} áreas`;
                     
@@ -937,7 +938,7 @@
                                     <div class="list-item-subtitle">${area.evaluaciones} evaluaciones</div>
                                 </div>
                                 <div class="list-item-end">
-                                    <div class="list-item-value">${area.promedio_area.toFixed(1)}%</div>
+                                    <div class="list-item-value">${(parseFloat(area.promedio_area) || 0).toFixed(1)}%</div>
                                 </div>
                             </div>
                         `).join('')
