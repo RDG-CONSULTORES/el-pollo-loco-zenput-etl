@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="light-content">
+    <title>El Pollo Loco CAS - Railway Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            /* iOS System Colors */
+            --ios-blue: #007AFF;
+            --ios-green: #34C759;
+            --ios-red: #FF3B30;
+            --ios-yellow: #FFCC00;
+            --ios-orange: #FF9500;
+            --ios-gray: #8E8E93;
+            --ios-gray-2: #AEAEB2;
+            --ios-gray-3: #C7C7CC;
+            --ios-gray-4: #D1D1D6;
+            --ios-gray-5: #E5E5EA;
+            --ios-gray-6: #F2F2F7;
+            --ios-background: #F2F2F7;
+            --ios-secondary-background: #FFFFFF;
+            --ios-grouped-background: #F2F2F7;
+            --ios-label: #000000;
+            --ios-secondary-label: #3C3C43;
+            --ios-tertiary-label: #3C3C43;
+            --ios-quaternary-label: #3C3C43;
+            --ios-separator: rgba(60, 60, 67, 0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            background: var(--ios-background);
+            color: var(--ios-label);
+            line-height: 1.47059;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: rgba(242, 242, 247, 0.94);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 0.5px solid var(--ios-separator);
+            padding: 0 16px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-label);
+            text-align: center;
+            flex: 1;
+        }
+
+        /* 🔄 TOGGLE SWITCH - NUEVO */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            background: var(--ios-gray-6);
+            border-radius: 8px;
+            padding: 2px;
+            position: relative;
+            min-width: 200px;
+        }
+
+        .toggle-switch input[type="radio"] {
+            display: none;
+        }
+
+        .toggle-switch label {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--ios-secondary-label);
+            text-align: center;
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .toggle-switch input[type="radio"]:checked + label {
+            background: var(--ios-blue);
+            color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button {
+            color: var(--ios-blue);
+            font-size: 17px;
+            font-weight: 400;
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        /* Large Title */
+        .large-title-container {
+            background: var(--ios-background);
+            padding: 8px 16px 0;
+        }
+
+        .large-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--ios-label);
+            margin-bottom: 8px;
+        }
+
+        /* Tab Container */
+        .tab-container {
+            background: var(--ios-background);
+            padding: 8px 16px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+            background: var(--ios-secondary-background);
+            border: 1px solid var(--ios-separator);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ios-blue);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab.active {
+            background: var(--ios-blue);
+            color: white;
+            border-color: var(--ios-blue);
+        }
+
+        /* Content Container */
+        .content-container {
+            padding: 16px;
+            min-height: calc(100vh - 140px);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--ios-secondary-background);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-label);
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ios-blue);
+            margin-bottom: 4px;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--ios-secondary-label);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--ios-secondary-background);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-label);
+            margin-bottom: 16px;
+        }
+
+        .chart-canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+
+        /* Map Container */
+        .map-container {
+            background: var(--ios-secondary-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .map-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--ios-separator);
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: var(--ios-secondary-label);
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error {
+            background: var(--ios-red);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* Lists */
+        .list-container {
+            background: var(--ios-secondary-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--ios-separator);
+            font-weight: 600;
+            color: var(--ios-label);
+        }
+
+        .list-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--ios-separator);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .list-item:hover {
+            background: var(--ios-gray-6);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-title {
+            font-weight: 500;
+            color: var(--ios-label);
+        }
+
+        .list-item-value {
+            font-weight: 600;
+            color: var(--ios-blue);
+        }
+
+        /* Status Colors */
+        .status-excellent { color: var(--ios-green); }
+        .status-good { color: var(--ios-yellow); }
+        .status-warning { color: var(--ios-orange); }
+        .status-danger { color: var(--ios-red); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-bar {
+                padding: 0 12px;
+            }
+            
+            .large-title {
+                font-size: 28px;
+            }
+            
+            .content-container {
+                padding: 12px;
+            }
+            
+            .toggle-switch {
+                min-width: 180px;
+            }
+            
+            .toggle-switch label {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar con Toggle -->
+    <div class="nav-bar">
+        <div class="nav-title">El Pollo Loco CAS</div>
+        
+        <!-- 🔄 TOGGLE SWITCH OPERATIVAS/SEGURIDAD -->
+        <div class="toggle-container">
+            <div class="toggle-switch">
+                <input type="radio" id="operativas" name="supervision-type" value="operativas" checked>
+                <label for="operativas">🔧 Operativas</label>
+                
+                <input type="radio" id="seguridad" name="supervision-type" value="seguridad">
+                <label for="seguridad">🛡️ Seguridad</label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Large Title -->
+    <div class="large-title-container">
+        <div class="large-title" id="dashboard-title">Supervisiones Operativas</div>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+        <div class="tab active" data-tab="dashboard">Dashboard</div>
+        <div class="tab" data-tab="mapa">Mapa</div>
+        <div class="tab" data-tab="historico">Histórico</div>
+        <div class="tab" data-tab="grupos">Grupos</div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-panel active">
+            <!-- KPIs Grid -->
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Performance Red</div>
+                    </div>
+                    <div class="card-value" id="networkPerformance">--</div>
+                    <div class="card-subtitle">Promedio General</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sucursales</div>
+                    </div>
+                    <div class="card-value" id="totalLocations">--</div>
+                    <div class="card-subtitle">Total Monitoreadas</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Grupos Activos</div>
+                    </div>
+                    <div class="card-value" id="activeGroups">--</div>
+                    <div class="card-subtitle">Grupos Operativos</div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="chart-container">
+                <div class="chart-title">Performance por Grupo Operativo</div>
+                <canvas id="gruposChart" class="chart-canvas"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">Distribución por Áreas</div>
+                <canvas id="areasChart" class="chart-canvas"></canvas>
+            </div>
+        </div>
+        
+        <!-- Mapa Tab -->
+        <div id="mapa" class="tab-panel">
+            <div class="map-container">
+                <div class="map-header">
+                    <div class="chart-title">Mapa de Sucursales</div>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+        
+        <!-- Histórico Tab -->
+        <div id="historico" class="tab-panel">
+            <div class="chart-container">
+                <div class="chart-title">Tendencias Históricas</div>
+                <canvas id="historicoChart" class="chart-canvas"></canvas>
+            </div>
+        </div>
+        
+        <!-- Grupos Tab -->
+        <div id="grupos" class="tab-panel">
+            <div class="list-container">
+                <div class="list-header">Grupos Operativos</div>
+                <div id="gruposList">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        Cargando grupos...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // 🚀 RAILWAY DASHBOARD APP - El Pollo Loco
+    class RailwayDashboardApp {
+        constructor() {
+            this.apiUrl = window.location.origin;
+            this.currentType = 'operativas';
+            this.currentData = null;
+            this.charts = {};
+            this.map = null;
+            this.init();
+        }
+
+        init() {
+            console.log('🚀 Railway Dashboard App inicializando...');
+            this.setupEventListeners();
+            this.initializeTabs();
+            this.loadInitialData();
+        }
+
+        setupEventListeners() {
+            // Toggle switch handler
+            document.querySelectorAll('input[name="supervision-type"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    this.currentType = e.target.value;
+                    this.updateDashboardTitle();
+                    this.loadDashboardData();
+                });
+            });
+
+            // Tab navigation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', (e) => this.switchTab(e.target.dataset.tab));
+            });
+
+            // Window resize for charts
+            window.addEventListener('resize', () => this.resizeCharts());
+        }
+
+        initializeTabs() {
+            this.switchTab('dashboard');
+        }
+
+        updateDashboardTitle() {
+            const title = this.currentType === 'operativas' 
+                ? 'Supervisiones Operativas' 
+                : 'Supervisiones de Seguridad';
+            document.getElementById('dashboard-title').textContent = title;
+        }
+
+        switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+
+            // Initialize content based on tab
+            switch(tabName) {
+                case 'mapa':
+                    this.initializeMap();
+                    break;
+                case 'historico':
+                    this.updateHistoricoChart();
+                    break;
+                case 'grupos':
+                    this.loadGruposList();
+                    break;
+            }
+        }
+
+        async loadInitialData() {
+            this.showLoading(true);
+            try {
+                await Promise.all([
+                    this.loadKPIs(),
+                    this.loadDashboardData()
+                ]);
+            } catch (error) {
+                console.error('Error loading initial data:', error);
+                this.showError('Error al cargar los datos iniciales');
+            } finally {
+                this.showLoading(false);
+            }
+        }
+
+        async loadKPIs() {
+            try {
+                const response = await fetch(`${this.apiUrl}/api/${this.currentType}/kpis`);
+                const kpis = await response.json();
+                
+                document.getElementById('networkPerformance').textContent = kpis.promedio_general + '%';
+                document.getElementById('totalLocations').textContent = kpis.total_sucursales;
+                document.getElementById('activeGroups').textContent = kpis.total_grupos;
+                
+                this.updateLastUpdate();
+            } catch (error) {
+                console.error('Error loading KPIs:', error);
+            }
+        }
+
+        async loadDashboardData() {
+            try {
+                const response = await fetch(`${this.apiUrl}/api/${this.currentType}/dashboard`);
+                this.currentData = await response.json();
+                
+                this.updateAllCharts();
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+
+        updateAllCharts() {
+            if (this.currentData) {
+                this.updateGruposChart();
+                this.updateAreasChart();
+                this.updateMapData();
+            }
+        }
+
+        updateGruposChart() {
+            const ctx = document.getElementById('gruposChart');
+            if (!ctx || !this.currentData) return;
+
+            if (this.charts.grupos) {
+                this.charts.grupos.destroy();
+            }
+
+            // Agrupar por grupo_operativo
+            const gruposMap = {};
+            this.currentData.forEach(item => {
+                const grupo = item.grupo_operativo;
+                if (!gruposMap[grupo]) {
+                    gruposMap[grupo] = {
+                        total_supervisiones: 0,
+                        suma_calificaciones: 0,
+                        count: 0
+                    };
+                }
+                gruposMap[grupo].total_supervisiones += parseInt(item.total_supervisiones || 0);
+                gruposMap[grupo].suma_calificaciones += (parseFloat(item.promedio_calificacion) || 0) * parseInt(item.total_supervisiones || 0);
+                gruposMap[grupo].count += parseInt(item.total_supervisiones || 0);
+            });
+
+            const gruposData = Object.entries(gruposMap).map(([grupo, data]) => ({
+                grupo,
+                promedio: data.count > 0 ? (data.suma_calificaciones / data.count).toFixed(1) : 0
+            })).sort((a, b) => b.promedio - a.promedio);
+
+            this.charts.grupos = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: gruposData.map(g => g.grupo),
+                    datasets: [{
+                        label: 'Performance (%)',
+                        data: gruposData.map(g => g.promedio),
+                        backgroundColor: 'rgba(0, 122, 255, 0.7)',
+                        borderColor: 'rgba(0, 122, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        updateAreasChart() {
+            const ctx = document.getElementById('areasChart');
+            if (!ctx || !this.currentData) return;
+
+            if (this.charts.areas) {
+                this.charts.areas.destroy();
+            }
+
+            // Para áreas necesitamos llamar a endpoint específico
+            this.loadAreasData().then(areasData => {
+                this.charts.areas = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: areasData.map(a => a.area_nombre),
+                        datasets: [{
+                            data: areasData.map(a => a.promedio_area),
+                            backgroundColor: [
+                                '#007AFF', '#34C759', '#FF3B30', '#FFCC00', '#FF9500',
+                                '#8E8E93', '#AEAEB2', '#C7C7CC', '#D1D1D6', '#E5E5EA'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            });
+        }
+
+        async loadAreasData() {
+            try {
+                const response = await fetch(`${this.apiUrl}/api/${this.currentType}/areas`);
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading areas data:', error);
+                return [];
+            }
+        }
+
+        async initializeMap() {
+            if (this.map) return;
+
+            try {
+                this.map = L.map('map').setView([25.6866, -100.3161], 6);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(this.map);
+
+                await this.updateMapData();
+            } catch (error) {
+                console.error('Error initializing map:', error);
+            }
+        }
+
+        async updateMapData() {
+            if (!this.map) return;
+
+            try {
+                const response = await fetch(`${this.apiUrl}/api/${this.currentType}/mapa`);
+                const mapData = await response.json();
+
+                // Clear existing markers
+                this.map.eachLayer(layer => {
+                    if (layer instanceof L.Marker) {
+                        this.map.removeLayer(layer);
+                    }
+                });
+
+                // Add new markers
+                mapData.forEach(location => {
+                    if (location.latitud && location.longitud) {
+                        const color = this.getMarkerColor(location.promedio_calificacion);
+                        const marker = L.circleMarker([location.latitud, location.longitud], {
+                            color: color,
+                            fillColor: color,
+                            fillOpacity: 0.7,
+                            radius: 8
+                        }).addTo(this.map);
+
+                        marker.bindPopup(`
+                            <strong>${location.sucursal_nombre}</strong><br>
+                            Grupo: ${location.grupo_operativo}<br>
+                            Performance: ${location.promedio_calificacion}%<br>
+                            Supervisiones: ${location.total_supervisiones}
+                        `);
+                    }
+                });
+            } catch (error) {
+                console.error('Error updating map data:', error);
+            }
+        }
+
+        getMarkerColor(performance) {
+            if (performance >= 90) return '#34C759'; // Verde iOS
+            if (performance >= 80) return '#FFCC00'; // Amarillo iOS
+            if (performance >= 70) return '#FF9500'; // Naranja iOS
+            return '#FF3B30'; // Rojo iOS
+        }
+
+        async updateHistoricoChart() {
+            const ctx = document.getElementById('historicoChart');
+            if (!ctx) return;
+
+            if (this.charts.historico) {
+                this.charts.historico.destroy();
+            }
+
+            try {
+                const response = await fetch(`${this.apiUrl}/api/${this.currentType}/historico`);
+                const historicoData = await response.json();
+
+                this.charts.historico = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: historicoData.map(h => h.periodo || h.semana),
+                        datasets: [{
+                            label: 'Performance Semanal',
+                            data: historicoData.map(h => h.promedio_semanal),
+                            borderColor: '#007AFF',
+                            backgroundColor: 'rgba(0, 122, 255, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading histórico data:', error);
+            }
+        }
+
+        async loadGruposList() {
+            const container = document.getElementById('gruposList');
+            
+            try {
+                const response = await fetch(`${this.apiUrl}/api/${this.currentType}/dashboard`);
+                const data = await response.json();
+
+                // Agrupar por grupo_operativo
+                const gruposMap = {};
+                data.forEach(item => {
+                    const grupo = item.grupo_operativo;
+                    if (!gruposMap[grupo]) {
+                        gruposMap[grupo] = {
+                            sucursales: 0,
+                            total_supervisiones: 0,
+                            suma_calificaciones: 0,
+                            count: 0
+                        };
+                    }
+                    gruposMap[grupo].sucursales += 1;
+                    gruposMap[grupo].total_supervisiones += parseInt(item.total_supervisiones || 0);
+                    gruposMap[grupo].suma_calificaciones += (parseFloat(item.promedio_calificacion) || 0) * parseInt(item.total_supervisiones || 0);
+                    gruposMap[grupo].count += parseInt(item.total_supervisiones || 0);
+                });
+
+                const gruposData = Object.entries(gruposMap).map(([grupo, data]) => ({
+                    grupo,
+                    sucursales: data.sucursales,
+                    promedio: data.count > 0 ? (data.suma_calificaciones / data.count).toFixed(1) : 0
+                })).sort((a, b) => b.promedio - a.promedio);
+
+                container.innerHTML = gruposData.map(grupo => `
+                    <div class="list-item" onclick="app.showGrupoDetails('${grupo.grupo}')">
+                        <div>
+                            <div class="list-item-title">${grupo.grupo}</div>
+                            <div class="card-subtitle">${grupo.sucursales} sucursales</div>
+                        </div>
+                        <div class="list-item-value status-${this.getStatusClass(grupo.promedio)}">
+                            ${grupo.promedio}%
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                container.innerHTML = '<div class="error">Error al cargar grupos</div>';
+                console.error('Error loading grupos list:', error);
+            }
+        }
+
+        getStatusClass(performance) {
+            if (performance >= 90) return 'excellent';
+            if (performance >= 80) return 'good';
+            if (performance >= 70) return 'warning';
+            return 'danger';
+        }
+
+        showGrupoDetails(grupo) {
+            // Implementar drill-down por grupo
+            alert(`Detalles del grupo: ${grupo}\n(Por implementar drill-down)`);
+        }
+
+        resizeCharts() {
+            Object.values(this.charts).forEach(chart => {
+                if (chart && chart.resize) {
+                    chart.resize();
+                }
+            });
+        }
+
+        updateLastUpdate() {
+            const now = new Date();
+            console.log(`Última actualización: ${now.toLocaleString('es-MX')}`);
+        }
+
+        showLoading(show) {
+            // Implementar overlay de loading si es necesario
+        }
+
+        showError(message) {
+            console.error(message);
+            // Podrías mostrar un toast o notification
+        }
+    }
+
+    // Initialize app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        window.app = new RailwayDashboardApp();
+    });
+    </script>
+</body>
+</html>
