@@ -636,10 +636,23 @@
                     <div style="font-size: 24px; font-weight: 700; color: var(--ios-blue);" id="sucursal-performance">-</div>
                     <div style="color: var(--ios-gray);" id="sucursal-meta">-</div>
                 </div>
-                <div id="sucursal-areas">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        Cargando áreas...
+                
+                <!-- Tendencia Chart -->
+                <div style="margin-bottom: 24px;">
+                    <h4 style="margin-bottom: 16px; color: var(--ios-label); font-size: 16px; font-weight: 600;">Tendencia de Rendimiento</h4>
+                    <div style="height: 250px; background: var(--ios-secondary-background); border-radius: 12px; padding: 16px;">
+                        <canvas id="sucursalTendenciaChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Areas de Evaluación -->
+                <div>
+                    <h4 style="margin-bottom: 16px; color: var(--ios-label); font-size: 16px; font-weight: 600;">Áreas de Evaluación</h4>
+                    <div id="sucursal-areas">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Cargando áreas...
+                        </div>
                     </div>
                 </div>
             </div>
@@ -702,8 +715,18 @@
                 }
             });
             
-            // Reload current tab data
-            loadDashboard();
+            // Reset map for new data type
+            if (currentTab === 'mapa') {
+                resetMap();
+            } else {
+                // Reload current tab data
+                loadDashboard();
+            }
+            
+            // If map exists but not current tab, mark for refresh
+            if (map && currentTab !== 'mapa') {
+                map._needsRefresh = true;
+            }
         }
 
         // Tab switching
@@ -945,9 +968,86 @@
                         : '<div style="padding: 20px; text-align: center; color: var(--ios-gray);">No hay áreas evaluadas</div>';
                     
                     document.getElementById('sucursalDetailModal').classList.add('active');
+                    
+                    // Load tendencia chart for this sucursal
+                    loadSucursalTendencia(sucursalName, grupoOperativo);
                 }
             } catch (error) {
                 console.error('Error loading sucursal detail:', error);
+            }
+        }
+        
+        // Load sucursal tendencia chart
+        let sucursalTendenciaChart = null;
+        async function loadSucursalTendencia(sucursalName, grupoOperativo) {
+            try {
+                const response = await fetch(`${API_BASE}/sucursal-tendencia?sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}&periodo=6months`);
+                const tendenciaData = await response.json();
+                
+                const ctx = document.getElementById('sucursalTendenciaChart');
+                
+                // Destroy existing chart
+                if (sucursalTendenciaChart) {
+                    sucursalTendenciaChart.destroy();
+                }
+                
+                sucursalTendenciaChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: tendenciaData.map(d => new Date(d.month).toLocaleDateString('es-ES', { 
+                            year: 'numeric',
+                            month: 'short'
+                        })),
+                        datasets: [{
+                            label: 'Rendimiento Mensual',
+                            data: tendenciaData.map(d => d.promedio_mensual),
+                            borderColor: '#007AFF',
+                            backgroundColor: 'rgba(0, 122, 255, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            pointBackgroundColor: '#007AFF'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Tendencia de Rendimiento - Últimos 6 meses`,
+                                font: { size: 14, weight: '600' }
+                            },
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 50,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
+                    }
+                });
+                
+                console.log(`📈 Loaded tendencia chart for ${sucursalName}: ${tendenciaData.length} months`);
+                
+            } catch (error) {
+                console.error('Error loading sucursal tendencia:', error);
             }
         }
 
@@ -955,15 +1055,38 @@
             document.getElementById('sucursalDetailModal').classList.remove('active');
         }
 
-        // Initialize map
+        // Initialize map with context preservation
         function initializeMap() {
-            if (map) return;
+            if (map) {
+                console.log('🗺️ Map already initialized, preserving context');
+                return;
+            }
             
+            console.log('🗺️ Initializing new map');
             map = L.map('map').setView([25.6866, -100.3161], 6);
             
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
+            
+            // Load initial map data after map is ready
+            setTimeout(() => {
+                if (currentTab === 'mapa') {
+                    loadMapData();
+                }
+            }, 100);
+        }
+        
+        // Reset map completely (for toggle switches)
+        function resetMap() {
+            console.log('🔄 Resetting map for new data type');
+            if (map) {
+                map.remove();
+                map = null;
+            }
+            if (currentTab === 'mapa') {
+                initializeMap();
+            }
         }
 
         // Load map data

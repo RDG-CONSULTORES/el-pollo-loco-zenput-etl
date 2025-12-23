@@ -568,6 +568,90 @@ app.get('/api/sucursales-ranking', async (req, res) => {
 });
 
 // ============================================================================
+// 📈 API ENDPOINT: /api/sucursal-tendencia - SUCURSAL PERFORMANCE TREND
+// ============================================================================
+
+app.get('/api/sucursal-tendencia', async (req, res) => {
+    try {
+        const { sucursal, grupo, type, periodo = '6months' } = req.query;
+        console.log(`📈 Sucursal tendencia - Sucursal: ${sucursal}, Grupo: ${grupo}, Type: ${type}, Periodo: ${periodo}`);
+        
+        if (!sucursal) {
+            return res.status(400).json({ error: 'Sucursal name is required' });
+        }
+        
+        // Build period filter
+        let dateFilter = '';
+        switch(periodo) {
+            case '1month':
+                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '1 month'";
+                break;
+            case '3months':
+                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '3 months'";
+                break;
+            case '6months':
+                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '6 months'";
+                break;
+            case '1year':
+                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '1 year'";
+                break;
+            default:
+                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '6 months'";
+        }
+        
+        // Build query with filters
+        let whereConditions = ['s.nombre = $1', "sup.fecha_supervision IS NOT NULL"];
+        let params = [sucursal];
+        let paramIndex = 2;
+        
+        if (grupo) {
+            whereConditions.push(`s.grupo_operativo = $${paramIndex}`);
+            params.push(grupo);
+            paramIndex++;
+        }
+        
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            whereConditions.push(`sup.tipo_supervision = $${paramIndex}`);
+            params.push(type);
+            paramIndex++;
+        }
+        
+        const whereClause = whereConditions.join(' AND ');
+        
+        // Get monthly performance trend for the sucursal
+        const result = await pool.query(`
+            SELECT 
+                DATE_TRUNC('month', sup.fecha_supervision) as month_start,
+                COUNT(sup.id) as evaluaciones_count,
+                ROUND(AVG(sup.calificacion_general), 2) as promedio_mensual,
+                MIN(sup.calificacion_general) as min_mensual,
+                MAX(sup.calificacion_general) as max_mensual
+            FROM sucursales s
+            JOIN supervisiones sup ON s.id = sup.sucursal_id
+            WHERE ${whereClause} ${dateFilter}
+            GROUP BY DATE_TRUNC('month', sup.fecha_supervision)
+            ORDER BY month_start ASC
+        `, params);
+        
+        const tendenciaData = result.rows.map(row => ({
+            month: row.month_start,
+            month_start: row.month_start,
+            evaluaciones_count: parseInt(row.evaluaciones_count) || 0,
+            promedio_mensual: parseFloat(row.promedio_mensual) || 0,
+            min_mensual: parseFloat(row.min_mensual) || 0,
+            max_mensual: parseFloat(row.max_mensual) || 0
+        }));
+        
+        console.log(`✅ Sucursal tendencia: ${sucursal} with ${tendenciaData.length} months`);
+        res.json(tendenciaData);
+        
+    } catch (err) {
+        console.error('❌ Error sucursal tendencia:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ============================================================================
 // 🔍 API ENDPOINT: /api/estados - ESTADOS LIST
 // ============================================================================
 
