@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>El Pollo Loco CAS</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* iOS System Colors and Variables */
+        :root {
+            --ios-blue: #007AFF;
+            --ios-green: #34C759;
+            --ios-red: #FF3B30;
+            --ios-orange: #FF9500;
+            --ios-yellow: #FFCC00;
+            --ios-gray: #8E8E93;
+            --ios-gray2: #AEAEB2;
+            --ios-gray3: #C7C7CC;
+            --ios-gray4: #D1D1D6;
+            --ios-gray5: #E5E5EA;
+            --ios-gray6: #F2F2F7;
+            --ios-background: #F2F2F7;
+            --ios-card-bg: rgba(255, 255, 255, 0.8);
+            --ios-text-primary: #1D1D1F;
+            --ios-text-secondary: #86868B;
+            --shadow-ios: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--ios-background);
+            color: var(--ios-text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px;
+        }
+
+        /* Header Bar */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(242, 242, 247, 0.94);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 0.5px solid rgba(60, 60, 67, 0.12);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 44px;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-text-primary);
+            text-align: center;
+            flex: 1;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            font-size: 17px;
+            color: var(--ios-blue);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .menu-button:hover {
+            background-color: rgba(0, 122, 255, 0.1);
+        }
+
+        /* Large Title */
+        .large-title-section {
+            padding: 8px 16px 16px;
+        }
+
+        .large-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--ios-text-primary);
+            margin-bottom: 4px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            font-weight: 400;
+            color: var(--ios-text-secondary);
+        }
+
+        /* Main Content */
+        .content {
+            padding: 0 16px;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 4px;
+            margin-bottom: 16px;
+            display: flex;
+            box-shadow: var(--shadow-ios);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ios-text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button.active {
+            background: white;
+            box-shadow: var(--shadow-ios);
+            color: var(--ios-text-primary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-ios);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--ios-text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--ios-text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Performance Grid */
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .performance-card {
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-ios);
+        }
+
+        .performance-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .performance-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ios-text-secondary);
+        }
+
+        .performance-excellent { color: var(--ios-green); }
+        .performance-good { color: var(--ios-blue); }
+        .performance-warning { color: var(--ios-orange); }
+        .performance-danger { color: var(--ios-red); }
+
+        /* Lists */
+        .list-container {
+            background: var(--ios-card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-ios);
+            overflow: hidden;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 0.5px solid var(--ios-gray5);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item:active {
+            background-color: var(--ios-gray6);
+        }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--ios-text-primary);
+            margin-bottom: 2px;
+        }
+
+        .list-item-subtitle {
+            font-size: 14px;
+            color: var(--ios-text-secondary);
+        }
+
+        .list-item-value {
+            font-size: 16px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Chart containers */
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin: 16px 0;
+        }
+
+        /* Map container */
+        .map-container {
+            height: 300px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: var(--ios-text-secondary);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--ios-gray5);
+            border-top-color: var(--ios-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Filters */
+        .filter-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 8px 16px;
+            border: 1px solid var(--ios-gray4);
+            background: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ios-text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-button.active {
+            background: var(--ios-blue);
+            color: white;
+            border-color: var(--ios-blue);
+        }
+
+        /* Hidden sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 375px) {
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .large-title {
+                font-size: 28px;
+            }
+            
+            .content {
+                padding: 0 12px;
+            }
+        }
+
+        /* Drill-down Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--ios-background);
+            width: 100%;
+            height: 100%;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            background: rgba(242, 242, 247, 0.94);
+            backdrop-filter: saturate(180%) blur(20px);
+            padding: 8px 16px;
+            border-bottom: 0.5px solid rgba(60, 60, 67, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 44px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 17px;
+            color: var(--ios-blue);
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 17px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+        }
+
+        .modal-body {
+            padding: 16px;
+        }
+
+        /* Territory Badge */
+        .territory-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .territory-local {
+            background: rgba(52, 199, 89, 0.15);
+            color: var(--ios-green);
+        }
+
+        .territory-foranea {
+            background: rgba(255, 149, 0, 0.15);
+            color: var(--ios-orange);
+        }
+
+        .territory-mixed {
+            background: rgba(0, 122, 255, 0.15);
+            color: var(--ios-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <button class="menu-button" onclick="toggleMenu()">☰</button>
+        <div class="header-title">CAS Dashboard</div>
+        <div style="width: 40px;"></div>
+    </div>
+
+    <!-- Large Title -->
+    <div class="large-title-section">
+        <h1 class="large-title">El Pollo Loco</h1>
+        <p class="subtitle">Sistema de Supervisión CAS</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <button class="tab-button active" onclick="showSection('dashboard')">Dashboard</button>
+            <button class="tab-button" onclick="showSection('map')">Mapa</button>
+            <button class="tab-button" onclick="showSection('historic')">Histórico</button>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+            <!-- Performance Overview -->
+            <div class="performance-grid" id="performance-grid">
+                <div class="performance-card">
+                    <div class="performance-value performance-excellent" id="overall-performance">--</div>
+                    <div class="performance-label">Performance General</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-value" id="total-supervisions">--</div>
+                    <div class="performance-label">Supervisiones</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-value" id="active-groups">--</div>
+                    <div class="performance-label">Grupos Activos</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-value" id="total-branches">--</div>
+                    <div class="performance-label">Sucursales</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-container">
+                <button class="filter-button active" onclick="filterTerritory('all')">Todas</button>
+                <button class="filter-button" onclick="filterTerritory('local')">Local</button>
+                <button class="filter-button" onclick="filterTerritory('foranea')">Foráneas</button>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Distribución de Performance</div>
+                        <div class="card-subtitle">Por rango de calificación</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Groups List -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Grupos Operativos</div>
+                        <div class="card-subtitle" id="groups-subtitle">20 grupos registrados</div>
+                    </div>
+                </div>
+                <div class="list-container" id="groups-list">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando grupos...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div id="map" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Mapa de Sucursales</div>
+                        <div class="card-subtitle" id="map-subtitle">85 sucursales georeferenciadas</div>
+                    </div>
+                </div>
+                <div class="map-container" id="leaflet-map"></div>
+            </div>
+
+            <!-- Map Legend -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Leyenda de Performance</div>
+                </div>
+                <div class="list-container">
+                    <div class="list-item">
+                        <div style="width: 12px; height: 12px; background: var(--ios-green); border-radius: 50%; margin-right: 12px;"></div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Excelente</div>
+                            <div class="list-item-subtitle">90% - 100%</div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div style="width: 12px; height: 12px; background: var(--ios-blue); border-radius: 50%; margin-right: 12px;"></div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Bueno</div>
+                            <div class="list-item-subtitle">80% - 89%</div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div style="width: 12px; height: 12px; background: var(--ios-orange); border-radius: 50%; margin-right: 12px;"></div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Regular</div>
+                            <div class="list-item-subtitle">70% - 79%</div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div style="width: 12px; height: 12px; background: var(--ios-red); border-radius: 50%; margin-right: 12px;"></div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Bajo</div>
+                            <div class="list-item-subtitle">< 70%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historic Section -->
+        <div id="historic" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Tendencias Históricas</div>
+                        <div class="card-subtitle">Performance por territorio</div>
+                    </div>
+                </div>
+
+                <!-- Territory Toggle -->
+                <div class="filter-container" style="margin-bottom: 20px;">
+                    <button class="filter-button active" onclick="showHistoricTerritory('local')">Local (NL + Saltillo)</button>
+                    <button class="filter-button" onclick="showHistoricTerritory('foranea')">Foráneas</button>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="historicChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Historic Performance Cards -->
+            <div id="historic-performance-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Performance Actual</div>
+                    </div>
+                    <div class="performance-grid">
+                        <div class="performance-card">
+                            <div class="performance-value performance-excellent" id="historic-local-performance">--</div>
+                            <div class="performance-label">Local</div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="performance-value performance-good" id="historic-foranea-performance">--</div>
+                            <div class="performance-label">Foráneas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drill-down Modal -->
+    <div id="drill-down-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeDrillDown()">✕</button>
+                <div class="modal-title" id="drill-down-title">Detalle del Grupo</div>
+                <div style="width: 40px;"></div>
+            </div>
+            <div class="modal-body" id="drill-down-content">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Cargando detalles...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let allGroupsData = [];
+        let currentTerritoryFilter = 'all';
+        let performanceChart = null;
+        let historicChart = null;
+        let leafletMap = null;
+        let currentHistoricTerritory = 'local';
+
+        // API Base URL
+        const API_BASE = '/api';
+
+        // Cache Management
+        const cache = {
+            data: new Map(),
+            timestamps: new Map(),
+            TTL: 5 * 60 * 1000, // 5 minutes
+
+            set(key, value) {
+                this.data.set(key, value);
+                this.timestamps.set(key, Date.now());
+                localStorage.setItem(`cache_${key}`, JSON.stringify({
+                    value,
+                    timestamp: Date.now()
+                }));
+            },
+
+            get(key) {
+                // Check memory cache first
+                if (this.data.has(key)) {
+                    const timestamp = this.timestamps.get(key);
+                    if (Date.now() - timestamp < this.TTL) {
+                        return this.data.get(key);
+                    }
+                    // Expired, remove
+                    this.data.delete(key);
+                    this.timestamps.delete(key);
+                }
+
+                // Check localStorage cache
+                try {
+                    const stored = localStorage.getItem(`cache_${key}`);
+                    if (stored) {
+                        const { value, timestamp } = JSON.parse(stored);
+                        if (Date.now() - timestamp < this.TTL) {
+                            this.data.set(key, value);
+                            this.timestamps.set(key, timestamp);
+                            return value;
+                        }
+                        localStorage.removeItem(`cache_${key}`);
+                    }
+                } catch (e) {
+                    console.warn('Cache error:', e);
+                }
+
+                return null;
+            },
+
+            clear() {
+                this.data.clear();
+                this.timestamps.clear();
+                Object.keys(localStorage).forEach(key => {
+                    if (key.startsWith('cache_')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboard();
+        });
+
+        // Main Dashboard Loader
+        async function loadDashboard() {
+            try {
+                await Promise.all([
+                    loadKPIs(),
+                    loadGroups(),
+                    loadPerformanceChart()
+                ]);
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showError('Error cargando dashboard');
+            }
+        }
+
+        // Load KPIs
+        async function loadKPIs() {
+            try {
+                let kpis = cache.get('kpis');
+                if (!kpis) {
+                    const response = await fetch(`${API_BASE}/kpis`);
+                    kpis = await response.json();
+                    cache.set('kpis', kpis);
+                }
+
+                document.getElementById('overall-performance').textContent = `${kpis.average_performance || 0}%`;
+                document.getElementById('total-supervisions').textContent = kpis.total_supervisions || 0;
+                document.getElementById('active-groups').textContent = kpis.active_groups || 20;
+                document.getElementById('total-branches').textContent = kpis.total_branches || 85;
+
+                // Set performance color
+                const perfElement = document.getElementById('overall-performance');
+                const perf = kpis.average_performance || 0;
+                perfElement.className = 'performance-value';
+                if (perf >= 90) perfElement.classList.add('performance-excellent');
+                else if (perf >= 80) perfElement.classList.add('performance-good');
+                else if (perf >= 70) perfElement.classList.add('performance-warning');
+                else perfElement.classList.add('performance-danger');
+
+            } catch (error) {
+                console.error('Error loading KPIs:', error);
+            }
+        }
+
+        // Load Groups
+        async function loadGroups() {
+            try {
+                let groups = cache.get('grupos');
+                if (!groups) {
+                    const response = await fetch(`${API_BASE}/grupos`);
+                    groups = await response.json();
+                    cache.set('grupos', groups);
+                }
+
+                allGroupsData = groups;
+                renderGroups(filterGroupsByTerritory(groups, currentTerritoryFilter));
+            } catch (error) {
+                console.error('Error loading groups:', error);
+                document.getElementById('groups-list').innerHTML = '<div class="loading">Error cargando grupos</div>';
+            }
+        }
+
+        // Territorial Classification
+        function classifyTerritory(grupoOperativo) {
+            const pureLocal = [
+                'TEPEYAC', 'OGAS', 'EFM', 'EPL SO', 'PLOG NUEVO LEON', 
+                'GRUPO CENTRITO', 'GRUPO SABINAS HIDALGO'
+            ];
+
+            const pureForanea = [
+                'OCHTER TAMPICO', 'GRUPO MATAMOROS', 'RAP', 'CRR', 'PLOG LAGUNA', 
+                'PLOG QUERETARO', 'PLOG BAJIO', 'PLOG GOLFO', 'LGO', 'PLOG TIJUANA', 'PLOG PACIFICO'
+            ];
+
+            const mixed = ['TEC', 'EXPO', 'GRUPO SALTILLO'];
+
+            if (pureLocal.includes(grupoOperativo)) return 'local';
+            if (pureForanea.includes(grupoOperativo)) return 'foranea';
+            if (mixed.includes(grupoOperativo)) return 'mixed';
+            return 'unknown';
+        }
+
+        // Filter Groups by Territory
+        function filterGroupsByTerritory(groups, territory) {
+            if (territory === 'all') return groups;
+            
+            return groups.filter(group => {
+                const classification = classifyTerritory(group.grupo_operativo);
+                return territory === 'local' 
+                    ? ['local', 'mixed'].includes(classification)
+                    : ['foranea', 'mixed'].includes(classification);
+            });
+        }
+
+        // Render Groups
+        function renderGroups(groups) {
+            const container = document.getElementById('groups-list');
+            
+            if (groups.length === 0) {
+                container.innerHTML = '<div class="loading">No hay grupos en esta categoría</div>';
+                return;
+            }
+
+            container.innerHTML = groups.map(group => {
+                const territory = classifyTerritory(group.grupo_operativo);
+                const performanceClass = getPerformanceClass(group.average_performance);
+                const territoryBadge = getTerritoryBadge(territory);
+
+                return `
+                    <div class="list-item" onclick="showGroupDetail('${group.grupo_operativo}')">
+                        <div class="list-item-content">
+                            <div class="list-item-title">
+                                ${group.grupo_operativo}
+                                ${territoryBadge}
+                            </div>
+                            <div class="list-item-subtitle">
+                                ${group.total_supervisions} supervisiones • ${group.sucursal_count} sucursales
+                            </div>
+                        </div>
+                        <div class="list-item-value ${performanceClass}">
+                            ${(group.average_performance || 0).toFixed(1)}%
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Update subtitle
+            document.getElementById('groups-subtitle').textContent = `${groups.length} grupos mostrados`;
+        }
+
+        // Helper Functions
+        function getPerformanceClass(performance) {
+            if (performance >= 90) return 'performance-excellent';
+            if (performance >= 80) return 'performance-good';
+            if (performance >= 70) return 'performance-warning';
+            return 'performance-danger';
+        }
+
+        function getTerritoryBadge(territory) {
+            switch (territory) {
+                case 'local': return '<span class="territory-badge territory-local">Local</span>';
+                case 'foranea': return '<span class="territory-badge territory-foranea">Foránea</span>';
+                case 'mixed': return '<span class="territory-badge territory-mixed">Mixto</span>';
+                default: return '';
+            }
+        }
+
+        // Performance Chart
+        async function loadPerformanceChart() {
+            try {
+                const groups = allGroupsData.length > 0 ? allGroupsData : await fetch(`${API_BASE}/grupos`).then(r => r.json());
+                
+                const ranges = {
+                    'Excelente (90-100%)': 0,
+                    'Bueno (80-89%)': 0,
+                    'Regular (70-79%)': 0,
+                    'Bajo (<70%)': 0
+                };
+
+                groups.forEach(group => {
+                    const perf = group.average_performance || 0;
+                    if (perf >= 90) ranges['Excelente (90-100%)']++;
+                    else if (perf >= 80) ranges['Bueno (80-89%)']++;
+                    else if (perf >= 70) ranges['Regular (70-79%)']++;
+                    else ranges['Bajo (<70%)']++;
+                });
+
+                const ctx = document.getElementById('performanceChart');
+                
+                if (performanceChart) {
+                    performanceChart.destroy();
+                }
+
+                performanceChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(ranges),
+                        datasets: [{
+                            data: Object.values(ranges),
+                            backgroundColor: [
+                                '#34C759', // Green
+                                '#007AFF', // Blue  
+                                '#FF9500', // Orange
+                                '#FF3B30'  // Red
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 15,
+                                    font: {
+                                        family: '-apple-system, BlinkMacSystemFont, SF Pro Text',
+                                        size: 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error loading performance chart:', error);
+            }
+        }
+
+        // Territory Filter
+        function filterTerritory(territory) {
+            currentTerritoryFilter = territory;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Re-render groups
+            renderGroups(filterGroupsByTerritory(allGroupsData, territory));
+        }
+
+        // Section Management
+        function showSection(section) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(section).classList.add('active');
+
+            // Load section-specific data
+            if (section === 'map' && !leafletMap) {
+                initializeMap();
+            } else if (section === 'historic') {
+                loadHistoricData();
+            }
+        }
+
+        // Map Initialization
+        async function initializeMap() {
+            try {
+                leafletMap = L.map('leaflet-map').setView([25.6866, -100.3161], 6);
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(leafletMap);
+
+                // Load map data
+                let mapData = cache.get('mapa');
+                if (!mapData) {
+                    const response = await fetch(`${API_BASE}/mapa`);
+                    mapData = await response.json();
+                    cache.set('mapa', mapData);
+                }
+
+                // Add markers
+                mapData.forEach(location => {
+                    if (location.latitud && location.longitud) {
+                        const performance = location.average_performance || 0;
+                        const color = performance >= 90 ? '#34C759' :
+                                     performance >= 80 ? '#007AFF' :
+                                     performance >= 70 ? '#FF9500' : '#FF3B30';
+
+                        const marker = L.circleMarker([location.latitud, location.longitud], {
+                            radius: 6,
+                            fillColor: color,
+                            color: 'white',
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        }).addTo(leafletMap);
+
+                        marker.bindPopup(`
+                            <strong>${location.sucursal_nombre || location.location_name}</strong><br>
+                            Grupo: ${location.grupo_operativo}<br>
+                            Performance: ${performance.toFixed(1)}%<br>
+                            Supervisiones: ${location.supervisions_count || 0}
+                        `);
+
+                        marker.on('click', () => {
+                            showSucursalDetail(location);
+                        });
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error initializing map:', error);
+            }
+        }
+
+        // Historic Data
+        async function loadHistoricData() {
+            try {
+                // Convert grupos data to periods for historic view
+                const groups = allGroupsData.length > 0 ? allGroupsData : await fetch(`${API_BASE}/grupos`).then(r => r.json());
+                const periodsData = convertGruposToPeriods(groups);
+                
+                renderHistoricChart(periodsData);
+                updateHistoricPerformance(periodsData);
+                
+            } catch (error) {
+                console.error('Error loading historic data:', error);
+            }
+        }
+
+        function convertGruposToPeriods(gruposData) {
+            const periods = {
+                local: [
+                    { name: 'T1 2025', performance: 0, count: 0 },
+                    { name: 'T2 2025', performance: 0, count: 0 },
+                    { name: 'T3 2025', performance: 0, count: 0 },
+                    { name: 'T4 2025', performance: 0, count: 0 }
+                ],
+                foranea: [
+                    { name: 'S1 2025', performance: 0, count: 0 },
+                    { name: 'S2 2025', performance: 0, count: 0 }
+                ]
+            };
+
+            // Distribute groups across periods (simulated)
+            gruposData.forEach((group, index) => {
+                const territory = classifyTerritory(group.grupo_operativo);
+                const performance = group.average_performance || 0;
+                
+                if (territory === 'local' || territory === 'mixed') {
+                    const periodIndex = index % 4;
+                    periods.local[periodIndex].performance += performance;
+                    periods.local[periodIndex].count++;
+                }
+                
+                if (territory === 'foranea' || territory === 'mixed') {
+                    const periodIndex = index % 2;
+                    periods.foranea[periodIndex].performance += performance;
+                    periods.foranea[periodIndex].count++;
+                }
+            });
+
+            // Calculate averages
+            ['local', 'foranea'].forEach(territory => {
+                periods[territory].forEach(period => {
+                    if (period.count > 0) {
+                        period.performance = period.performance / period.count;
+                    }
+                });
+            });
+
+            return periods;
+        }
+
+        function renderHistoricChart(periodsData) {
+            const ctx = document.getElementById('historicChart');
+            
+            if (historicChart) {
+                historicChart.destroy();
+            }
+
+            const data = periodsData[currentHistoricTerritory];
+            
+            historicChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(p => p.name),
+                    datasets: [{
+                        label: 'Performance',
+                        data: data.map(p => p.performance),
+                        borderColor: currentHistoricTerritory === 'local' ? '#34C759' : '#FF9500',
+                        backgroundColor: currentHistoricTerritory === 'local' ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 149, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 80,
+                            max: 95,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function showHistoricTerritory(territory) {
+            currentHistoricTerritory = territory;
+            
+            // Update buttons
+            document.querySelectorAll('#historic .filter-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Reload chart
+            loadHistoricData();
+        }
+
+        function updateHistoricPerformance(periodsData) {
+            const localAvg = periodsData.local.reduce((sum, p) => sum + p.performance, 0) / periodsData.local.length;
+            const foraneaAvg = periodsData.foranea.reduce((sum, p) => sum + p.performance, 0) / periodsData.foranea.length;
+
+            document.getElementById('historic-local-performance').textContent = `${localAvg.toFixed(1)}%`;
+            document.getElementById('historic-foranea-performance').textContent = `${foraneaAvg.toFixed(1)}%`;
+        }
+
+        // Group Detail Modal
+        function showGroupDetail(grupoOperativo) {
+            const group = allGroupsData.find(g => g.grupo_operativo === grupoOperativo);
+            if (!group) return;
+
+            document.getElementById('drill-down-title').textContent = group.grupo_operativo;
+            
+            const territory = classifyTerritory(group.grupo_operativo);
+            const territoryBadge = getTerritoryBadge(territory);
+            const performanceClass = getPerformanceClass(group.average_performance);
+
+            document.getElementById('drill-down-content').innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">${group.grupo_operativo} ${territoryBadge}</div>
+                            <div class="card-subtitle">Información detallada del grupo</div>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-grid">
+                        <div class="performance-card">
+                            <div class="performance-value ${performanceClass}">${(group.average_performance || 0).toFixed(1)}%</div>
+                            <div class="performance-label">Performance</div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="performance-value">${group.total_supervisions || 0}</div>
+                            <div class="performance-label">Supervisiones</div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="performance-value">${group.sucursal_count || 0}</div>
+                            <div class="performance-label">Sucursales</div>
+                        </div>
+                        <div class="performance-card">
+                            <div class="performance-value">${group.evaluation_count || 0}</div>
+                            <div class="performance-label">Evaluaciones</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sucursales del Grupo</div>
+                    </div>
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Cargando sucursales...
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('drill-down-modal').classList.add('active');
+            
+            // Load sucursales for this group
+            loadGroupSucursales(grupoOperativo);
+        }
+
+        async function loadGroupSucursales(grupoOperativo) {
+            try {
+                const response = await fetch(`${API_BASE}/mapa?grupo=${encodeURIComponent(grupoOperativo)}`);
+                const sucursales = await response.json();
+                
+                const container = document.querySelector('#drill-down-content .card:last-child');
+                const sucursalesHtml = sucursales.map(suc => {
+                    const performance = suc.average_performance || 0;
+                    const performanceClass = getPerformanceClass(performance);
+                    
+                    return `
+                        <div class="list-item" onclick="showSucursalDetail(${JSON.stringify(suc).replace(/"/g, '&quot;')})">
+                            <div class="list-item-content">
+                                <div class="list-item-title">${suc.sucursal_nombre || suc.location_name}</div>
+                                <div class="list-item-subtitle">${suc.estado} • ${suc.supervisions_count || 0} supervisiones</div>
+                            </div>
+                            <div class="list-item-value ${performanceClass}">
+                                ${performance.toFixed(1)}%
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                container.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-title">Sucursales del Grupo</div>
+                    </div>
+                    <div class="list-container">
+                        ${sucursalesHtml || '<div class="loading">No hay sucursales disponibles</div>'}
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Error loading group sucursales:', error);
+            }
+        }
+
+        function showSucursalDetail(location) {
+            console.log('Showing sucursal detail:', location);
+            // Here you could implement another modal level or update existing modal
+            // For now, just log the information
+        }
+
+        function closeDrillDown() {
+            document.getElementById('drill-down-modal').classList.remove('active');
+        }
+
+        // Menu Toggle (placeholder)
+        function toggleMenu() {
+            console.log('Menu toggle clicked');
+            // Implement menu functionality if needed
+        }
+
+        // Error Handling
+        function showError(message) {
+            console.error(message);
+            // You could show a toast or alert here
+        }
+
+        // Handle modal clicks to close
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeDrillDown();
+            }
+        });
+    </script>
+</body>
+</html>
