@@ -2,9 +2,9 @@
   "name": "el-pollo-loco-railway-dashboard",
   "version": "1.0.0",
   "description": "El Pollo Loco CAS Dashboard - Railway PostgreSQL",
-  "main": "server.js",
+  "main": "server-fixed.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server-fixed.js",
     "dev": "nodemon server.js",
     "deploy": "railway deploy",
     "migrate": "node ../migrate_to_railway.js",
