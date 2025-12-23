@@ -75,12 +75,12 @@ app.get('/api/operativas/kpis', async (req, res) => {
         ]);
 
         const kpis = {
-            total_sucursales: queries[0].rows[0]?.total || 0,
-            total_grupos: queries[1].rows[0]?.total || 0,
-            total_supervisiones: queries[2].rows[0]?.total || 0,
-            promedio_general: queries[3].rows[0]?.promedio || 0,
-            supervisiones_excelentes: queries[4].rows[0]?.total || 0,
-            supervisiones_buenas: queries[5].rows[0]?.total || 0,
+            total_sucursales: parseInt(queries[0].rows[0]?.total) || 0,
+            total_grupos: parseInt(queries[1].rows[0]?.total) || 0,
+            total_supervisiones: parseInt(queries[2].rows[0]?.total) || 0,
+            promedio_general: parseFloat(queries[3].rows[0]?.promedio) || 0,
+            supervisiones_excelentes: parseInt(queries[4].rows[0]?.total) || 0,
+            supervisiones_buenas: parseInt(queries[5].rows[0]?.total) || 0,
             ultima_actualizacion: queries[6].rows[0]?.ultima || null
         };
 
@@ -120,8 +120,19 @@ app.get('/api/operativas/dashboard', async (req, res) => {
             ORDER BY promedio_calificacion DESC NULLS LAST
         `);
         
-        console.log(`✅ Dashboard operativas: ${result.rows.length} registros`);
-        res.json(result.rows);
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_calificacion: row.promedio_calificacion ? parseFloat(row.promedio_calificacion) : null,
+            min_calificacion: row.min_calificacion ? parseFloat(row.min_calificacion) : null,
+            max_calificacion: row.max_calificacion ? parseFloat(row.max_calificacion) : null,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0,
+            latitud: row.latitud ? parseFloat(row.latitud) : null,
+            longitud: row.longitud ? parseFloat(row.longitud) : null
+        }));
+        
+        console.log(`✅ Dashboard operativas: ${processedRows.length} registros`);
+        res.json(processedRows);
         
     } catch (err) {
         console.error('❌ Error dashboard operativas:', err);
@@ -159,8 +170,19 @@ app.get('/api/operativas/grupo/:grupo', async (req, res) => {
             ORDER BY promedio_calificacion DESC NULLS LAST
         `, [grupo]);
         
-        console.log(`✅ Grupo ${grupo}: ${result.rows.length} sucursales`);
-        res.json(result.rows);
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_calificacion: row.promedio_calificacion ? parseFloat(row.promedio_calificacion) : null,
+            min_calificacion: row.min_calificacion ? parseFloat(row.min_calificacion) : null,
+            max_calificacion: row.max_calificacion ? parseFloat(row.max_calificacion) : null,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0,
+            latitud: row.latitud ? parseFloat(row.latitud) : null,
+            longitud: row.longitud ? parseFloat(row.longitud) : null
+        }));
+        
+        console.log(`✅ Grupo ${grupo}: ${processedRows.length} sucursales`);
+        res.json(processedRows);
         
     } catch (err) {
         console.error('❌ Error detalle grupo operativo:', err);
@@ -287,12 +309,12 @@ app.get('/api/seguridad/kpis', async (req, res) => {
         ]);
 
         const kpis = {
-            total_sucursales: queries[0].rows[0]?.total || 0,
-            total_grupos: queries[1].rows[0]?.total || 0,
-            total_supervisiones: queries[2].rows[0]?.total || 0,
-            promedio_general: queries[3].rows[0]?.promedio || 0,
-            supervisiones_excelentes: queries[4].rows[0]?.total || 0,
-            supervisiones_buenas: queries[5].rows[0]?.total || 0,
+            total_sucursales: parseInt(queries[0].rows[0]?.total) || 0,
+            total_grupos: parseInt(queries[1].rows[0]?.total) || 0,
+            total_supervisiones: parseInt(queries[2].rows[0]?.total) || 0,
+            promedio_general: parseFloat(queries[3].rows[0]?.promedio) || 0,
+            supervisiones_excelentes: parseInt(queries[4].rows[0]?.total) || 0,
+            supervisiones_buenas: parseInt(queries[5].rows[0]?.total) || 0,
             ultima_actualizacion: queries[6].rows[0]?.ultima || null
         };
 
@@ -332,8 +354,19 @@ app.get('/api/seguridad/dashboard', async (req, res) => {
             ORDER BY promedio_calificacion DESC NULLS LAST
         `);
         
-        console.log(`✅ Dashboard seguridad: ${result.rows.length} registros`);
-        res.json(result.rows);
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_calificacion: row.promedio_calificacion ? parseFloat(row.promedio_calificacion) : null,
+            min_calificacion: row.min_calificacion ? parseFloat(row.min_calificacion) : null,
+            max_calificacion: row.max_calificacion ? parseFloat(row.max_calificacion) : null,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0,
+            latitud: row.latitud ? parseFloat(row.latitud) : null,
+            longitud: row.longitud ? parseFloat(row.longitud) : null
+        }));
+        
+        console.log(`✅ Dashboard seguridad: ${processedRows.length} registros`);
+        res.json(processedRows);
         
     } catch (err) {
         console.error('❌ Error dashboard seguridad:', err);
@@ -371,8 +404,19 @@ app.get('/api/seguridad/grupo/:grupo', async (req, res) => {
             ORDER BY promedio_calificacion DESC NULLS LAST
         `, [grupo]);
         
-        console.log(`✅ Grupo seguridad ${grupo}: ${result.rows.length} sucursales`);
-        res.json(result.rows);
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_calificacion: row.promedio_calificacion ? parseFloat(row.promedio_calificacion) : null,
+            min_calificacion: row.min_calificacion ? parseFloat(row.min_calificacion) : null,
+            max_calificacion: row.max_calificacion ? parseFloat(row.max_calificacion) : null,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0,
+            latitud: row.latitud ? parseFloat(row.latitud) : null,
+            longitud: row.longitud ? parseFloat(row.longitud) : null
+        }));
+        
+        console.log(`✅ Grupo seguridad ${grupo}: ${processedRows.length} sucursales`);
+        res.json(processedRows);
         
     } catch (err) {
         console.error('❌ Error detalle grupo seguridad:', err);
@@ -501,7 +545,17 @@ app.get('/api/operativas/mapa', async (req, res) => {
             GROUP BY s.id, s.nombre, s.latitud, s.longitud, s.grupo_operativo
             ORDER BY promedio_calificacion DESC NULLS LAST
         `);
-        res.json(result.rows);
+        
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_calificacion: row.promedio_calificacion ? parseFloat(row.promedio_calificacion) : null,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0,
+            latitud: row.latitud ? parseFloat(row.latitud) : null,
+            longitud: row.longitud ? parseFloat(row.longitud) : null
+        }));
+        
+        res.json(processedRows);
     } catch (err) {
         console.error('Error mapa operativas:', err);
         res.status(500).json({ error: err.message });
@@ -526,7 +580,17 @@ app.get('/api/seguridad/mapa', async (req, res) => {
             GROUP BY s.id, s.nombre, s.latitud, s.longitud, s.grupo_operativo
             ORDER BY promedio_calificacion DESC NULLS LAST
         `);
-        res.json(result.rows);
+        
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_calificacion: row.promedio_calificacion ? parseFloat(row.promedio_calificacion) : null,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0,
+            latitud: row.latitud ? parseFloat(row.latitud) : null,
+            longitud: row.longitud ? parseFloat(row.longitud) : null
+        }));
+        
+        res.json(processedRows);
     } catch (err) {
         console.error('Error mapa seguridad:', err);
         res.status(500).json({ error: err.message });
@@ -553,7 +617,15 @@ app.get('/api/operativas/areas', async (req, res) => {
             ORDER BY promedio_area DESC
             LIMIT 20
         `);
-        res.json(result.rows);
+        
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_area: parseFloat(row.promedio_area) || 0,
+            total_evaluaciones: parseInt(row.total_evaluaciones) || 0
+        }));
+        
+        res.json(processedRows);
     } catch (err) {
         console.error('Error áreas operativas:', err);
         res.status(500).json({ error: err.message });
@@ -576,7 +648,15 @@ app.get('/api/seguridad/areas', async (req, res) => {
             ORDER BY promedio_area DESC
             LIMIT 20
         `);
-        res.json(result.rows);
+        
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_area: parseFloat(row.promedio_area) || 0,
+            total_evaluaciones: parseInt(row.total_evaluaciones) || 0
+        }));
+        
+        res.json(processedRows);
     } catch (err) {
         console.error('Error áreas seguridad:', err);
         res.status(500).json({ error: err.message });
@@ -601,7 +681,15 @@ app.get('/api/operativas/historico', async (req, res) => {
             ORDER BY semana DESC
             LIMIT 12
         `);
-        res.json(result.rows);
+        
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_semanal: parseFloat(row.promedio_semanal) || 0,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0
+        }));
+        
+        res.json(processedRows);
     } catch (err) {
         console.error('Error histórico operativas:', err);
         res.status(500).json({ error: err.message });
@@ -622,7 +710,15 @@ app.get('/api/seguridad/historico', async (req, res) => {
             ORDER BY semana DESC
             LIMIT 12
         `);
-        res.json(result.rows);
+        
+        // Convertir campos numéricos a números
+        const processedRows = result.rows.map(row => ({
+            ...row,
+            promedio_semanal: parseFloat(row.promedio_semanal) || 0,
+            total_supervisiones: parseInt(row.total_supervisiones) || 0
+        }));
+        
+        res.json(processedRows);
     } catch (err) {
         console.error('Error histórico seguridad:', err);
         res.status(500).json({ error: err.message });
@@ -664,11 +760,11 @@ app.get('/api/stats', async (req, res) => {
         ]);
 
         res.json({
-            sucursales: queries[0].rows[0].total,
-            operativas: queries[1].rows[0].total,
-            seguridad: queries[2].rows[0].total,
-            areas_evaluadas: queries[3].rows[0].total,
-            grupos_operativos: queries[4].rows[0].total,
+            sucursales: parseInt(queries[0].rows[0].total) || 0,
+            operativas: parseInt(queries[1].rows[0].total) || 0,
+            seguridad: parseInt(queries[2].rows[0].total) || 0,
+            areas_evaluadas: parseInt(queries[3].rows[0].total) || 0,
+            grupos_operativos: parseInt(queries[4].rows[0].total) || 0,
             timestamp: new Date()
         });
     } catch (err) {
@@ -689,8 +785,8 @@ app.get('/', (req, res) => {
 // API root
 app.get('/api', (req, res) => {
     res.json({
-        message: '🚀 Railway API with Drill-Down - El Pollo Loco Dashboard',
-        version: '1.1.0',
+        message: '🚀 Railway API with Drill-Down FIXED - El Pollo Loco Dashboard',
+        version: '1.2.0',
         endpoints: {
             operativas: '/api/operativas/* (kpis, dashboard, grupo/:grupo, sucursal/:id, mapa, areas)',
             seguridad: '/api/seguridad/* (kpis, dashboard, grupo/:grupo, sucursal/:id, mapa, areas)',
