@@ -153,12 +153,21 @@ app.get('/api/kpis', async (req, res) => {
         const { type } = req.query;
         console.log(`📊 KPIs requested - Type: ${type}`);
         
+        // Build queries with supervision type filter  
+        let supervisionFilter = '';
+        let params = [];
+        
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            supervisionFilter = ' WHERE tipo_supervision = $1';
+            params = [type];
+        }
+
         const queries = await Promise.all([
             pool.query('SELECT COUNT(DISTINCT s.id) as total FROM sucursales s'),
             pool.query('SELECT COUNT(DISTINCT s.grupo_operativo) as total FROM sucursales s WHERE s.grupo_operativo IS NOT NULL'),
-            pool.query('SELECT COUNT(*) as total FROM supervisiones'),
-            pool.query('SELECT ROUND(AVG(calificacion_general), 2) as promedio FROM supervisiones'),
-            pool.query('SELECT MAX(fecha_supervision) as ultima FROM supervisiones')
+            pool.query(`SELECT COUNT(*) as total FROM supervisiones${supervisionFilter}`, params),
+            pool.query(`SELECT ROUND(AVG(calificacion_general), 2) as promedio FROM supervisiones${supervisionFilter}`, params),
+            pool.query(`SELECT MAX(fecha_supervision) as ultima FROM supervisiones${supervisionFilter}`, params)
         ]);
 
         const kpis = {
@@ -192,6 +201,19 @@ app.get('/api/grupos', async (req, res) => {
         const { type } = req.query;
         console.log(`👥 Grupos data requested - Type: ${type}`);
         
+        // Build query with supervision type filter
+        let whereConditions = ['s.grupo_operativo IS NOT NULL'];
+        let params = [];
+        let paramIndex = 1;
+
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            whereConditions.push(`sup.tipo_supervision = $${paramIndex}`);
+            params.push(type);
+            paramIndex++;
+        }
+
+        const whereClause = whereConditions.join(' AND ');
+
         const result = await pool.query(`
             SELECT 
                 s.grupo_operativo,
@@ -204,11 +226,11 @@ app.get('/api/grupos', async (req, res) => {
             FROM sucursales s
             LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id
             LEFT JOIN areas_calificaciones ac ON sup.id = ac.supervision_id
-            WHERE s.grupo_operativo IS NOT NULL
+            WHERE ${whereClause}
             GROUP BY s.grupo_operativo
             HAVING COUNT(sup.id) > 0
             ORDER BY average_performance DESC, total_supervisions DESC
-        `);
+        `, params);
         
         // Process and add territorial classification with ranking
         const processedGroups = result.rows.map((group, index) => ({
@@ -260,6 +282,12 @@ app.get('/api/mapa', async (req, res) => {
         if (estado) {
             whereConditions.push(`s.estado = $${paramIndex}`);
             params.push(estado);
+            paramIndex++;
+        }
+        
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            whereConditions.push(`sup.tipo_supervision = $${paramIndex}`);
+            params.push(type);
             paramIndex++;
         }
         
@@ -330,6 +358,14 @@ app.get('/api/sucursal-detail', async (req, res) => {
             paramIndex++;
         }
         
+        // Add supervision type filter for sucursal aggregated data
+        let supervisionTypeFilter = '';
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            supervisionTypeFilter = ` AND sup.tipo_supervision = $${paramIndex}`;
+            params.push(type);
+            paramIndex++;
+        }
+        
         const whereClause = whereConditions.join(' AND ');
         
         const sucursalResult = await pool.query(`
@@ -342,7 +378,7 @@ app.get('/api/sucursal-detail', async (req, res) => {
                 MAX(sup.fecha_supervision) as last_supervision
             FROM sucursales s
             LEFT JOIN supervisiones sup ON s.id = sup.sucursal_id
-            WHERE ${whereClause}
+            WHERE ${whereClause}${supervisionTypeFilter}
             GROUP BY s.id
         `, params);
         
@@ -352,7 +388,15 @@ app.get('/api/sucursal-detail', async (req, res) => {
         
         const sucursalData = sucursalResult.rows[0];
         
-        // Get areas performance for this sucursal
+        // Get areas performance for this sucursal with supervision type filter
+        let areasParams = [sucursalData.id];
+        let areasTypeFilter = '';
+        
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            areasTypeFilter = ' AND sup.tipo_supervision = $2';
+            areasParams.push(type);
+        }
+        
         const areasResult = await pool.query(`
             SELECT 
                 ac.area_nombre,
@@ -360,10 +404,10 @@ app.get('/api/sucursal-detail', async (req, res) => {
                 COUNT(ac.id) as evaluaciones_count
             FROM areas_calificaciones ac
             JOIN supervisiones sup ON ac.supervision_id = sup.id
-            WHERE sup.sucursal_id = $1
+            WHERE sup.sucursal_id = $1${areasTypeFilter}
             GROUP BY ac.area_nombre
             ORDER BY promedio_area DESC
-        `, [sucursalData.id]);
+        `, areasParams);
         
         const response = {
             sucursal: {
@@ -405,6 +449,17 @@ app.get('/api/historico', async (req, res) => {
         const { type } = req.query;
         console.log(`📈 Historico data requested - Type: ${type}`);
         
+        // Build query with supervision type filter
+        let whereConditions = ['sup.fecha_supervision IS NOT NULL'];
+        let params = [];
+        
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            whereConditions.push('sup.tipo_supervision = $1');
+            params.push(type);
+        }
+        
+        const whereClause = whereConditions.join(' AND ');
+        
         // Get weekly performance aggregation
         const result = await pool.query(`
             SELECT 
@@ -413,11 +468,11 @@ app.get('/api/historico', async (req, res) => {
                 ROUND(AVG(sup.calificacion_general), 2) as weekly_average
             FROM supervisiones sup
             JOIN sucursales s ON sup.sucursal_id = s.id
-            WHERE sup.fecha_supervision IS NOT NULL
+            WHERE ${whereClause}
             GROUP BY DATE_TRUNC('week', sup.fecha_supervision)
             ORDER BY week_start ASC
             LIMIT 12
-        `);
+        `, params);
         
         const historicData = result.rows.map(row => ({
             week: row.week_start,
@@ -457,6 +512,12 @@ app.get('/api/sucursales-ranking', async (req, res) => {
         if (estado) {
             whereConditions.push(`s.estado = $${paramIndex}`);
             params.push(estado);
+            paramIndex++;
+        }
+        
+        if (type && (type === 'operativas' || type === 'seguridad')) {
+            whereConditions.push(`sup.tipo_supervision = $${paramIndex}`);
+            params.push(type);
             paramIndex++;
         }
         
