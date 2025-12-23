@@ -66,14 +66,32 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // ============================================================================
 
 app.get('/', (req, res) => {
-    console.log('🏠 Serving dashboard anterior funcionando:', 'index-clone-original.html');
-    res.sendFile(path.join(__dirname, 'index-clone-original.html'));
+    console.log('🏠 Cache bust - serving index.html with correct endpoints');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Force serve dashboard con drill-down funcionando
-app.get('/dashboard-funcionando', (req, res) => {
-    console.log('🎯 Serving dashboard con drill-down');
-    res.sendFile(path.join(__dirname, 'index-clone-original.html'));
+// Force serve dashboard sin cache
+app.get('/fresh', (req, res) => {
+    console.log('🎯 FRESH - No cache dashboard');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Debug route to see what file content
+app.get('/debug-file', (req, res) => {
+    const fs = require('fs');
+    const content = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    const hasOperativas = content.includes('/api/operativas/');
+    res.json({
+        hasOperativas,
+        firstLines: content.split('\n').slice(0, 5),
+        fileSize: content.length
+    });
 });
 
 // Serve static files (after home route to avoid conflicts)
