@@ -1,0 +1,81 @@
+location_key,tipo_corregido,tipo_regla,ops_actuales,seg_actuales,total_actual,total_esperado,diferencia,estado
+1 - Pino Suarez,LOCAL,ESPECIAL_3_3,3,3,6,6,0,✅ PERFECTO
+2 - Madero,LOCAL,ESPECIAL_3_3,3,3,6,6,0,✅ PERFECTO
+3 - Matamoros,LOCAL,ESPECIAL_3_3,3,3,6,6,0,✅ PERFECTO
+4 - Santa Catarina,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+5 - Felix U. Gomez,LOCAL,ESPECIAL_3_3,3,3,6,6,0,✅ PERFECTO
+6 - Garcia,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+7 - La Huasteca,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+8 - Gonzalitos,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+9 - Anahuac,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+10 - Barragan,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+11 - Lincoln,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+12 - Concordia,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+13 - Escobedo,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+14 - Aztlan,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+15 - Ruiz Cortinez,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+16 - Solidaridad,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+17 - Romulo Garza,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+18 - Linda Vista,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+19 - Valle Soleado,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+20 - Tecnológico,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+21 - Chapultepec,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+22 - Satelite,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+23 - Guasave,FORANEA,FORANEA_2_2,2,2,4,4,0,✅ PERFECTO
+24 - Exposicion,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+25 - Juarez,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+26 - Cadereyta,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+27 - Santiago,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+28 - Guerrero,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+29 - Pablo Livas,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+30 - Carrizo,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+31 - Las Quintas,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+32 - Allende,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+33 - Eloy Cavazos,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+34 - Montemorelos,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+36 - Apodaca Centro,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+37 - Stiva,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+38 - Gomez Morin,LOCAL,LOCAL_4_4,3,3,6,8,-2,❌ DEFICIT (-2)
+39 - Lazaro Cardenas,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+40 - Plaza 1500,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+41 - Vasconcelos,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+42 - Independencia,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+43 - Revolucion,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+44 - Senderos,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+45 - Triana,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+46 - Campestre,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+47 - San Antonio,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+48 - Refugio,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+49 - Pueblito,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+50 - Patio,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+51 - Constituyentes,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+52 - Venustiano Carranza,LOCAL,LOCAL_4_4,3,3,6,8,-2,❌ DEFICIT (-2)
+53 - Lienzo Charro,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+54 - Ramos Arizpe,LOCAL,LOCAL_4_4,3,3,6,8,-2,❌ DEFICIT (-2)
+55 - Eulalio Gutierrez,LOCAL,LOCAL_4_4,3,3,6,8,-2,❌ DEFICIT (-2)
+56 - Luis Echeverria,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+57 - Harold R. Pape,FORANEA,FORANEA_2_2,2,2,4,4,0,✅ PERFECTO
+58 - Universidad (Tampico),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+59 - Plaza 3601,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+60 - Centro (Tampico),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+61 - Aeropuerto (Tampico),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+62 - Lazaro Cardenas (Morelia),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+63 - Madero (Morelia),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+64 - Huerta,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+65 - Pedro Cardenas,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+66 - Lauro Villar,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+67 - Centro (Matamoros),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+68 - Avenida del Niño,LOCAL,LOCAL_4_4,1,1,2,8,-6,❌ DEFICIT (-6)
+69 - Puerto Rico,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+70 - Coahuila Comidas,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+71 - Centrito Valle,LOCAL,LOCAL_4_4,5,5,10,8,2,⚠️ EXCESO (+2)
+72 - Sabinas Hidalgo,LOCAL,LOCAL_4_4,4,4,8,8,0,✅ PERFECTO
+73 - Anzalduas,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+74 - Hidalgo (Reynosa),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+75 - Libramiento (Reynosa),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+76 - Aeropuerto (Reynosa),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+77 - Boulevard Morelos,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+78 - Alcala,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+79 - Rio Bravo,LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+80 - Guerrero 2 (Ruelas),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)
+81 - Reforma (Ruelas),LOCAL,LOCAL_4_4,2,2,4,8,-4,❌ DEFICIT (-4)

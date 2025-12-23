@@ -1,0 +1,81 @@
+numero,sucursal,tipo_actual,grupo,ops_count,seg_count,total_supervisiones,fechas_coincidentes,perfectamente_emparejado,necesita_validacion
+1,1 - Pino Suarez,LOCAL,TEPEYAC,3,3,6,3,SÍ,SÍ
+2,2 - Madero,LOCAL,TEPEYAC,3,3,6,3,SÍ,SÍ
+3,3 - Matamoros,LOCAL,TEPEYAC,3,3,6,3,SÍ,SÍ
+4,4 - Santa Catarina,LOCAL,TEPEYAC,4,4,8,4,SÍ,NO
+5,5 - Felix U. Gomez,LOCAL,TEPEYAC,3,3,6,3,SÍ,SÍ
+6,6 - Garcia,LOCAL,TEPEYAC,4,4,8,4,SÍ,NO
+7,7 - La Huasteca,LOCAL,TEPEYAC,4,4,8,4,SÍ,NO
+8,8 - Gonzalitos,LOCAL,OGAS,4,4,8,4,SÍ,NO
+9,9 - Anahuac,LOCAL,OGAS,4,4,8,4,SÍ,NO
+10,10 - Barragan,LOCAL,OGAS,4,4,8,4,SÍ,NO
+11,11 - Lincoln,LOCAL,OGAS,4,4,8,4,SÍ,NO
+12,12 - Concordia,LOCAL,OGAS,4,4,8,4,SÍ,NO
+13,13 - Escobedo,LOCAL,OGAS,4,4,8,4,SÍ,NO
+14,14 - Aztlan,LOCAL,OGAS,4,4,8,4,SÍ,NO
+15,15 - Ruiz Cortinez,LOCAL,OGAS,4,4,8,4,SÍ,NO
+16,16 - Solidaridad,FORANEA,EPL SO,4,4,8,4,SÍ,NO
+17,17 - Romulo Garza,FORANEA,EFM,4,4,8,4,SÍ,NO
+18,18 - Linda Vista,FORANEA,EFM,4,4,8,4,SÍ,NO
+19,19 - Valle Soleado,FORANEA,EFM,4,4,8,4,SÍ,NO
+20,20 - Tecnológico,LOCAL,TEC,4,4,8,4,SÍ,NO
+21,21 - Chapultepec,LOCAL,TEC,4,4,8,4,SÍ,NO
+22,22 - Satelite,LOCAL,TEC,4,4,8,4,SÍ,NO
+23,23 - Guasave,LOCAL,TEC,2,2,4,2,SÍ,SÍ
+24,24 - Exposicion,FORANEA,EXPO,4,4,8,4,SÍ,NO
+25,25 - Juarez,FORANEA,EXPO,4,4,8,4,SÍ,NO
+26,26 - Cadereyta,FORANEA,EXPO,4,4,8,4,SÍ,NO
+27,27 - Santiago,FORANEA,EXPO,4,4,8,4,SÍ,NO
+28,28 - Guerrero,FORANEA,EXPO,2,2,4,2,SÍ,SÍ
+29,29 - Pablo Livas,FORANEA,EXPO,4,4,8,4,SÍ,NO
+30,30 - Carrizo,FORANEA,EXPO,2,2,4,2,SÍ,SÍ
+31,31 - Las Quintas,FORANEA,EXPO,4,4,8,4,SÍ,NO
+32,32 - Allende,FORANEA,EXPO,4,4,8,4,SÍ,NO
+33,33 - Eloy Cavazos,FORANEA,EXPO,4,4,8,4,SÍ,NO
+34,34 - Montemorelos,FORANEA,EXPO,4,4,8,4,SÍ,NO
+36,36 - Apodaca Centro,LOCAL,PLOG NUEVO LEON,4,4,8,4,SÍ,NO
+37,37 - Stiva,LOCAL,PLOG NUEVO LEON,4,4,8,4,SÍ,NO
+38,38 - Gomez Morin,LOCAL,PLOG NUEVO LEON,3,3,6,3,SÍ,SÍ
+39,39 - Lazaro Cardenas,LOCAL,PLOG NUEVO LEON,4,4,8,4,SÍ,NO
+40,40 - Plaza 1500,LOCAL,PLOG NUEVO LEON,4,4,8,4,SÍ,NO
+41,41 - Vasconcelos,LOCAL,PLOG NUEVO LEON,4,4,8,4,SÍ,NO
+42,42 - Independencia,FORANEA,PLOG LAGUNA,2,2,4,2,SÍ,SÍ
+43,43 - Revolucion,FORANEA,PLOG LAGUNA,2,2,4,2,SÍ,SÍ
+44,44 - Senderos,FORANEA,PLOG LAGUNA,2,2,4,2,SÍ,SÍ
+45,45 - Triana,FORANEA,PLOG LAGUNA,2,2,4,2,SÍ,SÍ
+46,46 - Campestre,FORANEA,PLOG LAGUNA,2,2,4,2,SÍ,SÍ
+47,47 - San Antonio,FORANEA,PLOG LAGUNA,2,2,4,2,SÍ,SÍ
+48,48 - Refugio,FORANEA,PLOG QUERETARO,2,2,4,2,SÍ,SÍ
+49,49 - Pueblito,FORANEA,PLOG QUERETARO,2,2,4,2,SÍ,SÍ
+50,50 - Patio,FORANEA,PLOG QUERETARO,2,2,4,2,SÍ,SÍ
+51,51 - Constituyentes,FORANEA,PLOG QUERETARO,2,2,4,2,SÍ,SÍ
+52,52 - Venustiano Carranza,LOCAL,GRUPO SALTILLO,3,3,6,3,SÍ,SÍ
+53,53 - Lienzo Charro,LOCAL,GRUPO SALTILLO,2,2,4,2,SÍ,SÍ
+54,54 - Ramos Arizpe,LOCAL,GRUPO SALTILLO,3,3,6,3,SÍ,SÍ
+55,55 - Eulalio Gutierrez,LOCAL,GRUPO SALTILLO,3,3,6,3,SÍ,SÍ
+56,56 - Luis Echeverria,LOCAL,GRUPO SALTILLO,4,4,8,4,SÍ,NO
+57,57 - Harold R. Pape,LOCAL,GRUPO SALTILLO,2,2,4,2,SÍ,SÍ
+58,58 - Universidad (Tampico),FORANEA,OCHTER TAMPICO,2,2,4,2,SÍ,SÍ
+59,59 - Plaza 3601,FORANEA,OCHTER TAMPICO,2,2,4,2,SÍ,SÍ
+60,60 - Centro (Tampico),FORANEA,OCHTER TAMPICO,2,2,4,2,SÍ,SÍ
+61,61 - Aeropuerto (Tampico),FORANEA,OCHTER TAMPICO,2,2,4,2,SÍ,SÍ
+62,62 - Lazaro Cardenas (Morelia),FORANEA,GRUPO CANTERA ROSA (MORELIA),2,2,4,2,SÍ,SÍ
+63,63 - Madero (Morelia),FORANEA,GRUPO CANTERA ROSA (MORELIA),2,2,4,2,SÍ,SÍ
+64,64 - Huerta,FORANEA,GRUPO CANTERA ROSA (MORELIA),2,2,4,2,SÍ,SÍ
+65,65 - Pedro Cardenas,FORANEA,GRUPO MATAMOROS,2,2,4,2,SÍ,SÍ
+66,66 - Lauro Villar,FORANEA,GRUPO MATAMOROS,2,2,4,2,SÍ,SÍ
+67,67 - Centro (Matamoros),FORANEA,GRUPO MATAMOROS,2,2,4,1,NO,SÍ
+68,68 - Avenida del Niño,FORANEA,GRUPO MATAMOROS,1,1,2,1,SÍ,SÍ
+69,69 - Puerto Rico,FORANEA,GRUPO MATAMOROS,2,2,4,2,SÍ,SÍ
+70,70 - Coahuila Comidas,FORANEA,GRUPO PIEDRAS NEGRAS,2,2,4,2,SÍ,SÍ
+71,71 - Centrito Valle,LOCAL,GRUPO CENTRITO,5,5,10,5,SÍ,SÍ
+72,72 - Sabinas Hidalgo,FORANEA,GRUPO SABINAS HIDALGO,4,4,8,4,SÍ,NO
+73,73 - Anzalduas,FORANEA,CRR,2,2,4,2,SÍ,SÍ
+74,74 - Hidalgo (Reynosa),FORANEA,CRR,2,2,4,2,SÍ,SÍ
+75,75 - Libramiento (Reynosa),FORANEA,CRR,2,2,4,2,SÍ,SÍ
+76,76 - Aeropuerto (Reynosa),FORANEA,RAP,2,2,4,2,SÍ,SÍ
+77,77 - Boulevard Morelos,FORANEA,RAP,2,2,4,2,SÍ,SÍ
+78,78 - Alcala,FORANEA,RAP,2,2,4,2,SÍ,SÍ
+79,79 - Rio Bravo,FORANEA,GRUPO RIO BRAVO,2,2,4,2,SÍ,SÍ
+80,80 - Guerrero 2 (Ruelas),FORANEA,GRUPO NUEVO LAREDO (RUELAS),2,2,4,2,SÍ,SÍ
+81,81 - Reforma (Ruelas),FORANEA,GRUPO NUEVO LAREDO (RUELAS),2,2,4,2,SÍ,SÍ

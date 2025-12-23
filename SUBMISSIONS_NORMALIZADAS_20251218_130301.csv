@@ -1,0 +1,392 @@
+Location,Location External Key,Submitted By,Date Submitted,Sucursal,form_type
+53 - Lienzo Charro,53.0,Israel Garcia,2025-12-10 13:26:42,Luis Echeverría ,OPERATIVA
+55 - Eulalio Gutierrez,55.0,Israel Garcia,2025-12-09 13:33:44,,OPERATIVA
+56 - Luis Echeverria,56.0,Jorge Reynosa,2025-12-09 12:49:34,Echeverria ,OPERATIVA
+54 - Ramos Arizpe,54.0,Israel Garcia,2025-12-08 14:04:24,Ramos Arizpe ,OPERATIVA
+52 - Venustiano Carranza,52.0,Jorge Reynosa,2025-12-08 13:42:46,Ochoa,OPERATIVA
+72 - Sabinas Hidalgo,72.0,Jorge Reynosa,2025-12-05 12:18:08,Sabinas Hidalgo ,OPERATIVA
+27 - Santiago,27.0,Israel Garcia,2025-12-04 12:58:02,Santiago ,OPERATIVA
+37 - Stiva,37.0,Jorge Reynosa,2025-12-03 12:42:42,Stiva,OPERATIVA
+36 - Apodaca Centro,36.0,Israel Garcia,2025-12-03 12:21:55,Apodaca Centro ,OPERATIVA
+10 - Barragan,10.0,Israel Garcia,2025-12-02 13:01:10,Barragán ,OPERATIVA
+13 - Escobedo,13.0,Jorge Reynosa,2025-12-02 12:35:25,Escobedo ,OPERATIVA
+40 - Plaza 1500,40.0,Israel Garcia,2025-12-01 13:36:32,Plaza 1500,OPERATIVA
+41 - Vasconcelos,41.0,Jorge Reynosa,2025-12-01 13:22:12,Vasconcelos ,OPERATIVA
+9 - Anahuac,9.0,Israel Garcia,2025-11-28 13:52:16,Anahuac,OPERATIVA
+12 - Concordia,12.0,Jorge Reynosa,2025-11-28 12:44:42,Concordia ,OPERATIVA
+1 - Pino Suarez,1.0,Jorge Reynosa,2025-11-27 12:18:26,Pino Suarez ,OPERATIVA
+5 - Felix U. Gomez,5.0,Israel Garcia,2025-11-27 12:04:54,Félix U. Gómez ,OPERATIVA
+22 - Satelite,22.0,Jorge Reynosa,2025-11-26 12:51:52,Satelite,OPERATIVA
+39 - Lazaro Cardenas,39.0,Israel Garcia,2025-11-26 12:39:37,Lázaro Cardenas ,OPERATIVA
+2 - Madero,2.0,Israel Garcia,2025-11-25 13:10:48,Madero,OPERATIVA
+8 - Gonzalitos,8.0,Jorge Reynosa,2025-11-25 13:05:33,Gonzalitos ,OPERATIVA
+14 - Aztlan,14.0,Israel Garcia,2025-11-24 13:08:40,Aztlan,OPERATIVA
+6 - Garcia,6.0,Jorge Reynosa,2025-11-24 12:55:40,Garcia ,OPERATIVA
+21 - Chapultepec,21.0,Jorge Reynosa,2025-11-21 13:17:27,Chapultepec ,OPERATIVA
+20 - Tecnológico,20.0,Israel Garcia,2025-11-21 13:02:50,Tecnologico,OPERATIVA
+24 - Exposicion,24.0,Jorge Reynosa,2025-11-20 13:56:23,Expo.Matriz,OPERATIVA
+38 - Gomez Morin,38.0,Israel Garcia,2025-11-20 12:50:28,Gómez Morin ,OPERATIVA
+11 - Lincoln,11.0,Jorge Reynosa,2025-11-19 13:15:04,Lincoln,OPERATIVA
+16 - Solidaridad,16.0,Israel Garcia,2025-11-19 12:44:15,Solidaridad ,OPERATIVA
+3 - Matamoros,3.0,Jorge Reynosa,2025-11-18 14:08:36,Matamoros (Juarez),OPERATIVA
+71 - Centrito Valle,71.0,Israel Garcia,2025-11-18 13:16:11,Centrito Valle,OPERATIVA
+34 - Montemorelos,34.0,Jorge Reynosa,2025-11-14 13:05:16,Montemorelos ,OPERATIVA
+32 - Allende,32.0,Israel Garcia,2025-11-14 12:59:29,Allende ,OPERATIVA
+25 - Juarez,25.0,Israel Garcia,2025-11-13 13:39:32,Juárez ,OPERATIVA
+26 - Cadereyta,26.0,Jorge Reynosa,2025-11-13 13:14:32,Cadereyta,OPERATIVA
+15 - Ruiz Cortinez,15.0,Jorge Reynosa,2025-11-12 13:27:09,Ruiz Cortinez ,OPERATIVA
+31 - Las Quintas,31.0,Israel Garcia,2025-11-12 13:07:45,Las Quintas ,OPERATIVA
+7 - La Huasteca,7.0,Israel Garcia,2025-11-11 13:19:21,La Huasteca ,OPERATIVA
+4 - Santa Catarina,4.0,Jorge Reynosa,2025-11-11 13:08:28,Tepeyac (Santa Catarina),OPERATIVA
+29 - Pablo Livas,29.0,Israel Garcia,2025-11-10 13:07:20,Pablo Livas ,OPERATIVA
+33 - Eloy Cavazos,33.0,Jorge Reynosa,2025-11-10 13:02:16,Eloy Cavazos ,OPERATIVA
+62 - Lazaro Cardenas (Morelia),62.0,Israel Garcia,2025-11-07 13:11:27,,OPERATIVA
+63 - Madero (Morelia),63.0,Jorge Reynosa,2025-11-06 15:33:52,Madero (Morelia) ,OPERATIVA
+64 - Huerta,64.0,Israel Garcia,2025-11-06 14:46:08,Huerta,OPERATIVA
+23 - Guasave,23.0,Jorge Reynosa,2025-11-03 16:03:55,Guasave ,OPERATIVA
+18 - Linda Vista,18.0,Israel Garcia,2025-10-31 12:21:54,Linda Vista ,OPERATIVA
+17 - Romulo Garza,17.0,Jorge Reynosa,2025-10-30 13:50:20,Romulo Garza ,OPERATIVA
+19 - Valle Soleado,19.0,Israel Garcia,2025-10-30 13:14:53,Valle Soleado,OPERATIVA
+48 - Refugio,48.0,Jorge Reynosa,2025-10-28 13:49:44,Refugio (Queretaro),OPERATIVA
+50 - Patio,50.0,Israel Garcia,2025-10-28 13:03:44,Patio ,OPERATIVA
+49 - Pueblito,49.0,Jorge Reynosa,2025-10-27 15:16:09,Pueblito (Queretaro),OPERATIVA
+51 - Constituyentes,51.0,Israel Garcia,2025-10-27 13:29:31,Constituyentes ,OPERATIVA
+45 - Triana,45.0,Israel Garcia,2025-10-23 13:11:41,Triana ,OPERATIVA
+42 - Independencia,42.0,Jorge Reynosa,2025-10-23 12:57:23,Independencia (Torreon),OPERATIVA
+43 - Revolucion,43.0,Jorge Reynosa,2025-10-22 14:02:13,Revolución (Torreon),OPERATIVA
+44 - Senderos,44.0,Israel Garcia,2025-10-22 13:33:02,Senderos,OPERATIVA
+46 - Campestre,46.0,Jorge Reynosa,2025-10-21 15:37:47,Campestre (Gomez Palacio),OPERATIVA
+47 - San Antonio,47.0,Israel Garcia,2025-10-21 13:57:53,San Antonio ,OPERATIVA
+59 - Plaza 3601,59.0,Jorge Reynosa,2025-10-16 13:04:49,Hidalgo (Tampico),OPERATIVA
+60 - Centro (Tampico),60.0,Israel Garcia,2025-10-16 12:40:16,Centro ,OPERATIVA
+58 - Universidad (Tampico),58.0,Israel Garcia,2025-10-15 13:50:38,Universidad ,OPERATIVA
+61 - Aeropuerto (Tampico),61.0,Jorge Reynosa,2025-10-15 13:34:09,Aeropuerto (Tampico),OPERATIVA
+56 - Luis Echeverria,56.0,Jorge Reynosa,2025-10-09 12:49:37,Echeverria (Saltillo),OPERATIVA
+30 - Carrizo,30.0,Israel Garcia,2025-10-07 13:23:52,Carrizo ,OPERATIVA
+28 - Guerrero,28.0,Jorge Reynosa,2025-10-07 13:09:33,Guerrero 1 (Nuevo Laredo),OPERATIVA
+81 - Reforma (Ruelas),81.0,Israel Garcia,2025-10-06 20:23:53,Reforma ,OPERATIVA
+80 - Guerrero 2 (Ruelas),80.0,Jorge Reynosa,2025-10-06 14:50:30,Guerrero 2 (Nuevo Laredo),OPERATIVA
+53 - Lienzo Charro,53.0,Jorge Reynosa,2025-10-02 13:56:26,Lienzo Charro (Saltillo),OPERATIVA
+55 - Eulalio Gutierrez,55.0,Israel Garcia,2025-10-02 13:49:08,Eulalio Gutierrez,OPERATIVA
+52 - Venustiano Carranza,52.0,Jorge Reynosa,2025-10-01 13:45:11,Ochoa (Saltillo),OPERATIVA
+54 - Ramos Arizpe,54.0,Israel Garcia,2025-10-01 13:11:31,Ramos Arizpe ,OPERATIVA
+72 - Sabinas Hidalgo,72.0,Jorge Reynosa,2025-09-25 13:18:58,Sabinas Hidalgo ,OPERATIVA
+27 - Santiago,27.0,Israel Garcia,2025-09-22 13:15:42,Santiago,OPERATIVA
+19 - Valle Soleado,19.0,Israel Garcia,2025-09-19 14:58:41,Valle Soleado,OPERATIVA
+29 - Pablo Livas,29.0,Israel Garcia,2025-09-18 13:24:00,Pablo Livas ,OPERATIVA
+71 - Centrito Valle,71.0,Jorge Reynosa,2025-09-15 12:52:55,Centrito Valle ,OPERATIVA
+33 - Eloy Cavazos,33.0,Israel Garcia,2025-09-15 12:08:00,Eloy Cavazos ,OPERATIVA
+8 - Gonzalitos,8.0,Israel Garcia,2025-09-12 14:32:25,Gonzalitos,OPERATIVA
+4 - Santa Catarina,4.0,Jorge Reynosa,2025-09-12 13:46:14,Tepeyac,OPERATIVA
+32 - Allende,32.0,Israel Garcia,2025-09-11 13:00:32,Allende,OPERATIVA
+34 - Montemorelos,34.0,Jorge Reynosa,2025-09-11 13:00:31,Montemorelos ,OPERATIVA
+2 - Madero,2.0,Israel Garcia,2025-09-09 13:06:46,Madero,OPERATIVA
+3 - Matamoros,3.0,Jorge Reynosa,2025-09-09 13:06:20,Matamoros ,OPERATIVA
+5 - Felix U. Gomez,5.0,Jorge Reynosa,2025-09-08 12:52:58,Felix U. Gomez,OPERATIVA
+1 - Pino Suarez,1.0,Israel Garcia,2025-09-08 12:24:29,Pino Suárez ,OPERATIVA
+16 - Solidaridad,16.0,Jorge Reynosa,2025-09-05 12:39:29,Solidaridad ,OPERATIVA
+14 - Aztlan,14.0,Israel Garcia,2025-09-05 12:38:10,Aztlan ,OPERATIVA
+13 - Escobedo,13.0,Jorge Reynosa,2025-09-04 13:17:21,Escobedo,OPERATIVA
+10 - Barragan,10.0,Israel Garcia,2025-09-04 12:30:48,Barragan,OPERATIVA
+9 - Anahuac,9.0,Jorge Reynosa,2025-09-02 14:55:58,Universidad ,OPERATIVA
+12 - Concordia,12.0,Israel Garcia,2025-09-02 13:16:39,Concordia ,OPERATIVA
+20 - Tecnológico,20.0,Jorge Reynosa,2025-09-01 13:19:21,Tecnologico ,OPERATIVA
+21 - Chapultepec,21.0,Israel Garcia,2025-09-01 13:12:35,Chapultepec ,OPERATIVA
+6 - Garcia,6.0,Jorge Reynosa,2025-08-29 13:42:57,Garcia,OPERATIVA
+7 - La Huasteca,7.0,Israel Garcia,2025-08-29 13:10:20,La Huasteca ,OPERATIVA
+22 - Satelite,22.0,Jorge Reynosa,2025-08-28 13:53:49,Satélite ,OPERATIVA
+18 - Linda Vista,18.0,Israel Garcia,2025-08-28 12:59:58,Linda Vista ,OPERATIVA
+25 - Juarez,25.0,Israel Garcia,2025-08-27 13:35:20,Expo Juarez ,OPERATIVA
+26 - Cadereyta,26.0,Jorge Reynosa,2025-08-27 13:09:37,Cadereyta ,OPERATIVA
+11 - Lincoln,11.0,Jorge Reynosa,2025-08-26 13:40:31,Lincoln ,OPERATIVA
+15 - Ruiz Cortinez,15.0,Israel Garcia,2025-08-26 13:38:34,Ruiz Cortines,OPERATIVA
+24 - Exposicion,24.0,Jorge Reynosa,2025-08-25 13:19:00,Exposición ,OPERATIVA
+31 - Las Quintas,31.0,Israel Garcia,2025-08-25 13:14:53,Las Quintas,OPERATIVA
+38 - Gomez Morin,38.0,Israel Garcia,2025-08-22 12:38:14,Gómez Morin ,OPERATIVA
+17 - Romulo Garza,17.0,Israel Garcia,2025-08-21 13:48:18,Rómulo Garza ,OPERATIVA
+39 - Lazaro Cardenas,39.0,Jorge Reynosa,2025-08-21 13:29:30,Lázaro Cárdenas ,OPERATIVA
+40 - Plaza 1500,40.0,Israel Garcia,2025-08-20 14:38:34,Plaza 1500,OPERATIVA
+41 - Vasconcelos,41.0,Jorge Reynosa,2025-08-20 13:19:17,Vasconcelos,OPERATIVA
+37 - Stiva,37.0,Jorge Reynosa,2025-08-19 13:21:50,Stiva (Apodaca),OPERATIVA
+36 - Apodaca Centro,36.0,Israel Garcia,2025-08-19 13:17:04,Apodaca Centro,OPERATIVA
+56 - Luis Echeverria,56.0,Israel Garcia,2025-08-18 13:50:22,Lienzo,OPERATIVA
+69 - Puerto Rico,69.0,Jorge Reynosa,2025-08-15 13:42:07,Puerto Rico (Matamoros) ,OPERATIVA
+67 - Centro (Matamoros),67.0,Jorge Reynosa,2025-08-15 10:03:43,Centro (Matamoros),OPERATIVA
+66 - Lauro Villar,66.0,Israel Garcia,2025-08-14 14:02:22,Lauro Villar ,OPERATIVA
+65 - Pedro Cardenas,65.0,Jorge Reynosa,2025-08-13 13:31:58,Pedro Cárdenas ,OPERATIVA
+68 - Avenida del Niño,68.0,Israel Garcia,2025-08-13 13:11:11,Av. Del Niño,OPERATIVA
+56 - Luis Echeverria,56.0,Jorge Reynosa,2025-08-11 14:03:01,Echeverria (Saltillo) ,OPERATIVA
+55 - Eulalio Gutierrez,55.0,Israel Garcia,2025-08-11 13:58:48,Comidas EG,OPERATIVA
+78 - Alcala,78.0,Jorge Reynosa,2025-08-08 11:55:02,Alcala (Reynosa) ,OPERATIVA
+75 - Libramiento (Reynosa),75.0,Israel Garcia,2025-08-07 14:08:14,Libramiento ,OPERATIVA
+76 - Aeropuerto (Reynosa),76.0,Jorge Reynosa,2025-08-07 12:49:38,Aeropuerto (Reynosa),OPERATIVA
+79 - Rio Bravo,79.0,Jorge Reynosa,2025-08-06 13:45:25,Río Bravo ,OPERATIVA
+74 - Hidalgo (Reynosa),74.0,Israel Garcia,2025-08-06 13:36:42,Hidalgo,OPERATIVA
+77 - Boulevard Morelos,77.0,Jorge Reynosa,2025-08-05 14:56:19,Reynosa (Suc. Morelos),OPERATIVA
+73 - Anzalduas,73.0,Israel Garcia,2025-08-05 14:24:01,Anzalduas,OPERATIVA
+70 - Coahuila Comidas,70.0,Jorge Reynosa,2025-07-31 12:30:31,Piedras Negras ,OPERATIVA
+57 - Harold R. Pape,57.0,Israel Garcia,2025-07-30 16:02:26,PAPE,OPERATIVA
+54 - Ramos Arizpe,54.0,Israel Garcia,2025-07-22 14:37:18,Ramos Arizpe ,OPERATIVA
+52 - Venustiano Carranza,52.0,Jorge Reynosa,2025-07-22 13:16:11,Ochoa (Saltillo),OPERATIVA
+72 - Sabinas Hidalgo,72.0,Jorge Reynosa,2025-07-18 12:07:39,Sabinas Hidalgo ,OPERATIVA
+27 - Santiago,27.0,Israel Garcia,2025-07-15 12:15:21,Santiago ,OPERATIVA
+41 - Vasconcelos,41.0,Israel Garcia,2025-07-14 14:49:57,Vasconcelos ,OPERATIVA
+14 - Aztlan,14.0,Jorge Reynosa,2025-07-14 14:05:16,Aztlan ,OPERATIVA
+11 - Lincoln,11.0,Jorge Reynosa,2025-07-11 13:05:05,Lincoln ,OPERATIVA
+9 - Anahuac,9.0,Jorge Reynosa,2025-07-10 16:34:23,Universidad ,OPERATIVA
+5 - Felix U. Gomez,5.0,Israel Garcia,2025-07-10 13:21:24,Félix U. Gomez,OPERATIVA
+39 - Lazaro Cardenas,39.0,Israel Garcia,2025-07-09 15:45:27,Lázaro Cardenas ,OPERATIVA
+20 - Tecnológico,20.0,Jorge Reynosa,2025-07-09 13:52:35,Tecnologico,OPERATIVA
+8 - Gonzalitos,8.0,Israel Garcia,2025-07-08 13:11:40,Gonzalitos,OPERATIVA
+2 - Madero,2.0,Israel Garcia,2025-07-07 13:48:43,Madero,OPERATIVA
+16 - Solidaridad,16.0,Jorge Reynosa,2025-07-04 12:59:28,Solidaridad ,OPERATIVA
+1 - Pino Suarez,1.0,Israel Garcia,2025-07-04 12:51:35,Pino Suárez ,OPERATIVA
+34 - Montemorelos,34.0,Israel Garcia,2025-07-03 13:55:19,Montemorelos,OPERATIVA
+32 - Allende,32.0,Jorge Reynosa,2025-07-03 13:22:50,Allende ,OPERATIVA
+21 - Chapultepec,21.0,Jorge Reynosa,2025-07-02 13:20:27,Chapultepec ,OPERATIVA
+71 - Centrito Valle,71.0,Israel Garcia,2025-07-02 13:03:47,Gómez Morin ,OPERATIVA
+10 - Barragan,10.0,Jorge Reynosa,2025-07-01 13:03:15,Barragán ,OPERATIVA
+3 - Matamoros,3.0,Israel Garcia,2025-06-30 15:31:28,Juárez (Centro),OPERATIVA
+71 - Centrito Valle,71.0,Jorge Reynosa,2025-06-30 13:27:36,Centrito Valle ,OPERATIVA
+37 - Stiva,37.0,Jorge Reynosa,2025-06-27 13:06:07,Stiva,OPERATIVA
+12 - Concordia,12.0,Israel Garcia,2025-06-27 12:58:13,Concordia ,OPERATIVA
+26 - Cadereyta,26.0,Jorge Reynosa,2025-06-26 13:12:35,Cadereyta ,OPERATIVA
+25 - Juarez,25.0,Israel Garcia,2025-06-26 13:10:09,Juárez Expo,OPERATIVA
+40 - Plaza 1500,40.0,Israel Garcia,2025-06-24 14:08:20,Plaza 1500,OPERATIVA
+31 - Las Quintas,31.0,Jorge Reynosa,2025-06-23 13:15:37,Las Quintas,OPERATIVA
+15 - Ruiz Cortinez,15.0,Jorge Reynosa,2025-06-20 13:21:42,Ruiz Cortinez ,OPERATIVA
+19 - Valle Soleado,19.0,Israel Garcia,2025-06-20 13:15:12,Valle Soleado ,OPERATIVA
+33 - Eloy Cavazos,33.0,Jorge Reynosa,2025-06-18 13:19:15,Eloy Cavazos ,OPERATIVA
+4 - Santa Catarina,4.0,Jorge Reynosa,2025-06-17 13:56:18,Tepeyac,OPERATIVA
+7 - La Huasteca,7.0,Israel Garcia,2025-06-17 13:12:56,Huasteca ,OPERATIVA
+29 - Pablo Livas,29.0,Israel Garcia,2025-06-16 13:23:42,Pablo Livas,OPERATIVA
+18 - Linda Vista,18.0,Jorge Reynosa,2025-06-16 12:59:28,Linda Vista ,OPERATIVA
+24 - Exposicion,24.0,Jorge Reynosa,2025-06-13 13:31:44,Expo Matriz ,OPERATIVA
+22 - Satelite,22.0,Israel Garcia,2025-06-13 13:15:11,Satélite ,OPERATIVA
+17 - Romulo Garza,17.0,Jorge Reynosa,2025-06-12 14:27:12,Romulo Garza,OPERATIVA
+6 - Garcia,6.0,Israel Garcia,2025-06-12 14:01:10,García ,OPERATIVA
+36 - Apodaca Centro,36.0,Israel Garcia,2025-06-11 15:50:53,Apodaca (centro) ,OPERATIVA
+13 - Escobedo,13.0,Jorge Reynosa,2025-06-11 13:51:22,Escobedo,OPERATIVA
+23 - Guasave,23.0,Jorge Reynosa,2025-06-09 16:47:01,Guasave ,OPERATIVA
+62 - Lazaro Cardenas (Morelia),62.0,Jorge Reynosa,2025-06-05 13:39:48,Lázaro Cárdenas (Morelia) ,OPERATIVA
+63 - Madero (Morelia),63.0,Israel Garcia,2025-06-04 17:46:49,Madero (Morelia),OPERATIVA
+64 - Huerta,64.0,Jorge Reynosa,2025-06-04 16:07:05,Huerta (Moleria),OPERATIVA
+49 - Pueblito,49.0,Israel Garcia,2025-06-03 14:15:14,Pueblito (Queretaro),OPERATIVA
+51 - Constituyentes,51.0,Jorge Reynosa,2025-06-03 13:56:10,Contituyentes (Queretaro),OPERATIVA
+50 - Patio,50.0,Jorge Reynosa,2025-06-02 15:43:34,Patio(Queretaro),OPERATIVA
+48 - Refugio,48.0,Israel Garcia,2025-06-02 15:09:56,Refugio,OPERATIVA
+59 - Plaza 3601,59.0,Israel Garcia,2025-05-28 13:59:40,Plaza Hidalgo (Tampico),OPERATIVA
+60 - Centro (Tampico),60.0,Jorge Reynosa,2025-05-28 13:44:12,Plaza (Tampico),OPERATIVA
+61 - Aeropuerto (Tampico),61.0,Israel Garcia,2025-05-27 15:04:27,Aeropuerto (Tampico),OPERATIVA
+58 - Universidad (Tampico),58.0,Jorge Reynosa,2025-05-27 14:40:45,Universidad (Tampico),OPERATIVA
+28 - Guerrero,28.0,Israel Garcia,2025-05-20 14:24:47,Guerrero Centro ,OPERATIVA
+30 - Carrizo,30.0,Jorge Reynosa,2025-05-20 13:48:36,Carrizo( Nuevo Laredo) ,OPERATIVA
+81 - Reforma (Ruelas),81.0,Jorge Reynosa,2025-05-19 14:29:29,Reforma (Nuevo Laredo),OPERATIVA
+80 - Guerrero 2 (Ruelas),80.0,Israel Garcia,2025-05-19 13:59:32,Guerrero (Ruelas),OPERATIVA
+66 - Lauro Villar,66.0,Jorge Reynosa,2025-05-15 15:27:18,Lauro Villar (Matamoros),OPERATIVA
+67 - Centro (Matamoros),67.0,Israel Garcia,2025-05-15 14:36:07,Quintas Centro ,OPERATIVA
+69 - Puerto Rico,69.0,Jorge Reynosa,2025-05-14 15:37:19,Puerto Rico (Matamoros) ,OPERATIVA
+65 - Pedro Cardenas,65.0,Israel Garcia,2025-05-14 15:06:26,Pedro Cárdenas ,OPERATIVA
+43 - Revolucion,43.0,Israel Garcia,2025-05-08 13:32:46,Revolución ,OPERATIVA
+45 - Triana,45.0,Jorge Reynosa,2025-05-08 13:18:54,Triana,OPERATIVA
+44 - Senderos,44.0,Israel Garcia,2025-05-07 14:09:24,Senderos,OPERATIVA
+42 - Independencia,42.0,Jorge Reynosa,2025-05-07 13:39:48,Independencia ,OPERATIVA
+46 - Campestre,46.0,Israel Garcia,2025-05-06 15:11:40,Campestre ,OPERATIVA
+47 - San Antonio,47.0,Jorge Reynosa,2025-05-06 13:56:21,San Antonio (Gómez Palacio),OPERATIVA
+78 - Alcala,78.0,Jorge Reynosa,2025-04-25 12:39:25,Suc. Alcala Reynosa ,OPERATIVA
+76 - Aeropuerto (Reynosa),76.0,Jorge Reynosa,2025-04-24 13:28:30,Reynosa Aeropuerto ,OPERATIVA
+75 - Libramiento (Reynosa),75.0,Israel Garcia,2025-04-24 13:06:28,Libramiento (Reynosa),OPERATIVA
+79 - Rio Bravo,79.0,Jorge Reynosa,2025-04-23 14:04:42,Río Bravo ,OPERATIVA
+74 - Hidalgo (Reynosa),74.0,Israel Garcia,2025-04-23 13:37:27,Hidalgo,OPERATIVA
+77 - Boulevard Morelos,77.0,Jorge Reynosa,2025-04-22 14:11:05,Reynosa Suc. Morelos ,OPERATIVA
+73 - Anzalduas,73.0,Israel Garcia,2025-04-22 14:07:28,Anzalduas,OPERATIVA
+71 - Centrito Valle,71.0,Israel Garcia,2025-04-16 13:32:11,Comidas Maria Nelly (Centrito),OPERATIVA
+70 - Coahuila Comidas,70.0,Israel Garcia,2025-04-10 13:11:16,Coahuila Comidas Piedras Negras,OPERATIVA
+72 - Sabinas Hidalgo,72.0,Jorge Reynosa,2025-04-10 13:07:51,Sabinas Hidalgo,OPERATIVA
+57 - Harold R. Pape,57.0,Jorge Reynosa,2025-04-09 12:56:35,Monclova,OPERATIVA
+80 - Santa Catarina,80.0,Israel Garcia,2025-04-04 13:29:48,Tepeyac,OPERATIVA
+12 - Concordia,12.0,Jorge Reynosa,2025-04-04 13:16:35,Concordia ,OPERATIVA
+32 - Allende,32.0,Israel Garcia,2025-04-03 13:14:29,Allende ,OPERATIVA
+34 - Montemorelos,34.0,Jorge Reynosa,2025-04-03 12:54:11,Montemorelos ,OPERATIVA
+8 - Gonzalitos,8.0,Jorge Reynosa,2025-04-02 13:08:07,Gonzalitos ,OPERATIVA
+14 - Aztlan,14.0,Israel Garcia,2025-04-02 12:28:01,Aztlán ,OPERATIVA
+31 - Las Quintas,31.0,Israel Garcia,2025-04-01 12:47:45,Las Quintas,OPERATIVA
+38 - Gomez Morin,38.0,Jorge Reynosa,2025-04-01 12:25:26,Gómez Morin ,OPERATIVA
+27 - Santiago,27.0,Jorge Reynosa,2025-03-31 13:29:25,Santiago ,OPERATIVA
+13 - Escobedo,13.0,Israel Garcia,2025-03-31 13:07:42,Escobedo,OPERATIVA
+20 - Tecnológico,20.0,Israel Garcia,2025-03-28 13:37:58,Tecnológico ,OPERATIVA
+10 - Barragan,10.0,Jorge Reynosa,2025-03-28 13:05:08,Barragán ,OPERATIVA
+40 - Plaza 1500,40.0,Jorge Reynosa,2025-03-27 12:27:28,Plaza 1500,OPERATIVA
+11 - Lincoln,11.0,Israel Garcia,2025-03-26 15:04:50,Lincoln,OPERATIVA
+15 - Ruiz Cortinez,15.0,Jorge Reynosa,2025-03-26 14:05:56,Ruiz Cortinez,OPERATIVA
+25 - Juarez,25.0,Israel Garcia,2025-03-25 13:42:40,Expo Juarez,OPERATIVA
+26 - Cadereyta,26.0,Jorge Reynosa,2025-03-25 12:07:47,Cadereyta ,OPERATIVA
+39 - Lazaro Cardenas,39.0,Jorge Reynosa,2025-03-24 13:36:28,Lazaro Cárdenas ,OPERATIVA
+18 - Linda Vista,18.0,Israel Garcia,2025-03-24 13:20:10,Linda Vista ,OPERATIVA
+21 - Chapultepec,21.0,Israel Garcia,2025-03-21 12:52:55,Chapultepec ,OPERATIVA
+37 - Stiva,37.0,Jorge Reynosa,2025-03-21 12:48:46,Stiva,OPERATIVA
+81 - La Huasteca,81.0,Jorge Reynosa,2025-03-20 13:39:57,Huasteca,OPERATIVA
+33 - Eloy Cavazos,33.0,Israel Garcia,2025-03-20 13:32:08,Eloy Cavazos ,OPERATIVA
+17 - Romulo Garza,17.0,Israel Garcia,2025-03-19 13:47:43,Rómulo Garza ,OPERATIVA
+41 - Vasconcelos,41.0,Jorge Reynosa,2025-03-19 13:29:14,Vasconcelos ,OPERATIVA
+29 - Pablo Livas,29.0,Israel Garcia,2025-03-18 13:25:52,Pablo Livas,OPERATIVA
+16 - Solidaridad,16.0,Jorge Reynosa,2025-03-18 12:51:29,Solidaridad ,OPERATIVA
+22 - Satelite,22.0,Jorge Reynosa,2025-03-14 13:24:29,Satélite ,OPERATIVA
+36 - Apodaca Centro,36.0,Israel Garcia,2025-03-14 12:39:48,Apodaca Centro,OPERATIVA
+19 - Valle Soleado,19.0,Israel Garcia,2025-03-13 13:59:01,Valle Soleado,OPERATIVA
+9 - Anahuac,9.0,Jorge Reynosa,2025-03-13 13:57:57,Pollo Loco Anahuac,OPERATIVA
+24 - Exposicion,24.0,Israel Garcia,2025-03-12 13:53:29,Expo Matriz ,OPERATIVA
+82 - Garcia,82.0,Jorge Reynosa,2025-03-12 13:23:53,García ,OPERATIVA
+53 - Lienzo Charro,53.0,Jorge Reynosa,2025-12-10 13:29:52,Lienzo Charro (Saltillo),SEGURIDAD
+55 - Eulalio Gutierrez,55.0,Israel Garcia,2025-12-09 13:32:37,Eulalio Gutiérrez ,SEGURIDAD
+56 - Luis Echeverria,56.0,Jorge Reynosa,2025-12-09 12:54:16,Echeverria ,SEGURIDAD
+54 - Ramos Arizpe,54.0,Israel Garcia,2025-12-08 14:04:00,Ramos Arizpe ,SEGURIDAD
+52 - Venustiano Carranza,52.0,Jorge Reynosa,2025-12-08 13:45:22,Ochoa (Saltillo),SEGURIDAD
+72 - Sabinas Hidalgo,72.0,Israel Garcia,2025-12-05 12:08:08,Sabinas Hidalgo ,SEGURIDAD
+27 - Santiago,27.0,Jorge Reynosa,2025-12-04 12:24:05,Santiago ,SEGURIDAD
+37 - Stiva,37.0,Jorge Reynosa,2025-12-03 12:51:30,Stiva,SEGURIDAD
+36 - Apodaca Centro,36.0,Israel Garcia,2025-12-03 12:22:33,Apodaca Centro ,SEGURIDAD
+10 - Barragan,10.0,Israel Garcia,2025-12-02 13:01:56,Barragán ,SEGURIDAD
+13 - Escobedo,13.0,Jorge Reynosa,2025-12-02 12:09:01,Escobedo ,SEGURIDAD
+40 - Plaza 1500,40.0,Israel Garcia,2025-12-01 13:36:58,Plaza 1500,SEGURIDAD
+41 - Vasconcelos,41.0,Jorge Reynosa,2025-12-01 13:27:54,Vasconcelos ,SEGURIDAD
+9 - Anahuac,9.0,Israel Garcia,2025-11-28 13:51:23,Anahuac,SEGURIDAD
+12 - Concordia,12.0,Jorge Reynosa,2025-11-28 12:37:24,Concordia ,SEGURIDAD
+5 - Felix U. Gomez,5.0,Israel Garcia,2025-11-27 12:05:41,Félix U. Gómez ,SEGURIDAD
+1 - Pino Suarez,1.0,Jorge Reynosa,2025-11-27 10:35:16,Pino Suarez ,SEGURIDAD
+22 - Satelite,22.0,Jorge Reynosa,2025-11-26 13:01:00,Satélite ,SEGURIDAD
+39 - Lazaro Cardenas,39.0,Israel Garcia,2025-11-26 12:40:17,Lázaro Cardenas ,SEGURIDAD
+2 - Madero,2.0,Israel Garcia,2025-11-25 13:11:30,Madero,SEGURIDAD
+8 - Gonzalitos,8.0,Jorge Reynosa,2025-11-25 12:43:38,Gonzalitos,SEGURIDAD
+14 - Aztlan,14.0,Israel Garcia,2025-11-24 13:08:15,Aztlan,SEGURIDAD
+6 - Garcia,6.0,Jorge Reynosa,2025-11-24 12:37:04,Garcia ,SEGURIDAD
+21 - Chapultepec,21.0,Jorge Reynosa,2025-11-21 13:19:05,Chapultepec ,SEGURIDAD
+20 - Tecnológico,20.0,Israel Garcia,2025-11-21 13:02:18,Tecnologico,SEGURIDAD
+24 - Exposicion,24.0,Jorge Reynosa,2025-11-20 13:49:47,Expo.Matriz,SEGURIDAD
+38 - Gomez Morin,38.0,Israel Garcia,2025-11-20 12:49:38,Gómez Morin ,SEGURIDAD
+11 - Lincoln,11.0,Jorge Reynosa,2025-11-19 13:11:08,Lincoln ,SEGURIDAD
+16 - Solidaridad,16.0,Israel Garcia,2025-11-19 12:43:55,Solidaridad ,SEGURIDAD
+3 - Matamoros,3.0,Jorge Reynosa,2025-11-18 14:11:06,Matamoros ,SEGURIDAD
+71 - Centrito Valle,71.0,Israel Garcia,2025-11-18 13:15:01,Centrito Valle,SEGURIDAD
+32 - Allende,32.0,Israel Garcia,2025-11-14 12:59:00,Allende ,SEGURIDAD
+34 - Montemorelos,34.0,Jorge Reynosa,2025-11-14 12:26:50,Montemorelos ,SEGURIDAD
+25 - Juarez,25.0,Israel Garcia,2025-11-13 13:40:08,Juárez ,SEGURIDAD
+26 - Cadereyta,26.0,Jorge Reynosa,2025-11-13 13:20:39,Cadereyta ,SEGURIDAD
+31 - Las Quintas,31.0,Israel Garcia,2025-11-12 13:09:58,Las Quintas ,SEGURIDAD
+15 - Ruiz Cortinez,15.0,Jorge Reynosa,2025-11-12 11:46:51,Ruiz Cortinez ,SEGURIDAD
+7 - La Huasteca,7.0,Israel Garcia,2025-11-11 13:18:56,La Huasteca ,SEGURIDAD
+4 - Santa Catarina,4.0,Jorge Reynosa,2025-11-11 13:09:57,Tepeyac (Santa Catarina),SEGURIDAD
+29 - Pablo Livas,29.0,Israel Garcia,2025-11-10 13:08:20,Pablo Livas,SEGURIDAD
+33 - Eloy Cavazos,33.0,Jorge Reynosa,2025-11-10 11:48:31,Eloy Cavazos ,SEGURIDAD
+62 - Lazaro Cardenas (Morelia),62.0,Jorge Reynosa,2025-11-07 12:21:21,Lázaro Cárdenas (Morelia),SEGURIDAD
+63 - Madero (Morelia),63.0,Jorge Reynosa,2025-11-06 15:39:48,Madero (Morelia) ,SEGURIDAD
+64 - Huerta,64.0,Israel Garcia,2025-11-06 14:47:03,Huerta,SEGURIDAD
+23 - Guasave,23.0,Jorge Reynosa,2025-11-03 16:01:54,Guasave (Sinaloa),SEGURIDAD
+18 - Linda Vista,18.0,Jorge Reynosa,2025-10-31 11:44:01,Linda Vista ,SEGURIDAD
+19 - Valle Soleado,19.0,Israel Garcia,2025-10-30 13:15:40,Valle Soleado,SEGURIDAD
+17 - Romulo Garza,17.0,Jorge Reynosa,2025-10-30 12:25:27,Romulo Garza ,SEGURIDAD
+48 - Refugio,48.0,Jorge Reynosa,2025-10-28 13:28:18,Refugio (Queretaro),SEGURIDAD
+50 - Patio,50.0,Israel Garcia,2025-10-28 13:04:01,Patio ,SEGURIDAD
+49 - Pueblito,49.0,Jorge Reynosa,2025-10-27 15:09:12,Pueblito (Queretaro),SEGURIDAD
+51 - Constituyentes,51.0,Israel Garcia,2025-10-27 13:30:35,Constituyentes ,SEGURIDAD
+45 - Triana,45.0,Israel Garcia,2025-10-23 13:12:06,Triana ,SEGURIDAD
+42 - Independencia,42.0,Jorge Reynosa,2025-10-23 12:39:18,Independencia ,SEGURIDAD
+43 - Revolucion,43.0,Jorge Reynosa,2025-10-22 13:51:28,Revolución (Torreon),SEGURIDAD
+44 - Senderos,44.0,Israel Garcia,2025-10-22 13:33:46,Senderos,SEGURIDAD
+46 - Campestre,46.0,Jorge Reynosa,2025-10-21 15:23:15,Campestre (Gomez Palacio),SEGURIDAD
+47 - San Antonio,47.0,Israel Garcia,2025-10-21 13:57:11,San Antonio ,SEGURIDAD
+60 - Centro (Tampico),60.0,Israel Garcia,2025-10-16 12:41:13,Centro,SEGURIDAD
+59 - Plaza 3601,59.0,Jorge Reynosa,2025-10-16 12:10:15,Hidalgo (Tampico) ,SEGURIDAD
+61 - Aeropuerto (Tampico),61.0,Jorge Reynosa,2025-10-15 14:58:32,Aeropuerto (Tampico),SEGURIDAD
+58 - Universidad (Tampico),58.0,Israel Garcia,2025-10-15 13:48:19,Universidad ,SEGURIDAD
+56 - Luis Echeverria,56.0,Israel Garcia,2025-10-09 12:40:31,Luis Echeverria,SEGURIDAD
+30 - Carrizo,30.0,Israel Garcia,2025-10-07 13:10:59,Carrizo,SEGURIDAD
+28 - Guerrero,28.0,Jorge Reynosa,2025-10-07 13:10:39,Guerrero 1 (Nuevo Laredo),SEGURIDAD
+81 - Reforma (Ruelas),81.0,Israel Garcia,2025-10-06 20:23:35,Israel García ,SEGURIDAD
+80 - Guerrero 2 (Ruelas),80.0,Jorge Reynosa,2025-10-06 14:57:37,Guerrero 2 (Laredo),SEGURIDAD
+53 - Lienzo Charro,53.0,Jorge Reynosa,2025-10-02 14:03:00,Lienzo Charro (Saltillo),SEGURIDAD
+55 - Eulalio Gutierrez,55.0,Israel Garcia,2025-10-02 13:48:04,Eulalio Gutierrez,SEGURIDAD
+52 - Venustiano Carranza,52.0,Jorge Reynosa,2025-10-01 13:46:13,Ochoa (Saltillo),SEGURIDAD
+54 - Ramos Arizpe,54.0,Israel Garcia,2025-10-01 13:11:05,Ramos Arizpe,SEGURIDAD
+72 - Sabinas Hidalgo,72.0,Israel Garcia,2025-09-25 13:17:11,Sabinas Hidalgo ,SEGURIDAD
+27 - Santiago,27.0,Israel Garcia,2025-09-22 13:15:26,Santiago ,SEGURIDAD
+19 - Valle Soleado,19.0,Israel Garcia,2025-09-19 14:59:01,Valle Soleado ,SEGURIDAD
+29 - Pablo Livas,29.0,Israel Garcia,2025-09-18 13:24:55,Pablo Livas,SEGURIDAD
+71 - Centrito Valle,71.0,Jorge Reynosa,2025-09-15 12:52:37,Centrito Valle ,SEGURIDAD
+33 - Eloy Cavazos,33.0,Israel Garcia,2025-09-15 12:07:16,Eloy Cavazos ,SEGURIDAD
+8 - Gonzalitos,8.0,Israel Garcia,2025-09-12 14:33:06,Gonzalitos,SEGURIDAD
+4 - Santa Catarina,4.0,Jorge Reynosa,2025-09-12 13:35:35,Tepeyac,SEGURIDAD
+32 - Allende,32.0,Israel Garcia,2025-09-11 13:00:02,Allende,SEGURIDAD
+34 - Montemorelos,34.0,Jorge Reynosa,2025-09-11 12:54:35,Montemorelos ,SEGURIDAD
+2 - Madero,2.0,Israel Garcia,2025-09-09 13:07:38,Madero,SEGURIDAD
+3 - Matamoros,3.0,Jorge Reynosa,2025-09-09 12:33:30,Matamoros,SEGURIDAD
+5 - Felix U. Gomez,5.0,Jorge Reynosa,2025-09-08 12:56:11,Felix U. Gomez,SEGURIDAD
+1 - Pino Suarez,1.0,Israel Garcia,2025-09-08 12:23:50,Pino Suárez ,SEGURIDAD
+14 - Aztlan,14.0,Israel Garcia,2025-09-05 12:38:24,Aztlan,SEGURIDAD
+16 - Solidaridad,16.0,Jorge Reynosa,2025-09-05 12:15:57,Solidaridad ,SEGURIDAD
+13 - Escobedo,13.0,Jorge Reynosa,2025-09-04 13:17:16,Escobedo ,SEGURIDAD
+10 - Barragan,10.0,Israel Garcia,2025-09-04 12:31:02,Barragan,SEGURIDAD
+9 - Anahuac,9.0,Jorge Reynosa,2025-09-02 15:11:14,Universidad ,SEGURIDAD
+12 - Concordia,12.0,Israel Garcia,2025-09-02 13:15:15,Concordia,SEGURIDAD
+20 - Tecnológico,20.0,Jorge Reynosa,2025-09-01 13:21:31,Tecnologico ,SEGURIDAD
+21 - Chapultepec,21.0,Israel Garcia,2025-09-01 13:11:58,Chapultepec ,SEGURIDAD
+6 - Garcia,6.0,Jorge Reynosa,2025-08-29 13:29:21,Garcia ,SEGURIDAD
+7 - La Huasteca,7.0,Israel Garcia,2025-08-29 13:10:42,La Huasteca ,SEGURIDAD
+22 - Satelite,22.0,Jorge Reynosa,2025-08-28 13:53:13,Satélite ,SEGURIDAD
+18 - Linda Vista,18.0,Israel Garcia,2025-08-28 12:59:46,Linda Vista ,SEGURIDAD
+25 - Juarez,25.0,Israel Garcia,2025-08-27 13:35:46,Expo Juárez ,SEGURIDAD
+26 - Cadereyta,26.0,Jorge Reynosa,2025-08-27 12:03:27,Cadereyta ,SEGURIDAD
+15 - Ruiz Cortinez,15.0,Israel Garcia,2025-08-26 13:41:47,Ruiz Cortines ,SEGURIDAD
+11 - Lincoln,11.0,Jorge Reynosa,2025-08-26 12:48:17,Lincoln,SEGURIDAD
+31 - Las Quintas,31.0,Israel Garcia,2025-08-25 13:15:20,Las Quintas ,SEGURIDAD
+24 - Exposicion,24.0,Jorge Reynosa,2025-08-25 13:11:25,Expo.Matriz ,SEGURIDAD
+71 - Centrito Valle,71.0,Israel Garcia,2025-08-22 12:37:32,Gómez Morin ,SEGURIDAD
+17 - Romulo Garza,17.0,Israel Garcia,2025-08-21 13:25:13,Rómulo Garza ,SEGURIDAD
+39 - Lazaro Cardenas,39.0,Jorge Reynosa,2025-08-21 12:04:03,Lázaro Cárdenas (Plog),SEGURIDAD
+40 - Plaza 1500,40.0,Israel Garcia,2025-08-20 14:40:35,Plaza 1500,SEGURIDAD
+41 - Vasconcelos,41.0,Jorge Reynosa,2025-08-20 13:11:45,Vasconcelos ,SEGURIDAD
+36 - Apodaca Centro,36.0,Israel Garcia,2025-08-19 13:16:23,Apodaca Centro,SEGURIDAD
+37 - Stiva,37.0,Jorge Reynosa,2025-08-19 12:55:22,Stiva ,SEGURIDAD
+53 - Lienzo Charro,53.0,Jorge Reynosa,2025-08-18 13:54:24,Lienzo (Saltillo),SEGURIDAD
+69 - Puerto Rico,69.0,Israel Garcia,2025-08-15 11:13:06,Puerto Rico,SEGURIDAD
+66 - Lauro Villar,66.0,Israel Garcia,2025-08-14 14:02:44,Lauro Villar,SEGURIDAD
+67 - Centro (Matamoros),67.0,Jorge Reynosa,2025-08-14 12:14:49,Centro (Matamoros),SEGURIDAD
+65 - Pedro Cardenas,65.0,Jorge Reynosa,2025-08-13 13:35:25,Pedro Cárdenas (Matamoros) ,SEGURIDAD
+68 - Avenida del Niño,68.0,Israel Garcia,2025-08-13 13:12:02,Av. Del Niño,SEGURIDAD
+56 - Luis Echeverria,56.0,Jorge Reynosa,2025-08-11 14:04:33,Echeverria (Saltillo),SEGURIDAD
+55 - Eulalio Gutierrez,55.0,Israel Garcia,2025-08-11 14:04:16,Comidas EG,SEGURIDAD
+78 - Alcala,78.0,Israel Garcia,2025-08-08 11:54:19,Alcala,SEGURIDAD
+75 - Libramiento (Reynosa),75.0,Israel Garcia,2025-08-07 14:09:46,Israel García ,SEGURIDAD
+76 - Aeropuerto (Reynosa),76.0,Jorge Reynosa,2025-08-07 12:39:44,Aeropuerto (Reynosa),SEGURIDAD
+79 - Rio Bravo,79.0,Jorge Reynosa,2025-08-06 13:49:31,Río Bravo,SEGURIDAD
+74 - Hidalgo (Reynosa),74.0,Israel Garcia,2025-08-06 13:37:32,Israel García ,SEGURIDAD
+77 - Boulevard Morelos,77.0,Jorge Reynosa,2025-08-05 14:57:46,Suc. Morelos (Reynosa) ,SEGURIDAD
+73 - Anzalduas,73.0,Israel Garcia,2025-08-05 14:24:10,Anzalduas ,SEGURIDAD
+70 - Coahuila Comidas,70.0,Jorge Reynosa,2025-07-31 12:03:57,Piedras Negras ,SEGURIDAD
+57 - Harold R. Pape,57.0,Israel Garcia,2025-07-30 16:00:56,PAPE,SEGURIDAD
+54 - Ramos Arizpe,54.0,Israel Garcia,2025-07-22 14:40:00,Ramos Arizpe,SEGURIDAD
+52 - Venustiano Carranza,52.0,Jorge Reynosa,2025-07-22 12:42:47,Ochoa (Saltillo),SEGURIDAD
+72 - Sabinas Hidalgo,72.0,Israel Garcia,2025-07-18 12:05:37,Sabinas Hidalgo,SEGURIDAD
+27 - Santiago,27.0,Jorge Reynosa,2025-07-15 12:08:47,Santiago ,SEGURIDAD
+41 - Vasconcelos,41.0,Israel Garcia,2025-07-14 14:42:35,Vasconcelos,SEGURIDAD
+14 - Aztlan,14.0,Jorge Reynosa,2025-07-14 11:01:53,Aztlan ,SEGURIDAD
+11 - Lincoln,11.0,Israel Garcia,2025-07-11 13:06:16,Lincoln ,SEGURIDAD
+9 - Anahuac,9.0,Jorge Reynosa,2025-07-10 15:56:01,Universidad ,SEGURIDAD
+5 - Felix U. Gomez,5.0,Israel Garcia,2025-07-10 13:21:34,Félix U. Gomez,SEGURIDAD
+20 - Tecnológico,20.0,Jorge Reynosa,2025-07-09 13:56:12,Tecnologico ,SEGURIDAD
+39 - Lazaro Cardenas,39.0,Israel Garcia,2025-07-09 13:17:49,Lázaro Cardenas ,SEGURIDAD
+8 - Gonzalitos,8.0,Israel Garcia,2025-07-08 13:12:29,Gonzalitos,SEGURIDAD
+2 - Madero,2.0,Israel Garcia,2025-07-07 13:49:00,Madero,SEGURIDAD
+1 - Pino Suarez,1.0,Israel Garcia,2025-07-04 12:53:05,Pino Suárez ,SEGURIDAD
+16 - Solidaridad,16.0,Jorge Reynosa,2025-07-04 12:26:19,Solidaridad ,SEGURIDAD
+34 - Montemorelos,34.0,Israel Garcia,2025-07-03 13:47:07,Montemorelos,SEGURIDAD
+32 - Allende,32.0,Jorge Reynosa,2025-07-03 12:43:13,Allende ,SEGURIDAD
+21 - Chapultepec,21.0,Jorge Reynosa,2025-07-02 13:23:02,Chapultepec,SEGURIDAD
+71 - Centrito Valle,71.0,Israel Garcia,2025-07-02 12:52:17,Gómez Morin ,SEGURIDAD
+10 - Barragan,10.0,Jorge Reynosa,2025-07-01 12:53:26,Barragán ,SEGURIDAD
+3 - Matamoros,3.0,Israel Garcia,2025-06-30 15:32:09,Juárez (Centro) ,SEGURIDAD
+71 - Centrito Valle,71.0,Jorge Reynosa,2025-06-30 12:44:10,Centrito Valle ,SEGURIDAD
+12 - Concordia,12.0,Israel Garcia,2025-06-27 12:57:47,Concordia,SEGURIDAD
+37 - Stiva,37.0,Jorge Reynosa,2025-06-27 12:20:08,Stiva,SEGURIDAD
+25 - Juarez,25.0,Israel Garcia,2025-06-26 13:11:03,Israel García ,SEGURIDAD
+26 - Cadereyta,26.0,Jorge Reynosa,2025-06-26 13:02:58,Cadereyta ,SEGURIDAD

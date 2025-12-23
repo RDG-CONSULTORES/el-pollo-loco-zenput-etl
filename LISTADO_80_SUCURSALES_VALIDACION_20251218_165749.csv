@@ -1,0 +1,81 @@
+numero,nombre,location_key,tipo_actual,grupo,ops_count,seg_count,total_count
+1,Pino Suarez,1 - Pino Suarez,LOCAL,TEPEYAC,3,3,6
+2,Madero,2 - Madero,LOCAL,TEPEYAC,3,3,6
+3,Matamoros,3 - Matamoros,LOCAL,TEPEYAC,3,3,6
+4,Santa Catarina,4 - Santa Catarina,LOCAL,TEPEYAC,4,4,8
+5,Felix U. Gomez,5 - Felix U. Gomez,LOCAL,TEPEYAC,3,3,6
+6,Garcia,6 - Garcia,LOCAL,TEPEYAC,4,4,8
+7,La Huasteca,7 - La Huasteca,LOCAL,TEPEYAC,4,4,8
+8,Gonzalitos,8 - Gonzalitos,LOCAL,OGAS,4,4,8
+9,Anahuac,9 - Anahuac,LOCAL,OGAS,4,4,8
+10,Barragan,10 - Barragan,LOCAL,OGAS,4,4,8
+11,Lincoln,11 - Lincoln,LOCAL,OGAS,4,4,8
+12,Concordia,12 - Concordia,LOCAL,OGAS,4,4,8
+13,Escobedo,13 - Escobedo,LOCAL,OGAS,4,4,8
+14,Aztlan,14 - Aztlan,LOCAL,OGAS,4,4,8
+15,Ruiz Cortinez,15 - Ruiz Cortinez,LOCAL,OGAS,4,4,8
+16,Solidaridad,16 - Solidaridad,FORANEA,EPL SO,4,4,8
+17,Romulo Garza,17 - Romulo Garza,FORANEA,EFM,4,4,8
+18,Linda Vista,18 - Linda Vista,FORANEA,EFM,4,4,8
+19,Valle Soleado,19 - Valle Soleado,FORANEA,EFM,4,4,8
+20,Tecnológico,20 - Tecnológico,LOCAL,TEC,4,4,8
+21,Chapultepec,21 - Chapultepec,LOCAL,TEC,4,4,8
+22,Satelite,22 - Satelite,LOCAL,TEC,4,4,8
+23,Guasave,23 - Guasave,LOCAL,TEC,2,2,4
+24,Exposicion,24 - Exposicion,FORANEA,EXPO,4,4,8
+25,Juarez,25 - Juarez,FORANEA,EXPO,4,4,8
+26,Cadereyta,26 - Cadereyta,FORANEA,EXPO,4,4,8
+27,Santiago,27 - Santiago,FORANEA,EXPO,4,4,8
+28,Guerrero,28 - Guerrero,FORANEA,EXPO,2,2,4
+29,Pablo Livas,29 - Pablo Livas,FORANEA,EXPO,4,4,8
+30,Carrizo,30 - Carrizo,FORANEA,EXPO,2,2,4
+31,Las Quintas,31 - Las Quintas,FORANEA,EXPO,4,4,8
+32,Allende,32 - Allende,FORANEA,EXPO,4,4,8
+33,Eloy Cavazos,33 - Eloy Cavazos,FORANEA,EXPO,4,4,8
+34,Montemorelos,34 - Montemorelos,FORANEA,EXPO,4,4,8
+36,Apodaca Centro,36 - Apodaca Centro,LOCAL,PLOG NUEVO LEON,4,4,8
+37,Stiva,37 - Stiva,LOCAL,PLOG NUEVO LEON,4,4,8
+38,Gomez Morin,38 - Gomez Morin,LOCAL,PLOG NUEVO LEON,3,3,6
+39,Lazaro Cardenas,39 - Lazaro Cardenas,LOCAL,PLOG NUEVO LEON,4,4,8
+40,Plaza 1500,40 - Plaza 1500,LOCAL,PLOG NUEVO LEON,4,4,8
+41,Vasconcelos,41 - Vasconcelos,LOCAL,PLOG NUEVO LEON,4,4,8
+42,Independencia,42 - Independencia,FORANEA,PLOG LAGUNA,2,2,4
+43,Revolucion,43 - Revolucion,FORANEA,PLOG LAGUNA,2,2,4
+44,Senderos,44 - Senderos,FORANEA,PLOG LAGUNA,2,2,4
+45,Triana,45 - Triana,FORANEA,PLOG LAGUNA,2,2,4
+46,Campestre,46 - Campestre,FORANEA,PLOG LAGUNA,2,2,4
+47,San Antonio,47 - San Antonio,FORANEA,PLOG LAGUNA,2,2,4
+48,Refugio,48 - Refugio,FORANEA,PLOG QUERETARO,2,2,4
+49,Pueblito,49 - Pueblito,FORANEA,PLOG QUERETARO,2,2,4
+50,Patio,50 - Patio,FORANEA,PLOG QUERETARO,2,2,4
+51,Constituyentes,51 - Constituyentes,FORANEA,PLOG QUERETARO,2,2,4
+52,Venustiano Carranza,52 - Venustiano Carranza,LOCAL,GRUPO SALTILLO,3,3,6
+53,Lienzo Charro,53 - Lienzo Charro,LOCAL,GRUPO SALTILLO,2,2,4
+54,Ramos Arizpe,54 - Ramos Arizpe,LOCAL,GRUPO SALTILLO,3,3,6
+55,Eulalio Gutierrez,55 - Eulalio Gutierrez,LOCAL,GRUPO SALTILLO,3,3,6
+56,Luis Echeverria,56 - Luis Echeverria,LOCAL,GRUPO SALTILLO,4,4,8
+57,Harold R. Pape,57 - Harold R. Pape,LOCAL,GRUPO SALTILLO,2,2,4
+58,Universidad (Tampico),58 - Universidad (Tampico),FORANEA,OCHTER TAMPICO,2,2,4
+59,Plaza 3601,59 - Plaza 3601,FORANEA,OCHTER TAMPICO,2,2,4
+60,Centro (Tampico),60 - Centro (Tampico),FORANEA,OCHTER TAMPICO,2,2,4
+61,Aeropuerto (Tampico),61 - Aeropuerto (Tampico),FORANEA,OCHTER TAMPICO,2,2,4
+62,Lazaro Cardenas (Morelia),62 - Lazaro Cardenas (Morelia),FORANEA,GRUPO CANTERA ROSA (MORELIA),2,2,4
+63,Madero (Morelia),63 - Madero (Morelia),FORANEA,GRUPO CANTERA ROSA (MORELIA),2,2,4
+64,Huerta,64 - Huerta,FORANEA,GRUPO CANTERA ROSA (MORELIA),2,2,4
+65,Pedro Cardenas,65 - Pedro Cardenas,FORANEA,GRUPO MATAMOROS,2,2,4
+66,Lauro Villar,66 - Lauro Villar,FORANEA,GRUPO MATAMOROS,2,2,4
+67,Centro (Matamoros),67 - Centro (Matamoros),FORANEA,GRUPO MATAMOROS,2,2,4
+68,Avenida del Niño,68 - Avenida del Niño,FORANEA,GRUPO MATAMOROS,1,1,2
+69,Puerto Rico,69 - Puerto Rico,FORANEA,GRUPO MATAMOROS,2,2,4
+70,Coahuila Comidas,70 - Coahuila Comidas,FORANEA,GRUPO PIEDRAS NEGRAS,2,2,4
+71,Centrito Valle,71 - Centrito Valle,LOCAL,GRUPO CENTRITO,5,5,10
+72,Sabinas Hidalgo,72 - Sabinas Hidalgo,FORANEA,GRUPO SABINAS HIDALGO,4,4,8
+73,Anzalduas,73 - Anzalduas,FORANEA,CRR,2,2,4
+74,Hidalgo (Reynosa),74 - Hidalgo (Reynosa),FORANEA,CRR,2,2,4
+75,Libramiento (Reynosa),75 - Libramiento (Reynosa),FORANEA,CRR,2,2,4
+76,Aeropuerto (Reynosa),76 - Aeropuerto (Reynosa),FORANEA,RAP,2,2,4
+77,Boulevard Morelos,77 - Boulevard Morelos,FORANEA,RAP,2,2,4
+78,Alcala,78 - Alcala,FORANEA,RAP,2,2,4
+79,Rio Bravo,79 - Rio Bravo,FORANEA,GRUPO RIO BRAVO,2,2,4
+80,Guerrero 2 (Ruelas),80 - Guerrero 2 (Ruelas),FORANEA,GRUPO NUEVO LAREDO (RUELAS),2,2,4
+81,Reforma (Ruelas),81 - Reforma (Ruelas),FORANEA,GRUPO NUEVO LAREDO (RUELAS),2,2,4

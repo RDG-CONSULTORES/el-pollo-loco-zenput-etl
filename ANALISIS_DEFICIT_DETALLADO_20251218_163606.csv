@@ -1,0 +1,49 @@
+location_key,tipo_regla,ops_actuales,seg_actuales,total_actual,ops_esperadas,seg_esperadas,total_esperado,diferencia,estado,deficit_abs
+23 - Guasave,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+28 - Guerrero,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+30 - Carrizo,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+35 - Apodaca,LOCAL_4_4,0,0,0,4,4,8,-8,❌ DEFICIT (-8),8
+38 - Gomez Morin,LOCAL_4_4,3,3,6,4,4,8,-2,❌ DEFICIT (-2),2
+42 - Independencia,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+43 - Revolucion,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+44 - Senderos,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+45 - Triana,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+46 - Campestre,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+47 - San Antonio,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+48 - Refugio,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+49 - Pueblito,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+50 - Patio,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+51 - Constituyentes,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+52 - Venustiano Carranza,LOCAL_4_4,3,3,6,4,4,8,-2,❌ DEFICIT (-2),2
+53 - Lienzo Charro,LOCAL_4_4,2,3,5,4,4,8,-3,❌ DEFICIT (-3),3
+54 - Ramos Arizpe,LOCAL_4_4,3,3,6,4,4,8,-2,❌ DEFICIT (-2),2
+55 - Eulalio Gutierrez,LOCAL_4_4,3,3,6,4,4,8,-2,❌ DEFICIT (-2),2
+56 - Luis Echeverria,LOCAL_4_4,4,3,7,4,4,8,-1,❌ DEFICIT (-1),1
+57 - Harold R. Pape,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+58 - Universidad (Tampico),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+59 - Plaza 3601,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+60 - Centro (Tampico),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+61 - Aeropuerto (Tampico),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+62 - Lazaro Cardenas (Morelia),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+63 - Madero (Morelia),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+64 - Huerta,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+65 - Pedro Cardenas,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+66 - Lauro Villar,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+67 - Centro (Matamoros),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+68 - Avenida del Niño,LOCAL_4_4,1,1,2,4,4,8,-6,❌ DEFICIT (-6),6
+69 - Puerto Rico,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+70 - Coahuila Comidas,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+73 - Anzalduas,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+74 - Hidalgo (Reynosa),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+75 - Libramiento (Reynosa),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+76 - Aeropuerto (Reynosa),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+77 - Boulevard Morelos,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+78 - Alcala,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+79 - Rio Bravo,LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+80 - Guerrero 2 (Ruelas),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+81 - Reforma (Ruelas),LOCAL_4_4,2,2,4,4,4,8,-4,❌ DEFICIT (-4),4
+82 - Aeropuerto Nuevo Laredo,LOCAL_4_4,0,0,0,4,4,8,-8,❌ DEFICIT (-8),8
+83 - Cerradas de Anahuac,LOCAL_4_4,0,0,0,4,4,8,-8,❌ DEFICIT (-8),8
+84 - Aeropuerto del Norte,LOCAL_4_4,0,0,0,4,4,8,-8,❌ DEFICIT (-8),8
+85 - Diego Diaz,LOCAL_4_4,0,0,0,4,4,8,-8,❌ DEFICIT (-8),8
+86 - Miguel de la Madrid,LOCAL_4_4,0,0,0,4,4,8,-8,❌ DEFICIT (-8),8

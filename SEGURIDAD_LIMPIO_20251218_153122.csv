@@ -1,0 +1,239 @@
+index_original,submission_id,fecha,fecha_str,usuario,location_asignado,lat_entrega,lon_entrega,sucursal_campo,tipo,tiene_location,tiene_coordenadas,necesita_mapeo
+0,seg_0,2025-12-10 13:29:52,2025-12-10,Jorge Reynosa,53 - Lienzo Charro,,,Lienzo Charro (Saltillo),SEGURIDAD,True,False,False
+1,seg_1,2025-12-09 13:32:37,2025-12-09,Israel Garcia,55 - Eulalio Gutierrez,,,Eulalio Gutiérrez ,SEGURIDAD,True,False,False
+2,seg_2,2025-12-09 12:54:16,2025-12-09,Jorge Reynosa,56 - Luis Echeverria,,,Echeverria ,SEGURIDAD,True,False,False
+3,seg_3,2025-12-08 14:04:00,2025-12-08,Israel Garcia,54 - Ramos Arizpe,,,Ramos Arizpe ,SEGURIDAD,True,False,False
+4,seg_4,2025-12-08 13:45:22,2025-12-08,Jorge Reynosa,52 - Venustiano Carranza,,,Ochoa (Saltillo),SEGURIDAD,True,False,False
+5,seg_5,2025-12-05 12:08:08,2025-12-05,Israel Garcia,72 - Sabinas Hidalgo,,,Sabinas Hidalgo ,SEGURIDAD,True,False,False
+6,seg_6,2025-12-04 12:24:05,2025-12-04,Jorge Reynosa,27 - Santiago,,,Santiago ,SEGURIDAD,True,False,False
+7,seg_7,2025-12-03 12:51:30,2025-12-03,Jorge Reynosa,37 - Stiva,,,Stiva,SEGURIDAD,True,False,False
+8,seg_8,2025-12-03 12:22:33,2025-12-03,Israel Garcia,36 - Apodaca Centro,,,Apodaca Centro ,SEGURIDAD,True,False,False
+9,seg_9,2025-12-02 13:01:56,2025-12-02,Israel Garcia,10 - Barragan,,,Barragán ,SEGURIDAD,True,False,False
+10,seg_10,2025-12-02 12:09:01,2025-12-02,Jorge Reynosa,13 - Escobedo,,,Escobedo ,SEGURIDAD,True,False,False
+11,seg_11,2025-12-01 13:36:58,2025-12-01,Israel Garcia,40 - Plaza 1500,,,Plaza 1500,SEGURIDAD,True,False,False
+12,seg_12,2025-12-01 13:27:54,2025-12-01,Jorge Reynosa,41 - Vasconcelos,,,Vasconcelos ,SEGURIDAD,True,False,False
+13,seg_13,2025-11-28 13:51:23,2025-11-28,Israel Garcia,9 - Anahuac,,,Anahuac,SEGURIDAD,True,False,False
+14,seg_14,2025-11-28 12:37:24,2025-11-28,Jorge Reynosa,12 - Concordia,,,Concordia ,SEGURIDAD,True,False,False
+15,seg_15,2025-11-27 12:05:41,2025-11-27,Israel Garcia,5 - Felix U. Gomez,,,Félix U. Gómez ,SEGURIDAD,True,False,False
+16,seg_16,2025-11-27 10:35:16,2025-11-27,Jorge Reynosa,1 - Pino Suarez,,,Pino Suarez ,SEGURIDAD,True,False,False
+17,seg_17,2025-11-26 13:01:00,2025-11-26,Jorge Reynosa,22 - Satelite,,,Satélite ,SEGURIDAD,True,False,False
+18,seg_18,2025-11-26 12:40:17,2025-11-26,Israel Garcia,39 - Lazaro Cardenas,,,Lázaro Cardenas ,SEGURIDAD,True,False,False
+19,seg_19,2025-11-25 13:11:30,2025-11-25,Israel Garcia,2 - Madero,,,Madero,SEGURIDAD,True,False,False
+20,seg_20,2025-11-25 12:43:38,2025-11-25,Jorge Reynosa,8 - Gonzalitos,,,Gonzalitos,SEGURIDAD,True,False,False
+21,seg_21,2025-11-24 13:08:15,2025-11-24,Israel Garcia,14 - Aztlan,,,Aztlan,SEGURIDAD,True,False,False
+22,seg_22,2025-11-24 12:37:04,2025-11-24,Jorge Reynosa,6 - Garcia,,,Garcia ,SEGURIDAD,True,False,False
+23,seg_23,2025-11-21 13:19:05,2025-11-21,Jorge Reynosa,21 - Chapultepec,,,Chapultepec ,SEGURIDAD,True,False,False
+24,seg_24,2025-11-21 13:02:18,2025-11-21,Israel Garcia,20 - Tecnológico,,,Tecnologico,SEGURIDAD,True,False,False
+25,seg_25,2025-11-20 13:49:47,2025-11-20,Jorge Reynosa,24 - Exposicion,,,Expo.Matriz,SEGURIDAD,True,False,False
+26,seg_26,2025-11-20 12:49:38,2025-11-20,Israel Garcia,38 - Gomez Morin,,,Gómez Morin ,SEGURIDAD,True,False,False
+27,seg_27,2025-11-19 13:11:08,2025-11-19,Jorge Reynosa,11 - Lincoln,,,Lincoln ,SEGURIDAD,True,False,False
+28,seg_28,2025-11-19 12:43:55,2025-11-19,Israel Garcia,16 - Solidaridad,,,Solidaridad ,SEGURIDAD,True,False,False
+29,seg_29,2025-11-18 14:11:06,2025-11-18,Jorge Reynosa,3 - Matamoros,,,Matamoros ,SEGURIDAD,True,False,False
+30,seg_30,2025-11-18 13:15:01,2025-11-18,Israel Garcia,71 - Centrito Valle,,,Centrito Valle,SEGURIDAD,True,False,False
+31,seg_31,2025-11-14 12:59:00,2025-11-14,Israel Garcia,32 - Allende,,,Allende ,SEGURIDAD,True,False,False
+32,seg_32,2025-11-14 12:26:50,2025-11-14,Jorge Reynosa,34 - Montemorelos,,,Montemorelos ,SEGURIDAD,True,False,False
+33,seg_33,2025-11-13 13:40:08,2025-11-13,Israel Garcia,25 - Juarez,,,Juárez ,SEGURIDAD,True,False,False
+34,seg_34,2025-11-13 13:20:39,2025-11-13,Jorge Reynosa,26 - Cadereyta,,,Cadereyta ,SEGURIDAD,True,False,False
+35,seg_35,2025-11-12 13:09:58,2025-11-12,Israel Garcia,31 - Las Quintas,,,Las Quintas ,SEGURIDAD,True,False,False
+36,seg_36,2025-11-12 11:46:51,2025-11-12,Jorge Reynosa,15 - Ruiz Cortinez,,,Ruiz Cortinez ,SEGURIDAD,True,False,False
+37,seg_37,2025-11-11 13:18:56,2025-11-11,Israel Garcia,7 - La Huasteca,,,La Huasteca ,SEGURIDAD,True,False,False
+38,seg_38,2025-11-11 13:09:57,2025-11-11,Jorge Reynosa,4 - Santa Catarina,,,Tepeyac (Santa Catarina),SEGURIDAD,True,False,False
+39,seg_39,2025-11-10 13:08:20,2025-11-10,Israel Garcia,29 - Pablo Livas,,,Pablo Livas,SEGURIDAD,True,False,False
+40,seg_40,2025-11-10 11:48:31,2025-11-10,Jorge Reynosa,33 - Eloy Cavazos,,,Eloy Cavazos ,SEGURIDAD,True,False,False
+41,seg_41,2025-11-07 12:21:21,2025-11-07,Jorge Reynosa,62 - Lazaro Cardenas (Morelia),,,Lázaro Cárdenas (Morelia),SEGURIDAD,True,False,False
+42,seg_42,2025-11-06 15:39:48,2025-11-06,Jorge Reynosa,63 - Madero (Morelia),,,Madero (Morelia) ,SEGURIDAD,True,False,False
+43,seg_43,2025-11-06 14:47:03,2025-11-06,Israel Garcia,64 - Huerta,,,Huerta,SEGURIDAD,True,False,False
+44,seg_44,2025-11-03 16:01:54,2025-11-03,Jorge Reynosa,23 - Guasave,,,Guasave (Sinaloa),SEGURIDAD,True,False,False
+45,seg_45,2025-10-31 11:44:01,2025-10-31,Jorge Reynosa,18 - Linda Vista,,,Linda Vista ,SEGURIDAD,True,False,False
+46,seg_46,2025-10-30 13:15:40,2025-10-30,Israel Garcia,19 - Valle Soleado,,,Valle Soleado,SEGURIDAD,True,False,False
+47,seg_47,2025-10-30 12:25:27,2025-10-30,Jorge Reynosa,17 - Romulo Garza,,,Romulo Garza ,SEGURIDAD,True,False,False
+48,seg_48,2025-10-28 13:28:18,2025-10-28,Jorge Reynosa,48 - Refugio,,,Refugio (Queretaro),SEGURIDAD,True,False,False
+49,seg_49,2025-10-28 13:04:01,2025-10-28,Israel Garcia,50 - Patio,,,Patio ,SEGURIDAD,True,False,False
+50,seg_50,2025-10-27 15:09:12,2025-10-27,Jorge Reynosa,49 - Pueblito,,,Pueblito (Queretaro),SEGURIDAD,True,False,False
+51,seg_51,2025-10-27 13:30:35,2025-10-27,Israel Garcia,51 - Constituyentes,,,Constituyentes ,SEGURIDAD,True,False,False
+52,seg_52,2025-10-23 13:12:06,2025-10-23,Israel Garcia,45 - Triana,,,Triana ,SEGURIDAD,True,False,False
+53,seg_53,2025-10-23 12:39:18,2025-10-23,Jorge Reynosa,42 - Independencia,,,Independencia ,SEGURIDAD,True,False,False
+54,seg_54,2025-10-22 13:51:28,2025-10-22,Jorge Reynosa,43 - Revolucion,,,Revolución (Torreon),SEGURIDAD,True,False,False
+55,seg_55,2025-10-22 13:33:46,2025-10-22,Israel Garcia,44 - Senderos,,,Senderos,SEGURIDAD,True,False,False
+56,seg_56,2025-10-21 15:23:15,2025-10-21,Jorge Reynosa,46 - Campestre,,,Campestre (Gomez Palacio),SEGURIDAD,True,False,False
+57,seg_57,2025-10-21 13:57:11,2025-10-21,Israel Garcia,47 - San Antonio,,,San Antonio ,SEGURIDAD,True,False,False
+58,seg_58,2025-10-16 12:41:13,2025-10-16,Israel Garcia,60 - Centro (Tampico),,,Centro,SEGURIDAD,True,False,False
+59,seg_59,2025-10-16 12:10:15,2025-10-16,Jorge Reynosa,59 - Plaza 3601,,,Hidalgo (Tampico) ,SEGURIDAD,True,False,False
+60,seg_60,2025-10-15 14:58:32,2025-10-15,Jorge Reynosa,61 - Aeropuerto (Tampico),,,Aeropuerto (Tampico),SEGURIDAD,True,False,False
+61,seg_61,2025-10-15 13:48:19,2025-10-15,Israel Garcia,58 - Universidad (Tampico),,,Universidad ,SEGURIDAD,True,False,False
+62,seg_62,2025-10-09 12:40:31,2025-10-09,Israel Garcia,56 - Luis Echeverria,,,Luis Echeverria,SEGURIDAD,True,False,False
+63,seg_63,2025-10-07 13:10:59,2025-10-07,Israel Garcia,30 - Carrizo,,,Carrizo,SEGURIDAD,True,False,False
+64,seg_64,2025-10-07 13:10:39,2025-10-07,Jorge Reynosa,28 - Guerrero,,,Guerrero 1 (Nuevo Laredo),SEGURIDAD,True,False,False
+65,seg_65,2025-10-06 20:23:35,2025-10-06,Israel Garcia,81 - Reforma (Ruelas),,,Israel García ,SEGURIDAD,True,False,False
+66,seg_66,2025-10-06 14:57:37,2025-10-06,Jorge Reynosa,80 - Guerrero 2 (Ruelas),,,Guerrero 2 (Laredo),SEGURIDAD,True,False,False
+67,seg_67,2025-10-02 14:03:00,2025-10-02,Jorge Reynosa,53 - Lienzo Charro,,,Lienzo Charro (Saltillo),SEGURIDAD,True,False,False
+68,seg_68,2025-10-02 13:48:04,2025-10-02,Israel Garcia,55 - Eulalio Gutierrez,,,Eulalio Gutierrez,SEGURIDAD,True,False,False
+69,seg_69,2025-10-01 13:46:13,2025-10-01,Jorge Reynosa,52 - Venustiano Carranza,,,Ochoa (Saltillo),SEGURIDAD,True,False,False
+70,seg_70,2025-10-01 13:11:05,2025-10-01,Israel Garcia,54 - Ramos Arizpe,,,Ramos Arizpe,SEGURIDAD,True,False,False
+71,seg_71,2025-09-25 13:17:11,2025-09-25,Israel Garcia,72 - Sabinas Hidalgo,,,Sabinas Hidalgo ,SEGURIDAD,True,False,False
+72,seg_72,2025-09-22 13:15:26,2025-09-22,Israel Garcia,27 - Santiago,,,Santiago ,SEGURIDAD,True,False,False
+73,seg_73,2025-09-19 14:59:01,2025-09-19,Israel Garcia,19 - Valle Soleado,,,Valle Soleado ,SEGURIDAD,True,False,False
+74,seg_74,2025-09-18 13:24:55,2025-09-18,Israel Garcia,29 - Pablo Livas,,,Pablo Livas,SEGURIDAD,True,False,False
+75,seg_75,2025-09-15 12:52:37,2025-09-15,Jorge Reynosa,71 - Centrito Valle,,,Centrito Valle ,SEGURIDAD,True,False,False
+76,seg_76,2025-09-15 12:07:16,2025-09-15,Israel Garcia,33 - Eloy Cavazos,,,Eloy Cavazos ,SEGURIDAD,True,False,False
+77,seg_77,2025-09-12 14:33:06,2025-09-12,Israel Garcia,8 - Gonzalitos,,,Gonzalitos,SEGURIDAD,True,False,False
+78,seg_78,2025-09-12 13:35:35,2025-09-12,Jorge Reynosa,4 - Santa Catarina,,,Tepeyac,SEGURIDAD,True,False,False
+79,seg_79,2025-09-11 13:00:02,2025-09-11,Israel Garcia,32 - Allende,,,Allende,SEGURIDAD,True,False,False
+80,seg_80,2025-09-11 12:54:35,2025-09-11,Jorge Reynosa,34 - Montemorelos,,,Montemorelos ,SEGURIDAD,True,False,False
+81,seg_81,2025-09-09 13:07:38,2025-09-09,Israel Garcia,2 - Madero,,,Madero,SEGURIDAD,True,False,False
+82,seg_82,2025-09-09 12:33:30,2025-09-09,Jorge Reynosa,3 - Matamoros,,,Matamoros,SEGURIDAD,True,False,False
+83,seg_83,2025-09-08 12:56:11,2025-09-08,Jorge Reynosa,5 - Felix U. Gomez,,,Felix U. Gomez,SEGURIDAD,True,False,False
+84,seg_84,2025-09-08 12:23:50,2025-09-08,Israel Garcia,1 - Pino Suarez,,,Pino Suárez ,SEGURIDAD,True,False,False
+85,seg_85,2025-09-05 12:38:24,2025-09-05,Israel Garcia,14 - Aztlan,,,Aztlan,SEGURIDAD,True,False,False
+86,seg_86,2025-09-05 12:15:57,2025-09-05,Jorge Reynosa,16 - Solidaridad,,,Solidaridad ,SEGURIDAD,True,False,False
+87,seg_87,2025-09-04 13:17:16,2025-09-04,Jorge Reynosa,13 - Escobedo,,,Escobedo ,SEGURIDAD,True,False,False
+88,seg_88,2025-09-04 12:31:02,2025-09-04,Israel Garcia,10 - Barragan,,,Barragan,SEGURIDAD,True,False,False
+89,seg_89,2025-09-02 15:11:14,2025-09-02,Jorge Reynosa,9 - Anahuac,,,Universidad ,SEGURIDAD,True,False,False
+90,seg_90,2025-09-02 13:15:15,2025-09-02,Israel Garcia,12 - Concordia,,,Concordia,SEGURIDAD,True,False,False
+91,seg_91,2025-09-01 13:21:31,2025-09-01,Jorge Reynosa,20 - Tecnológico,,,Tecnologico ,SEGURIDAD,True,False,False
+92,seg_92,2025-09-01 13:11:58,2025-09-01,Israel Garcia,21 - Chapultepec,,,Chapultepec ,SEGURIDAD,True,False,False
+93,seg_93,2025-08-29 13:29:21,2025-08-29,Jorge Reynosa,6 - Garcia,,,Garcia ,SEGURIDAD,True,False,False
+94,seg_94,2025-08-29 13:10:42,2025-08-29,Israel Garcia,7 - La Huasteca,,,La Huasteca ,SEGURIDAD,True,False,False
+95,seg_95,2025-08-28 13:53:13,2025-08-28,Jorge Reynosa,22 - Satelite,,,Satélite ,SEGURIDAD,True,False,False
+96,seg_96,2025-08-28 12:59:46,2025-08-28,Israel Garcia,18 - Linda Vista,,,Linda Vista ,SEGURIDAD,True,False,False
+97,seg_97,2025-08-27 13:35:46,2025-08-27,Israel Garcia,25 - Juarez,,,Expo Juárez ,SEGURIDAD,True,False,False
+98,seg_98,2025-08-27 12:03:27,2025-08-27,Jorge Reynosa,26 - Cadereyta,,,Cadereyta ,SEGURIDAD,True,False,False
+99,seg_99,2025-08-26 13:41:47,2025-08-26,Israel Garcia,15 - Ruiz Cortinez,,,Ruiz Cortines ,SEGURIDAD,True,False,False
+100,seg_100,2025-08-26 12:48:17,2025-08-26,Jorge Reynosa,11 - Lincoln,,,Lincoln,SEGURIDAD,True,False,False
+101,seg_101,2025-08-25 13:15:20,2025-08-25,Israel Garcia,31 - Las Quintas,,,Las Quintas ,SEGURIDAD,True,False,False
+102,seg_102,2025-08-25 13:11:25,2025-08-25,Jorge Reynosa,24 - Exposicion,,,Expo.Matriz ,SEGURIDAD,True,False,False
+103,seg_103,2025-08-22 12:37:32,2025-08-22,Israel Garcia,71 - Centrito Valle,,,Gómez Morin ,SEGURIDAD,True,False,False
+104,seg_104,2025-08-21 13:25:13,2025-08-21,Israel Garcia,17 - Romulo Garza,,,Rómulo Garza ,SEGURIDAD,True,False,False
+105,seg_105,2025-08-21 12:04:03,2025-08-21,Jorge Reynosa,39 - Lazaro Cardenas,,,Lázaro Cárdenas (Plog),SEGURIDAD,True,False,False
+106,seg_106,2025-08-20 14:40:35,2025-08-20,Israel Garcia,40 - Plaza 1500,,,Plaza 1500,SEGURIDAD,True,False,False
+107,seg_107,2025-08-20 13:11:45,2025-08-20,Jorge Reynosa,41 - Vasconcelos,,,Vasconcelos ,SEGURIDAD,True,False,False
+108,seg_108,2025-08-19 13:16:23,2025-08-19,Israel Garcia,36 - Apodaca Centro,,,Apodaca Centro,SEGURIDAD,True,False,False
+109,seg_109,2025-08-19 12:55:22,2025-08-19,Jorge Reynosa,37 - Stiva,,,Stiva ,SEGURIDAD,True,False,False
+110,seg_110,2025-08-18 13:54:24,2025-08-18,Jorge Reynosa,53 - Lienzo Charro,,,Lienzo (Saltillo),SEGURIDAD,True,False,False
+111,seg_111,2025-08-15 11:13:06,2025-08-15,Israel Garcia,69 - Puerto Rico,,,Puerto Rico,SEGURIDAD,True,False,False
+112,seg_112,2025-08-14 14:02:44,2025-08-14,Israel Garcia,66 - Lauro Villar,,,Lauro Villar,SEGURIDAD,True,False,False
+113,seg_113,2025-08-14 12:14:49,2025-08-14,Jorge Reynosa,67 - Centro (Matamoros),,,Centro (Matamoros),SEGURIDAD,True,False,False
+114,seg_114,2025-08-13 13:35:25,2025-08-13,Jorge Reynosa,65 - Pedro Cardenas,,,Pedro Cárdenas (Matamoros) ,SEGURIDAD,True,False,False
+115,seg_115,2025-08-13 13:12:02,2025-08-13,Israel Garcia,68 - Avenida del Niño,,,Av. Del Niño,SEGURIDAD,True,False,False
+116,seg_116,2025-08-11 14:04:33,2025-08-11,Jorge Reynosa,56 - Luis Echeverria,,,Echeverria (Saltillo),SEGURIDAD,True,False,False
+117,seg_117,2025-08-11 14:04:16,2025-08-11,Israel Garcia,55 - Eulalio Gutierrez,,,Comidas EG,SEGURIDAD,True,False,False
+118,seg_118,2025-08-08 11:54:19,2025-08-08,Israel Garcia,78 - Alcala,,,Alcala,SEGURIDAD,True,False,False
+119,seg_119,2025-08-07 14:09:46,2025-08-07,Israel Garcia,75 - Libramiento (Reynosa),,,Israel García ,SEGURIDAD,True,False,False
+120,seg_120,2025-08-07 12:39:44,2025-08-07,Jorge Reynosa,76 - Aeropuerto (Reynosa),,,Aeropuerto (Reynosa),SEGURIDAD,True,False,False
+121,seg_121,2025-08-06 13:49:31,2025-08-06,Jorge Reynosa,79 - Rio Bravo,,,Río Bravo,SEGURIDAD,True,False,False
+122,seg_122,2025-08-06 13:37:32,2025-08-06,Israel Garcia,74 - Hidalgo (Reynosa),,,Israel García ,SEGURIDAD,True,False,False
+123,seg_123,2025-08-05 14:57:46,2025-08-05,Jorge Reynosa,77 - Boulevard Morelos,,,Suc. Morelos (Reynosa) ,SEGURIDAD,True,False,False
+124,seg_124,2025-08-05 14:24:10,2025-08-05,Israel Garcia,73 - Anzalduas,,,Anzalduas ,SEGURIDAD,True,False,False
+125,seg_125,2025-07-31 12:03:57,2025-07-31,Jorge Reynosa,70 - Coahuila Comidas,,,Piedras Negras ,SEGURIDAD,True,False,False
+126,seg_126,2025-07-30 16:00:56,2025-07-30,Israel Garcia,57 - Harold R. Pape,,,PAPE,SEGURIDAD,True,False,False
+127,seg_127,2025-07-22 14:40:00,2025-07-22,Israel Garcia,54 - Ramos Arizpe,,,Ramos Arizpe,SEGURIDAD,True,False,False
+128,seg_128,2025-07-22 12:42:47,2025-07-22,Jorge Reynosa,52 - Venustiano Carranza,,,Ochoa (Saltillo),SEGURIDAD,True,False,False
+129,seg_129,2025-07-18 12:05:37,2025-07-18,Israel Garcia,72 - Sabinas Hidalgo,,,Sabinas Hidalgo,SEGURIDAD,True,False,False
+130,seg_130,2025-07-15 12:08:47,2025-07-15,Jorge Reynosa,27 - Santiago,,,Santiago ,SEGURIDAD,True,False,False
+131,seg_131,2025-07-14 14:42:35,2025-07-14,Israel Garcia,41 - Vasconcelos,,,Vasconcelos,SEGURIDAD,True,False,False
+132,seg_132,2025-07-14 11:01:53,2025-07-14,Jorge Reynosa,14 - Aztlan,,,Aztlan ,SEGURIDAD,True,False,False
+133,seg_133,2025-07-11 13:06:16,2025-07-11,Israel Garcia,11 - Lincoln,,,Lincoln ,SEGURIDAD,True,False,False
+134,seg_134,2025-07-10 15:56:01,2025-07-10,Jorge Reynosa,9 - Anahuac,,,Universidad ,SEGURIDAD,True,False,False
+135,seg_135,2025-07-10 13:21:34,2025-07-10,Israel Garcia,5 - Felix U. Gomez,,,Félix U. Gomez,SEGURIDAD,True,False,False
+136,seg_136,2025-07-09 13:56:12,2025-07-09,Jorge Reynosa,20 - Tecnológico,,,Tecnologico ,SEGURIDAD,True,False,False
+137,seg_137,2025-07-09 13:17:49,2025-07-09,Israel Garcia,39 - Lazaro Cardenas,,,Lázaro Cardenas ,SEGURIDAD,True,False,False
+138,seg_138,2025-07-08 13:12:29,2025-07-08,Israel Garcia,8 - Gonzalitos,,,Gonzalitos,SEGURIDAD,True,False,False
+139,seg_139,2025-07-07 13:49:00,2025-07-07,Israel Garcia,2 - Madero,,,Madero,SEGURIDAD,True,False,False
+140,seg_140,2025-07-04 12:53:05,2025-07-04,Israel Garcia,1 - Pino Suarez,,,Pino Suárez ,SEGURIDAD,True,False,False
+141,seg_141,2025-07-04 12:26:19,2025-07-04,Jorge Reynosa,16 - Solidaridad,,,Solidaridad ,SEGURIDAD,True,False,False
+142,seg_142,2025-07-03 13:47:07,2025-07-03,Israel Garcia,34 - Montemorelos,,,Montemorelos,SEGURIDAD,True,False,False
+143,seg_143,2025-07-03 12:43:13,2025-07-03,Jorge Reynosa,32 - Allende,,,Allende ,SEGURIDAD,True,False,False
+144,seg_144,2025-07-02 13:23:02,2025-07-02,Jorge Reynosa,21 - Chapultepec,,,Chapultepec,SEGURIDAD,True,False,False
+145,seg_145,2025-07-02 12:52:17,2025-07-02,Israel Garcia,71 - Centrito Valle,,,Gómez Morin ,SEGURIDAD,True,False,False
+146,seg_146,2025-07-01 12:53:26,2025-07-01,Jorge Reynosa,10 - Barragan,,,Barragán ,SEGURIDAD,True,False,False
+147,seg_147,2025-06-30 15:32:09,2025-06-30,Israel Garcia,3 - Matamoros,,,Juárez (Centro) ,SEGURIDAD,True,False,False
+148,seg_148,2025-06-30 12:44:10,2025-06-30,Jorge Reynosa,71 - Centrito Valle,,,Centrito Valle ,SEGURIDAD,True,False,False
+149,seg_149,2025-06-27 12:57:47,2025-06-27,Israel Garcia,12 - Concordia,,,Concordia,SEGURIDAD,True,False,False
+150,seg_150,2025-06-27 12:20:08,2025-06-27,Jorge Reynosa,37 - Stiva,,,Stiva,SEGURIDAD,True,False,False
+151,seg_151,2025-06-26 13:11:03,2025-06-26,Israel Garcia,25 - Juarez,,,Israel García ,SEGURIDAD,True,False,False
+152,seg_152,2025-06-26 13:02:58,2025-06-26,Jorge Reynosa,26 - Cadereyta,,,Cadereyta ,SEGURIDAD,True,False,False
+153,seg_153,2025-06-24 16:34:58,2025-06-24,Israel Garcia,,,,,SEGURIDAD,False,False,True
+154,seg_154,2025-06-23 13:17:24,2025-06-23,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+155,seg_155,2025-06-20 12:21:29,2025-06-20,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+156,seg_156,2025-06-20 12:08:16,2025-06-20,Israel Garcia,,,,,SEGURIDAD,False,False,True
+157,seg_157,2025-06-18 13:10:14,2025-06-18,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+158,seg_158,2025-06-17 13:57:32,2025-06-17,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+159,seg_159,2025-06-17 13:13:52,2025-06-17,Israel Garcia,,,,,SEGURIDAD,False,False,True
+160,seg_160,2025-06-16 13:25:20,2025-06-16,Israel Garcia,,,,,SEGURIDAD,False,False,True
+161,seg_161,2025-06-16 12:43:19,2025-06-16,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+162,seg_162,2025-06-13 13:19:23,2025-06-13,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+163,seg_163,2025-06-13 13:18:17,2025-06-13,Israel Garcia,,,,,SEGURIDAD,False,False,True
+164,seg_164,2025-06-12 14:24:53,2025-06-12,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+165,seg_165,2025-06-12 13:54:30,2025-06-12,Israel Garcia,,,,,SEGURIDAD,False,False,True
+166,seg_166,2025-06-11 15:21:38,2025-06-11,Israel Garcia,,,,,SEGURIDAD,False,False,True
+167,seg_167,2025-06-11 13:35:57,2025-06-11,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+168,seg_168,2025-06-09 16:53:57,2025-06-09,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+169,seg_169,2025-06-05 13:37:24,2025-06-05,Israel Garcia,,,,,SEGURIDAD,False,False,True
+170,seg_170,2025-06-04 17:47:30,2025-06-04,Israel Garcia,,,,,SEGURIDAD,False,False,True
+171,seg_171,2025-06-04 15:38:45,2025-06-04,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+172,seg_172,2025-06-03 14:15:44,2025-06-03,Israel Garcia,,,,,SEGURIDAD,False,False,True
+173,seg_173,2025-06-03 12:47:25,2025-06-03,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+174,seg_174,2025-06-02 15:04:47,2025-06-02,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+175,seg_175,2025-06-02 14:12:35,2025-06-02,Israel Garcia,,,,,SEGURIDAD,False,False,True
+176,seg_176,2025-05-28 12:30:16,2025-05-28,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+177,seg_177,2025-05-28 11:39:28,2025-05-28,Israel Garcia,,,,,SEGURIDAD,False,False,True
+178,seg_178,2025-05-27 15:05:08,2025-05-27,Israel Garcia,,,,,SEGURIDAD,False,False,True
+179,seg_179,2025-05-27 14:11:30,2025-05-27,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+180,seg_180,2025-05-20 14:24:04,2025-05-20,Israel Garcia,,,,,SEGURIDAD,False,False,True
+181,seg_181,2025-05-20 13:36:01,2025-05-20,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+182,seg_182,2025-05-19 13:58:36,2025-05-19,Israel Garcia,,,,,SEGURIDAD,False,False,True
+183,seg_183,2025-05-19 13:42:18,2025-05-19,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+184,seg_184,2025-05-15 15:33:04,2025-05-15,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+185,seg_185,2025-05-15 14:36:58,2025-05-15,Israel Garcia,,,,,SEGURIDAD,False,False,True
+186,seg_186,2025-05-14 15:07:34,2025-05-14,Israel Garcia,,,,,SEGURIDAD,False,False,True
+187,seg_187,2025-05-14 13:59:27,2025-05-14,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+188,seg_188,2025-05-08 12:24:22,2025-05-08,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+189,seg_189,2025-05-08 09:28:19,2025-05-08,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+190,seg_190,2025-05-07 14:10:01,2025-05-07,Israel Garcia,,,,,SEGURIDAD,False,False,True
+191,seg_191,2025-05-07 13:29:25,2025-05-07,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+192,seg_192,2025-05-06 15:14:13,2025-05-06,Israel Garcia,,,,,SEGURIDAD,False,False,True
+193,seg_193,2025-05-06 13:58:52,2025-05-06,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+194,seg_194,2025-04-25 12:41:01,2025-04-25,Israel Garcia,,,,,SEGURIDAD,False,False,True
+195,seg_195,2025-04-24 13:08:28,2025-04-24,Israel Garcia,,,,,SEGURIDAD,False,False,True
+196,seg_196,2025-04-24 12:57:21,2025-04-24,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+197,seg_197,2025-04-23 13:54:58,2025-04-23,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+198,seg_198,2025-04-23 13:38:38,2025-04-23,Israel Garcia,,,,,SEGURIDAD,False,False,True
+199,seg_199,2025-04-22 14:19:36,2025-04-22,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+200,seg_200,2025-04-22 14:06:30,2025-04-22,Israel Garcia,,,,,SEGURIDAD,False,False,True
+201,seg_201,2025-04-16 13:19:59,2025-04-16,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+202,seg_202,2025-04-10 13:12:13,2025-04-10,Israel Garcia,,,,,SEGURIDAD,False,False,True
+203,seg_203,2025-04-10 11:40:28,2025-04-10,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+204,seg_204,2025-04-09 12:48:38,2025-04-09,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+205,seg_205,2025-04-04 13:29:22,2025-04-04,Israel Garcia,,,,,SEGURIDAD,False,False,True
+206,seg_206,2025-04-04 11:59:31,2025-04-04,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+207,seg_207,2025-04-03 13:15:15,2025-04-03,Israel Garcia,,,,,SEGURIDAD,False,False,True
+208,seg_208,2025-04-03 12:57:04,2025-04-03,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+209,seg_209,2025-04-02 13:12:42,2025-04-02,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+210,seg_210,2025-04-02 12:27:15,2025-04-02,Israel Garcia,,,,,SEGURIDAD,False,False,True
+211,seg_211,2025-04-01 12:47:10,2025-04-01,Israel Garcia,,,,,SEGURIDAD,False,False,True
+212,seg_212,2025-04-01 12:04:17,2025-04-01,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+213,seg_213,2025-03-31 13:30:22,2025-03-31,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+214,seg_214,2025-03-31 12:25:25,2025-03-31,Israel Garcia,,,,,SEGURIDAD,False,False,True
+215,seg_215,2025-03-28 13:38:24,2025-03-28,Israel Garcia,,,,,SEGURIDAD,False,False,True
+216,seg_216,2025-03-28 12:00:41,2025-03-28,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+217,seg_217,2025-03-27 13:44:25,2025-03-27,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+218,seg_218,2025-03-26 15:04:46,2025-03-26,Israel Garcia,,,,,SEGURIDAD,False,False,True
+219,seg_219,2025-03-26 14:09:10,2025-03-26,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+220,seg_220,2025-03-25 13:44:30,2025-03-25,Israel Garcia,,,,,SEGURIDAD,False,False,True
+221,seg_221,2025-03-25 12:01:15,2025-03-25,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+222,seg_222,2025-03-24 13:37:28,2025-03-24,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+223,seg_223,2025-03-24 13:21:54,2025-03-24,Israel Garcia,,,,,SEGURIDAD,False,False,True
+224,seg_224,2025-03-21 12:52:10,2025-03-21,Israel Garcia,,,,,SEGURIDAD,False,False,True
+225,seg_225,2025-03-21 12:43:10,2025-03-21,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+226,seg_226,2025-03-20 13:36:17,2025-03-20,Israel Garcia,,,,,SEGURIDAD,False,False,True
+227,seg_227,2025-03-20 13:27:13,2025-03-20,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+228,seg_228,2025-03-19 13:49:24,2025-03-19,Israel Garcia,,,,,SEGURIDAD,False,False,True
+229,seg_229,2025-03-19 13:32:47,2025-03-19,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+230,seg_230,2025-03-18 13:24:43,2025-03-18,Israel Garcia,,,,,SEGURIDAD,False,False,True
+231,seg_231,2025-03-18 12:09:39,2025-03-18,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+232,seg_232,2025-03-14 13:22:36,2025-03-14,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+233,seg_233,2025-03-14 12:40:58,2025-03-14,Israel Garcia,,,,,SEGURIDAD,False,False,True
+234,seg_234,2025-03-13 14:00:00,2025-03-13,Israel Garcia,,,,,SEGURIDAD,False,False,True
+235,seg_235,2025-03-13 13:46:12,2025-03-13,Jorge Reynosa,,,,,SEGURIDAD,False,False,True
+236,seg_236,2025-03-12 13:54:15,2025-03-12,Israel Garcia,,,,,SEGURIDAD,False,False,True
+237,seg_237,2025-03-12 13:29:18,2025-03-12,Jorge Reynosa,,,,,SEGURIDAD,False,False,True

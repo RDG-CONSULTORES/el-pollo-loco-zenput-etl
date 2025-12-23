@@ -1,0 +1,20 @@
+sucursal_nombre,sucursal_numero,sucursal_grupo,sucursal_tipo,operativas_count,seguridad_count,total_supervisiones,fechas_activas,usuarios_count,usuarios_list,primera_fecha,ultima_fecha
+Madero,2,TEPEYAC,LOCAL,12,12,24,9,1,Jorge Reynosa,2025-04-13,2025-04-29
+Felix U. Gomez,5,TEPEYAC,LOCAL,12,12,24,9,1,Maria Lopez,2025-05-12,2025-05-28
+Anahuac,9,OGAS,LOCAL,12,12,24,9,1,Carlos Martinez,2025-06-13,2025-06-29
+Concordia,12,OGAS,LOCAL,12,12,24,9,1,Jorge Reynosa,2025-08-13,2025-08-29
+Escobedo,13,OGAS,LOCAL,12,12,24,9,1,Maria Lopez,2025-09-12,2025-09-28
+Satelite,22,TEC,LOCAL,13,13,26,10,2,"Carlos Martinez, Israel Garcia",2025-07-20,2025-10-29
+Exposicion,24,EXPO,FORANEA,1,1,2,1,1,Israel Garcia,2025-11-24,2025-11-24
+Juarez,25,EXPO,FORANEA,1,1,2,1,1,Israel Garcia,2025-07-12,2025-07-12
+Apodaca,35,PLOG NUEVO LEON,LOCAL,1,1,2,1,1,Israel Garcia,2025-09-14,2025-09-14
+Apodaca Centro,36,PLOG NUEVO LEON,LOCAL,12,12,24,9,1,Jorge Reynosa,2025-12-13,2025-12-29
+Stiva,37,PLOG NUEVO LEON,LOCAL,13,13,26,9,2,"Israel Garcia, Maria Lopez",2025-03-12,2025-03-28
+Lazaro Cardenas,39,PLOG NUEVO LEON,LOCAL,12,12,24,9,1,Carlos Martinez,2025-04-13,2025-04-29
+Plaza 1500,40,PLOG NUEVO LEON,LOCAL,1,1,2,1,1,Israel Garcia,2025-05-28,2025-05-28
+Vasconcelos,41,PLOG NUEVO LEON,LOCAL,12,12,24,9,1,Jorge Reynosa,2025-06-13,2025-06-29
+Venustiano Carranza,52,GRUPO SALTILLO,LOCAL,12,12,24,9,1,Maria Lopez,2025-07-12,2025-07-28
+Lienzo Charro,53,GRUPO SALTILLO,LOCAL,12,12,24,9,1,Carlos Martinez,2025-08-13,2025-08-29
+Eulalio Gutierrez,55,GRUPO SALTILLO,LOCAL,12,12,24,9,1,Jorge Reynosa,2025-10-13,2025-10-29
+Luis Echeverria,56,GRUPO SALTILLO,LOCAL,11,11,22,9,1,Maria Lopez,2025-11-12,2025-11-28
+Sabinas Hidalgo,72,GRUPO SABINAS HIDALGO,FORANEA,11,11,22,9,1,Carlos Martinez,2025-12-13,2025-12-29

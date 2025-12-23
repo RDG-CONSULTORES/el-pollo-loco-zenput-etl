@@ -1,0 +1,81 @@
+Numero,Sucursal,Grupo_Operativo,Operativas,Seguridad,Total,Balance,Fechas_Unicas,Fechas_Coincidentes,Es_Perfecta,Es_Balanceada,Status
+1,Anzalduas,CRR,2,2,4,0,2,2,False,True,BALANCEADA
+2,Hidalgo (Reynosa),CRR,2,2,4,0,2,2,False,True,BALANCEADA
+3,Libramiento (Reynosa),CRR,2,2,4,0,2,2,False,True,BALANCEADA
+4,Linda Vista,EFM,4,3,7,1,4,3,False,False,DESBALANCEADA
+5,Romulo Garza,EFM,4,4,8,0,4,4,True,True,PERFECTA
+6,Valle Soleado,EFM,4,4,8,0,4,4,True,True,PERFECTA
+7,Solidaridad,EPL SO,4,4,8,0,4,4,True,True,PERFECTA
+8,Allende,EXPO,4,4,8,0,4,4,True,True,PERFECTA
+9,Cadereyta,EXPO,0,1,1,-1,1,0,False,False,DESBALANCEADA
+10,Carrizo,EXPO,2,2,4,0,2,2,False,True,BALANCEADA
+11,Eloy Cavazos,EXPO,4,3,7,1,4,3,False,False,DESBALANCEADA
+12,Exposicion,EXPO,4,3,7,1,4,3,False,False,DESBALANCEADA
+13,Guerrero,EXPO,2,2,4,0,2,2,False,True,BALANCEADA
+14,Juarez,EXPO,4,4,8,0,4,4,True,True,PERFECTA
+15,Las Quintas,EXPO,4,4,8,0,4,4,True,True,PERFECTA
+16,Montemorelos,EXPO,4,4,8,0,4,4,True,True,PERFECTA
+17,Pablo Livas,EXPO,4,4,8,0,4,4,True,True,PERFECTA
+18,Santiago,EXPO,4,4,8,0,4,4,True,True,PERFECTA
+19,Huerta,GRUPO CANTERA ROSA (MORELIA),2,2,4,0,2,2,False,True,BALANCEADA
+20,Lazaro Cardenas (Morelia),GRUPO CANTERA ROSA (MORELIA),2,2,4,0,2,2,False,True,BALANCEADA
+21,Madero (Morelia),GRUPO CANTERA ROSA (MORELIA),2,2,4,0,2,2,False,True,BALANCEADA
+22,Centrito Valle,GRUPO CENTRITO,8,9,17,-1,9,7,False,False,DESBALANCEADA
+23,Avenida del Niño,GRUPO MATAMOROS,1,1,2,0,1,1,False,True,BALANCEADA
+24,Centro (Matamoros),GRUPO MATAMOROS,2,3,5,-1,3,2,False,False,DESBALANCEADA
+25,Lauro Villar,GRUPO MATAMOROS,2,2,4,0,2,2,False,True,BALANCEADA
+26,Pedro Cardenas,GRUPO MATAMOROS,2,3,5,-1,2,2,False,False,DESBALANCEADA
+27,Puerto Rico,GRUPO MATAMOROS,2,1,3,1,2,1,False,False,DESBALANCEADA
+28,Guerrero 2 (Ruelas),GRUPO NUEVO LAREDO (RUELAS),2,2,4,0,2,2,False,True,BALANCEADA
+29,Reforma (Ruelas),GRUPO NUEVO LAREDO (RUELAS),2,2,4,0,2,2,False,True,BALANCEADA
+30,Coahuila Comidas,GRUPO PIEDRAS NEGRAS,2,2,4,0,2,2,False,True,BALANCEADA
+31,Rio Bravo,GRUPO RIO BRAVO,2,2,4,0,2,2,False,True,BALANCEADA
+32,Sabinas Hidalgo,GRUPO SABINAS HIDALGO,4,4,8,0,4,4,True,True,PERFECTA
+33,Eulalio Gutierrez,GRUPO SALTILLO,3,3,6,0,3,3,False,True,BALANCEADA
+34,Harold R. Pape,GRUPO SALTILLO,2,2,4,0,2,2,False,True,BALANCEADA
+35,Lienzo Charro,GRUPO SALTILLO,4,4,8,0,4,4,True,True,PERFECTA
+36,Luis Echeverria,GRUPO SALTILLO,2,3,5,-1,3,2,False,False,DESBALANCEADA
+37,Ramos Arizpe,GRUPO SALTILLO,3,3,6,0,3,3,False,True,BALANCEADA
+38,Venustiano Carranza,GRUPO SALTILLO,3,3,6,0,3,3,False,True,BALANCEADA
+39,Aeropuerto (Tampico),OCHTER TAMPICO,2,2,4,0,2,2,False,True,BALANCEADA
+40,Centro (Tampico),OCHTER TAMPICO,2,2,4,0,2,2,False,True,BALANCEADA
+41,Plaza 3601,OCHTER TAMPICO,2,2,4,0,2,2,False,True,BALANCEADA
+42,Universidad (Tampico),OCHTER TAMPICO,2,2,4,0,2,2,False,True,BALANCEADA
+43,Anahuac,OGAS,0,1,1,-1,1,0,False,False,DESBALANCEADA
+44,Aztlan,OGAS,0,1,1,-1,1,0,False,False,DESBALANCEADA
+45,Barragan,OGAS,4,4,8,0,4,4,True,True,PERFECTA
+46,Concordia,OGAS,4,4,8,0,4,4,True,True,PERFECTA
+47,Escobedo,OGAS,4,4,8,0,4,4,True,True,PERFECTA
+48,Gonzalitos,OGAS,4,4,8,0,4,4,True,True,PERFECTA
+49,Lincoln,OGAS,8,7,15,1,8,7,False,False,DESBALANCEADA
+50,Ruiz Cortinez,OGAS,4,4,8,0,4,4,True,True,PERFECTA
+51,Campestre,PLOG LAGUNA,2,2,4,0,2,2,False,True,BALANCEADA
+52,Independencia,PLOG LAGUNA,2,2,4,0,2,2,False,True,BALANCEADA
+53,Revolucion,PLOG LAGUNA,2,2,4,0,2,2,False,True,BALANCEADA
+54,San Antonio,PLOG LAGUNA,2,2,4,0,2,2,False,True,BALANCEADA
+55,Senderos,PLOG LAGUNA,2,2,4,0,2,2,False,True,BALANCEADA
+56,Triana,PLOG LAGUNA,2,2,4,0,2,2,False,True,BALANCEADA
+57,Apodaca Centro,PLOG NUEVO LEON,4,4,8,0,4,4,True,True,PERFECTA
+58,Gomez Morin,PLOG NUEVO LEON,0,1,1,-1,1,0,False,False,DESBALANCEADA
+59,Lazaro Cardenas,PLOG NUEVO LEON,4,4,8,0,4,4,True,True,PERFECTA
+60,Plaza 1500,PLOG NUEVO LEON,4,3,7,1,4,3,False,False,DESBALANCEADA
+61,Stiva,PLOG NUEVO LEON,4,4,8,0,4,4,True,True,PERFECTA
+62,Vasconcelos,PLOG NUEVO LEON,5,4,9,1,5,4,False,False,DESBALANCEADA
+63,Constituyentes,PLOG QUERETARO,2,2,4,0,2,2,False,True,BALANCEADA
+64,Patio,PLOG QUERETARO,2,2,4,0,2,2,False,True,BALANCEADA
+65,Pueblito,PLOG QUERETARO,2,2,4,0,2,2,False,True,BALANCEADA
+66,Refugio,PLOG QUERETARO,2,2,4,0,2,2,False,True,BALANCEADA
+67,Aeropuerto (Reynosa),RAP,2,2,4,0,2,2,False,True,BALANCEADA
+68,Alcala,RAP,2,2,4,0,2,2,False,True,BALANCEADA
+69,Boulevard Morelos,RAP,2,2,4,0,2,2,False,True,BALANCEADA
+70,Chapultepec,TEC,4,4,8,0,4,4,True,True,PERFECTA
+71,Guasave,TEC,2,2,4,0,2,2,False,True,BALANCEADA
+72,Satelite,TEC,4,4,8,0,4,4,True,True,PERFECTA
+73,Tecnológico,TEC,4,4,8,0,4,4,True,True,PERFECTA
+74,Felix U. Gomez,TEPEYAC,3,3,6,0,3,3,False,True,BALANCEADA
+75,Garcia,TEPEYAC,4,4,8,0,4,4,True,True,PERFECTA
+76,La Huasteca,TEPEYAC,3,4,7,-1,4,3,False,False,DESBALANCEADA
+77,Madero,TEPEYAC,7,6,13,1,7,6,False,False,DESBALANCEADA
+78,Matamoros,TEPEYAC,7,6,13,1,7,6,False,False,DESBALANCEADA
+79,Pino Suarez,TEPEYAC,3,3,6,0,3,3,False,True,BALANCEADA
+80,Santa Catarina,TEPEYAC,4,4,8,0,4,4,True,True,PERFECTA

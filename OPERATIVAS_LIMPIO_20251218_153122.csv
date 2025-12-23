@@ -1,0 +1,239 @@
+index_original,submission_id,fecha,fecha_str,usuario,location_asignado,lat_entrega,lon_entrega,sucursal_campo,tipo,tiene_location,tiene_coordenadas,necesita_mapeo
+0,ops_0,2025-12-10 13:26:42,2025-12-10,Israel Garcia,53 - Lienzo Charro,,,Luis Echeverría ,OPERATIVA,True,False,False
+1,ops_1,2025-12-09 13:33:44,2025-12-09,Israel Garcia,55 - Eulalio Gutierrez,,,,OPERATIVA,True,False,False
+2,ops_2,2025-12-09 12:49:34,2025-12-09,Jorge Reynosa,56 - Luis Echeverria,,,Echeverria ,OPERATIVA,True,False,False
+3,ops_3,2025-12-08 14:04:24,2025-12-08,Israel Garcia,54 - Ramos Arizpe,,,Ramos Arizpe ,OPERATIVA,True,False,False
+4,ops_4,2025-12-08 13:42:46,2025-12-08,Jorge Reynosa,52 - Venustiano Carranza,,,Ochoa,OPERATIVA,True,False,False
+5,ops_5,2025-12-05 12:18:08,2025-12-05,Jorge Reynosa,72 - Sabinas Hidalgo,,,Sabinas Hidalgo ,OPERATIVA,True,False,False
+6,ops_6,2025-12-04 12:58:02,2025-12-04,Israel Garcia,27 - Santiago,,,Santiago ,OPERATIVA,True,False,False
+7,ops_7,2025-12-03 12:42:42,2025-12-03,Jorge Reynosa,37 - Stiva,,,Stiva,OPERATIVA,True,False,False
+8,ops_8,2025-12-03 12:21:55,2025-12-03,Israel Garcia,36 - Apodaca Centro,,,Apodaca Centro ,OPERATIVA,True,False,False
+9,ops_9,2025-12-02 13:01:10,2025-12-02,Israel Garcia,10 - Barragan,,,Barragán ,OPERATIVA,True,False,False
+10,ops_10,2025-12-02 12:35:25,2025-12-02,Jorge Reynosa,13 - Escobedo,,,Escobedo ,OPERATIVA,True,False,False
+11,ops_11,2025-12-01 13:36:32,2025-12-01,Israel Garcia,40 - Plaza 1500,,,Plaza 1500,OPERATIVA,True,False,False
+12,ops_12,2025-12-01 13:22:12,2025-12-01,Jorge Reynosa,41 - Vasconcelos,,,Vasconcelos ,OPERATIVA,True,False,False
+13,ops_13,2025-11-28 13:52:16,2025-11-28,Israel Garcia,9 - Anahuac,,,Anahuac,OPERATIVA,True,False,False
+14,ops_14,2025-11-28 12:44:42,2025-11-28,Jorge Reynosa,12 - Concordia,,,Concordia ,OPERATIVA,True,False,False
+15,ops_15,2025-11-27 12:18:26,2025-11-27,Jorge Reynosa,1 - Pino Suarez,,,Pino Suarez ,OPERATIVA,True,False,False
+16,ops_16,2025-11-27 12:04:54,2025-11-27,Israel Garcia,5 - Felix U. Gomez,,,Félix U. Gómez ,OPERATIVA,True,False,False
+17,ops_17,2025-11-26 12:51:52,2025-11-26,Jorge Reynosa,22 - Satelite,,,Satelite,OPERATIVA,True,False,False
+18,ops_18,2025-11-26 12:39:37,2025-11-26,Israel Garcia,39 - Lazaro Cardenas,,,Lázaro Cardenas ,OPERATIVA,True,False,False
+19,ops_19,2025-11-25 13:10:48,2025-11-25,Israel Garcia,2 - Madero,,,Madero,OPERATIVA,True,False,False
+20,ops_20,2025-11-25 13:05:33,2025-11-25,Jorge Reynosa,8 - Gonzalitos,,,Gonzalitos ,OPERATIVA,True,False,False
+21,ops_21,2025-11-24 13:08:40,2025-11-24,Israel Garcia,14 - Aztlan,,,Aztlan,OPERATIVA,True,False,False
+22,ops_22,2025-11-24 12:55:40,2025-11-24,Jorge Reynosa,6 - Garcia,,,Garcia ,OPERATIVA,True,False,False
+23,ops_23,2025-11-21 13:17:27,2025-11-21,Jorge Reynosa,21 - Chapultepec,,,Chapultepec ,OPERATIVA,True,False,False
+24,ops_24,2025-11-21 13:02:50,2025-11-21,Israel Garcia,20 - Tecnológico,,,Tecnologico,OPERATIVA,True,False,False
+25,ops_25,2025-11-20 13:56:23,2025-11-20,Jorge Reynosa,24 - Exposicion,,,Expo.Matriz,OPERATIVA,True,False,False
+26,ops_26,2025-11-20 12:50:28,2025-11-20,Israel Garcia,38 - Gomez Morin,,,Gómez Morin ,OPERATIVA,True,False,False
+27,ops_27,2025-11-19 13:15:04,2025-11-19,Jorge Reynosa,11 - Lincoln,,,Lincoln,OPERATIVA,True,False,False
+28,ops_28,2025-11-19 12:44:15,2025-11-19,Israel Garcia,16 - Solidaridad,,,Solidaridad ,OPERATIVA,True,False,False
+29,ops_29,2025-11-18 14:08:36,2025-11-18,Jorge Reynosa,3 - Matamoros,,,Matamoros (Juarez),OPERATIVA,True,False,False
+30,ops_30,2025-11-18 13:16:11,2025-11-18,Israel Garcia,71 - Centrito Valle,,,Centrito Valle,OPERATIVA,True,False,False
+31,ops_31,2025-11-14 13:05:16,2025-11-14,Jorge Reynosa,34 - Montemorelos,,,Montemorelos ,OPERATIVA,True,False,False
+32,ops_32,2025-11-14 12:59:29,2025-11-14,Israel Garcia,32 - Allende,,,Allende ,OPERATIVA,True,False,False
+33,ops_33,2025-11-13 13:39:32,2025-11-13,Israel Garcia,25 - Juarez,,,Juárez ,OPERATIVA,True,False,False
+34,ops_34,2025-11-13 13:14:32,2025-11-13,Jorge Reynosa,26 - Cadereyta,,,Cadereyta,OPERATIVA,True,False,False
+35,ops_35,2025-11-12 13:27:09,2025-11-12,Jorge Reynosa,15 - Ruiz Cortinez,,,Ruiz Cortinez ,OPERATIVA,True,False,False
+36,ops_36,2025-11-12 13:07:45,2025-11-12,Israel Garcia,31 - Las Quintas,,,Las Quintas ,OPERATIVA,True,False,False
+37,ops_37,2025-11-11 13:19:21,2025-11-11,Israel Garcia,7 - La Huasteca,,,La Huasteca ,OPERATIVA,True,False,False
+38,ops_38,2025-11-11 13:08:28,2025-11-11,Jorge Reynosa,4 - Santa Catarina,,,Tepeyac (Santa Catarina),OPERATIVA,True,False,False
+39,ops_39,2025-11-10 13:07:20,2025-11-10,Israel Garcia,29 - Pablo Livas,,,Pablo Livas ,OPERATIVA,True,False,False
+40,ops_40,2025-11-10 13:02:16,2025-11-10,Jorge Reynosa,33 - Eloy Cavazos,,,Eloy Cavazos ,OPERATIVA,True,False,False
+41,ops_41,2025-11-07 13:11:27,2025-11-07,Israel Garcia,62 - Lazaro Cardenas (Morelia),,,,OPERATIVA,True,False,False
+42,ops_42,2025-11-06 15:33:52,2025-11-06,Jorge Reynosa,63 - Madero (Morelia),,,Madero (Morelia) ,OPERATIVA,True,False,False
+43,ops_43,2025-11-06 14:46:08,2025-11-06,Israel Garcia,64 - Huerta,,,Huerta,OPERATIVA,True,False,False
+44,ops_44,2025-11-03 16:03:55,2025-11-03,Jorge Reynosa,23 - Guasave,,,Guasave ,OPERATIVA,True,False,False
+45,ops_45,2025-10-31 12:21:54,2025-10-31,Israel Garcia,18 - Linda Vista,,,Linda Vista ,OPERATIVA,True,False,False
+46,ops_46,2025-10-30 13:50:20,2025-10-30,Jorge Reynosa,17 - Romulo Garza,,,Romulo Garza ,OPERATIVA,True,False,False
+47,ops_47,2025-10-30 13:14:53,2025-10-30,Israel Garcia,19 - Valle Soleado,,,Valle Soleado,OPERATIVA,True,False,False
+48,ops_48,2025-10-28 13:49:44,2025-10-28,Jorge Reynosa,48 - Refugio,,,Refugio (Queretaro),OPERATIVA,True,False,False
+49,ops_49,2025-10-28 13:03:44,2025-10-28,Israel Garcia,50 - Patio,,,Patio ,OPERATIVA,True,False,False
+50,ops_50,2025-10-27 15:16:09,2025-10-27,Jorge Reynosa,49 - Pueblito,,,Pueblito (Queretaro),OPERATIVA,True,False,False
+51,ops_51,2025-10-27 13:29:31,2025-10-27,Israel Garcia,51 - Constituyentes,,,Constituyentes ,OPERATIVA,True,False,False
+52,ops_52,2025-10-23 13:11:41,2025-10-23,Israel Garcia,45 - Triana,,,Triana ,OPERATIVA,True,False,False
+53,ops_53,2025-10-23 12:57:23,2025-10-23,Jorge Reynosa,42 - Independencia,,,Independencia (Torreon),OPERATIVA,True,False,False
+54,ops_54,2025-10-22 14:02:13,2025-10-22,Jorge Reynosa,43 - Revolucion,,,Revolución (Torreon),OPERATIVA,True,False,False
+55,ops_55,2025-10-22 13:33:02,2025-10-22,Israel Garcia,44 - Senderos,,,Senderos,OPERATIVA,True,False,False
+56,ops_56,2025-10-21 15:37:47,2025-10-21,Jorge Reynosa,46 - Campestre,,,Campestre (Gomez Palacio),OPERATIVA,True,False,False
+57,ops_57,2025-10-21 13:57:53,2025-10-21,Israel Garcia,47 - San Antonio,,,San Antonio ,OPERATIVA,True,False,False
+58,ops_58,2025-10-16 13:04:49,2025-10-16,Jorge Reynosa,59 - Plaza 3601,,,Hidalgo (Tampico),OPERATIVA,True,False,False
+59,ops_59,2025-10-16 12:40:16,2025-10-16,Israel Garcia,60 - Centro (Tampico),,,Centro ,OPERATIVA,True,False,False
+60,ops_60,2025-10-15 13:50:38,2025-10-15,Israel Garcia,58 - Universidad (Tampico),,,Universidad ,OPERATIVA,True,False,False
+61,ops_61,2025-10-15 13:34:09,2025-10-15,Jorge Reynosa,61 - Aeropuerto (Tampico),,,Aeropuerto (Tampico),OPERATIVA,True,False,False
+62,ops_62,2025-10-09 12:49:37,2025-10-09,Jorge Reynosa,56 - Luis Echeverria,,,Echeverria (Saltillo),OPERATIVA,True,False,False
+63,ops_63,2025-10-07 13:23:52,2025-10-07,Israel Garcia,30 - Carrizo,,,Carrizo ,OPERATIVA,True,False,False
+64,ops_64,2025-10-07 13:09:33,2025-10-07,Jorge Reynosa,28 - Guerrero,,,Guerrero 1 (Nuevo Laredo),OPERATIVA,True,False,False
+65,ops_65,2025-10-06 20:23:53,2025-10-06,Israel Garcia,81 - Reforma (Ruelas),,,Reforma ,OPERATIVA,True,False,False
+66,ops_66,2025-10-06 14:50:30,2025-10-06,Jorge Reynosa,80 - Guerrero 2 (Ruelas),,,Guerrero 2 (Nuevo Laredo),OPERATIVA,True,False,False
+67,ops_67,2025-10-02 13:56:26,2025-10-02,Jorge Reynosa,53 - Lienzo Charro,,,Lienzo Charro (Saltillo),OPERATIVA,True,False,False
+68,ops_68,2025-10-02 13:49:08,2025-10-02,Israel Garcia,55 - Eulalio Gutierrez,,,Eulalio Gutierrez,OPERATIVA,True,False,False
+69,ops_69,2025-10-01 13:45:11,2025-10-01,Jorge Reynosa,52 - Venustiano Carranza,,,Ochoa (Saltillo),OPERATIVA,True,False,False
+70,ops_70,2025-10-01 13:11:31,2025-10-01,Israel Garcia,54 - Ramos Arizpe,,,Ramos Arizpe ,OPERATIVA,True,False,False
+71,ops_71,2025-09-25 13:18:58,2025-09-25,Jorge Reynosa,72 - Sabinas Hidalgo,,,Sabinas Hidalgo ,OPERATIVA,True,False,False
+72,ops_72,2025-09-22 13:15:42,2025-09-22,Israel Garcia,27 - Santiago,,,Santiago,OPERATIVA,True,False,False
+73,ops_73,2025-09-19 14:58:41,2025-09-19,Israel Garcia,19 - Valle Soleado,,,Valle Soleado,OPERATIVA,True,False,False
+74,ops_74,2025-09-18 13:24:00,2025-09-18,Israel Garcia,29 - Pablo Livas,,,Pablo Livas ,OPERATIVA,True,False,False
+75,ops_75,2025-09-15 12:52:55,2025-09-15,Jorge Reynosa,71 - Centrito Valle,,,Centrito Valle ,OPERATIVA,True,False,False
+76,ops_76,2025-09-15 12:08:00,2025-09-15,Israel Garcia,33 - Eloy Cavazos,,,Eloy Cavazos ,OPERATIVA,True,False,False
+77,ops_77,2025-09-12 14:32:25,2025-09-12,Israel Garcia,8 - Gonzalitos,,,Gonzalitos,OPERATIVA,True,False,False
+78,ops_78,2025-09-12 13:46:14,2025-09-12,Jorge Reynosa,4 - Santa Catarina,,,Tepeyac,OPERATIVA,True,False,False
+79,ops_79,2025-09-11 13:00:32,2025-09-11,Israel Garcia,32 - Allende,,,Allende,OPERATIVA,True,False,False
+80,ops_80,2025-09-11 13:00:31,2025-09-11,Jorge Reynosa,34 - Montemorelos,,,Montemorelos ,OPERATIVA,True,False,False
+81,ops_81,2025-09-09 13:06:46,2025-09-09,Israel Garcia,2 - Madero,,,Madero,OPERATIVA,True,False,False
+82,ops_82,2025-09-09 13:06:20,2025-09-09,Jorge Reynosa,3 - Matamoros,,,Matamoros ,OPERATIVA,True,False,False
+83,ops_83,2025-09-08 12:52:58,2025-09-08,Jorge Reynosa,5 - Felix U. Gomez,,,Felix U. Gomez,OPERATIVA,True,False,False
+84,ops_84,2025-09-08 12:24:29,2025-09-08,Israel Garcia,1 - Pino Suarez,,,Pino Suárez ,OPERATIVA,True,False,False
+85,ops_85,2025-09-05 12:39:29,2025-09-05,Jorge Reynosa,16 - Solidaridad,,,Solidaridad ,OPERATIVA,True,False,False
+86,ops_86,2025-09-05 12:38:10,2025-09-05,Israel Garcia,14 - Aztlan,,,Aztlan ,OPERATIVA,True,False,False
+87,ops_87,2025-09-04 13:17:21,2025-09-04,Jorge Reynosa,13 - Escobedo,,,Escobedo,OPERATIVA,True,False,False
+88,ops_88,2025-09-04 12:30:48,2025-09-04,Israel Garcia,10 - Barragan,,,Barragan,OPERATIVA,True,False,False
+89,ops_89,2025-09-02 14:55:58,2025-09-02,Jorge Reynosa,9 - Anahuac,,,Universidad ,OPERATIVA,True,False,False
+90,ops_90,2025-09-02 13:16:39,2025-09-02,Israel Garcia,12 - Concordia,,,Concordia ,OPERATIVA,True,False,False
+91,ops_91,2025-09-01 13:19:21,2025-09-01,Jorge Reynosa,20 - Tecnológico,,,Tecnologico ,OPERATIVA,True,False,False
+92,ops_92,2025-09-01 13:12:35,2025-09-01,Israel Garcia,21 - Chapultepec,,,Chapultepec ,OPERATIVA,True,False,False
+93,ops_93,2025-08-29 13:42:57,2025-08-29,Jorge Reynosa,6 - Garcia,,,Garcia,OPERATIVA,True,False,False
+94,ops_94,2025-08-29 13:10:20,2025-08-29,Israel Garcia,7 - La Huasteca,,,La Huasteca ,OPERATIVA,True,False,False
+95,ops_95,2025-08-28 13:53:49,2025-08-28,Jorge Reynosa,22 - Satelite,,,Satélite ,OPERATIVA,True,False,False
+96,ops_96,2025-08-28 12:59:58,2025-08-28,Israel Garcia,18 - Linda Vista,,,Linda Vista ,OPERATIVA,True,False,False
+97,ops_97,2025-08-27 13:35:20,2025-08-27,Israel Garcia,25 - Juarez,,,Expo Juarez ,OPERATIVA,True,False,False
+98,ops_98,2025-08-27 13:09:37,2025-08-27,Jorge Reynosa,26 - Cadereyta,,,Cadereyta ,OPERATIVA,True,False,False
+99,ops_99,2025-08-26 13:40:31,2025-08-26,Jorge Reynosa,11 - Lincoln,,,Lincoln ,OPERATIVA,True,False,False
+100,ops_100,2025-08-26 13:38:34,2025-08-26,Israel Garcia,15 - Ruiz Cortinez,,,Ruiz Cortines,OPERATIVA,True,False,False
+101,ops_101,2025-08-25 13:19:00,2025-08-25,Jorge Reynosa,24 - Exposicion,,,Exposición ,OPERATIVA,True,False,False
+102,ops_102,2025-08-25 13:14:53,2025-08-25,Israel Garcia,31 - Las Quintas,,,Las Quintas,OPERATIVA,True,False,False
+103,ops_103,2025-08-22 12:38:14,2025-08-22,Israel Garcia,38 - Gomez Morin,,,Gómez Morin ,OPERATIVA,True,False,False
+104,ops_104,2025-08-21 13:48:18,2025-08-21,Israel Garcia,17 - Romulo Garza,,,Rómulo Garza ,OPERATIVA,True,False,False
+105,ops_105,2025-08-21 13:29:30,2025-08-21,Jorge Reynosa,39 - Lazaro Cardenas,,,Lázaro Cárdenas ,OPERATIVA,True,False,False
+106,ops_106,2025-08-20 14:38:34,2025-08-20,Israel Garcia,40 - Plaza 1500,,,Plaza 1500,OPERATIVA,True,False,False
+107,ops_107,2025-08-20 13:19:17,2025-08-20,Jorge Reynosa,41 - Vasconcelos,,,Vasconcelos,OPERATIVA,True,False,False
+108,ops_108,2025-08-19 13:21:50,2025-08-19,Jorge Reynosa,37 - Stiva,,,Stiva (Apodaca),OPERATIVA,True,False,False
+109,ops_109,2025-08-19 13:17:04,2025-08-19,Israel Garcia,36 - Apodaca Centro,,,Apodaca Centro,OPERATIVA,True,False,False
+110,ops_110,2025-08-18 13:50:22,2025-08-18,Israel Garcia,56 - Luis Echeverria,,,Lienzo,OPERATIVA,True,False,False
+111,ops_111,2025-08-15 13:42:07,2025-08-15,Jorge Reynosa,69 - Puerto Rico,,,Puerto Rico (Matamoros) ,OPERATIVA,True,False,False
+112,ops_112,2025-08-15 10:03:43,2025-08-15,Jorge Reynosa,67 - Centro (Matamoros),,,Centro (Matamoros),OPERATIVA,True,False,False
+113,ops_113,2025-08-14 14:02:22,2025-08-14,Israel Garcia,66 - Lauro Villar,,,Lauro Villar ,OPERATIVA,True,False,False
+114,ops_114,2025-08-13 13:31:58,2025-08-13,Jorge Reynosa,65 - Pedro Cardenas,,,Pedro Cárdenas ,OPERATIVA,True,False,False
+115,ops_115,2025-08-13 13:11:11,2025-08-13,Israel Garcia,68 - Avenida del Niño,,,Av. Del Niño,OPERATIVA,True,False,False
+116,ops_116,2025-08-11 14:03:01,2025-08-11,Jorge Reynosa,56 - Luis Echeverria,,,Echeverria (Saltillo) ,OPERATIVA,True,False,False
+117,ops_117,2025-08-11 13:58:48,2025-08-11,Israel Garcia,55 - Eulalio Gutierrez,,,Comidas EG,OPERATIVA,True,False,False
+118,ops_118,2025-08-08 11:55:02,2025-08-08,Jorge Reynosa,78 - Alcala,,,Alcala (Reynosa) ,OPERATIVA,True,False,False
+119,ops_119,2025-08-07 14:08:14,2025-08-07,Israel Garcia,75 - Libramiento (Reynosa),,,Libramiento ,OPERATIVA,True,False,False
+120,ops_120,2025-08-07 12:49:38,2025-08-07,Jorge Reynosa,76 - Aeropuerto (Reynosa),,,Aeropuerto (Reynosa),OPERATIVA,True,False,False
+121,ops_121,2025-08-06 13:45:25,2025-08-06,Jorge Reynosa,79 - Rio Bravo,,,Río Bravo ,OPERATIVA,True,False,False
+122,ops_122,2025-08-06 13:36:42,2025-08-06,Israel Garcia,74 - Hidalgo (Reynosa),,,Hidalgo,OPERATIVA,True,False,False
+123,ops_123,2025-08-05 14:56:19,2025-08-05,Jorge Reynosa,77 - Boulevard Morelos,,,Reynosa (Suc. Morelos),OPERATIVA,True,False,False
+124,ops_124,2025-08-05 14:24:01,2025-08-05,Israel Garcia,73 - Anzalduas,,,Anzalduas,OPERATIVA,True,False,False
+125,ops_125,2025-07-31 12:30:31,2025-07-31,Jorge Reynosa,70 - Coahuila Comidas,,,Piedras Negras ,OPERATIVA,True,False,False
+126,ops_126,2025-07-30 16:02:26,2025-07-30,Israel Garcia,57 - Harold R. Pape,,,PAPE,OPERATIVA,True,False,False
+127,ops_127,2025-07-22 14:37:18,2025-07-22,Israel Garcia,54 - Ramos Arizpe,,,Ramos Arizpe ,OPERATIVA,True,False,False
+128,ops_128,2025-07-22 13:16:11,2025-07-22,Jorge Reynosa,52 - Venustiano Carranza,,,Ochoa (Saltillo),OPERATIVA,True,False,False
+129,ops_129,2025-07-18 12:07:39,2025-07-18,Jorge Reynosa,72 - Sabinas Hidalgo,,,Sabinas Hidalgo ,OPERATIVA,True,False,False
+130,ops_130,2025-07-15 12:15:21,2025-07-15,Israel Garcia,27 - Santiago,,,Santiago ,OPERATIVA,True,False,False
+131,ops_131,2025-07-14 14:49:57,2025-07-14,Israel Garcia,41 - Vasconcelos,,,Vasconcelos ,OPERATIVA,True,False,False
+132,ops_132,2025-07-14 14:05:16,2025-07-14,Jorge Reynosa,14 - Aztlan,,,Aztlan ,OPERATIVA,True,False,False
+133,ops_133,2025-07-11 13:05:05,2025-07-11,Jorge Reynosa,11 - Lincoln,,,Lincoln ,OPERATIVA,True,False,False
+134,ops_134,2025-07-10 16:34:23,2025-07-10,Jorge Reynosa,9 - Anahuac,,,Universidad ,OPERATIVA,True,False,False
+135,ops_135,2025-07-10 13:21:24,2025-07-10,Israel Garcia,5 - Felix U. Gomez,,,Félix U. Gomez,OPERATIVA,True,False,False
+136,ops_136,2025-07-09 15:45:27,2025-07-09,Israel Garcia,39 - Lazaro Cardenas,,,Lázaro Cardenas ,OPERATIVA,True,False,False
+137,ops_137,2025-07-09 13:52:35,2025-07-09,Jorge Reynosa,20 - Tecnológico,,,Tecnologico,OPERATIVA,True,False,False
+138,ops_138,2025-07-08 13:11:40,2025-07-08,Israel Garcia,8 - Gonzalitos,,,Gonzalitos,OPERATIVA,True,False,False
+139,ops_139,2025-07-07 13:48:43,2025-07-07,Israel Garcia,2 - Madero,,,Madero,OPERATIVA,True,False,False
+140,ops_140,2025-07-04 12:59:28,2025-07-04,Jorge Reynosa,16 - Solidaridad,,,Solidaridad ,OPERATIVA,True,False,False
+141,ops_141,2025-07-04 12:51:35,2025-07-04,Israel Garcia,1 - Pino Suarez,,,Pino Suárez ,OPERATIVA,True,False,False
+142,ops_142,2025-07-03 13:55:19,2025-07-03,Israel Garcia,34 - Montemorelos,,,Montemorelos,OPERATIVA,True,False,False
+143,ops_143,2025-07-03 13:22:50,2025-07-03,Jorge Reynosa,32 - Allende,,,Allende ,OPERATIVA,True,False,False
+144,ops_144,2025-07-02 13:20:27,2025-07-02,Jorge Reynosa,21 - Chapultepec,,,Chapultepec ,OPERATIVA,True,False,False
+145,ops_145,2025-07-02 13:03:47,2025-07-02,Israel Garcia,71 - Centrito Valle,,,Gómez Morin ,OPERATIVA,True,False,False
+146,ops_146,2025-07-01 13:03:15,2025-07-01,Jorge Reynosa,10 - Barragan,,,Barragán ,OPERATIVA,True,False,False
+147,ops_147,2025-06-30 15:31:28,2025-06-30,Israel Garcia,3 - Matamoros,,,Juárez (Centro),OPERATIVA,True,False,False
+148,ops_148,2025-06-30 13:27:36,2025-06-30,Jorge Reynosa,71 - Centrito Valle,,,Centrito Valle ,OPERATIVA,True,False,False
+149,ops_149,2025-06-27 13:06:07,2025-06-27,Jorge Reynosa,37 - Stiva,,,Stiva,OPERATIVA,True,False,False
+150,ops_150,2025-06-27 12:58:13,2025-06-27,Israel Garcia,12 - Concordia,,,Concordia ,OPERATIVA,True,False,False
+151,ops_151,2025-06-26 13:12:35,2025-06-26,Jorge Reynosa,26 - Cadereyta,,,Cadereyta ,OPERATIVA,True,False,False
+152,ops_152,2025-06-26 13:10:09,2025-06-26,Israel Garcia,25 - Juarez,,,Juárez Expo,OPERATIVA,True,False,False
+153,ops_153,2025-06-24 14:08:20,2025-06-24,Israel Garcia,40 - Plaza 1500,,,Plaza 1500,OPERATIVA,True,False,False
+154,ops_154,2025-06-23 13:15:37,2025-06-23,Jorge Reynosa,31 - Las Quintas,,,Las Quintas,OPERATIVA,True,False,False
+155,ops_155,2025-06-20 13:21:42,2025-06-20,Jorge Reynosa,15 - Ruiz Cortinez,,,Ruiz Cortinez ,OPERATIVA,True,False,False
+156,ops_156,2025-06-20 13:15:12,2025-06-20,Israel Garcia,19 - Valle Soleado,,,Valle Soleado ,OPERATIVA,True,False,False
+157,ops_157,2025-06-18 13:19:15,2025-06-18,Jorge Reynosa,33 - Eloy Cavazos,,,Eloy Cavazos ,OPERATIVA,True,False,False
+158,ops_158,2025-06-17 13:56:18,2025-06-17,Jorge Reynosa,4 - Santa Catarina,,,Tepeyac,OPERATIVA,True,False,False
+159,ops_159,2025-06-17 13:12:56,2025-06-17,Israel Garcia,7 - La Huasteca,,,Huasteca ,OPERATIVA,True,False,False
+160,ops_160,2025-06-16 13:23:42,2025-06-16,Israel Garcia,29 - Pablo Livas,,,Pablo Livas,OPERATIVA,True,False,False
+161,ops_161,2025-06-16 12:59:28,2025-06-16,Jorge Reynosa,18 - Linda Vista,,,Linda Vista ,OPERATIVA,True,False,False
+162,ops_162,2025-06-13 13:31:44,2025-06-13,Jorge Reynosa,24 - Exposicion,,,Expo Matriz ,OPERATIVA,True,False,False
+163,ops_163,2025-06-13 13:15:11,2025-06-13,Israel Garcia,22 - Satelite,,,Satélite ,OPERATIVA,True,False,False
+164,ops_164,2025-06-12 14:27:12,2025-06-12,Jorge Reynosa,17 - Romulo Garza,,,Romulo Garza,OPERATIVA,True,False,False
+165,ops_165,2025-06-12 14:01:10,2025-06-12,Israel Garcia,6 - Garcia,,,García ,OPERATIVA,True,False,False
+166,ops_166,2025-06-11 15:50:53,2025-06-11,Israel Garcia,36 - Apodaca Centro,,,Apodaca (centro) ,OPERATIVA,True,False,False
+167,ops_167,2025-06-11 13:51:22,2025-06-11,Jorge Reynosa,13 - Escobedo,,,Escobedo,OPERATIVA,True,False,False
+168,ops_168,2025-06-09 16:47:01,2025-06-09,Jorge Reynosa,23 - Guasave,,,Guasave ,OPERATIVA,True,False,False
+169,ops_169,2025-06-05 13:39:48,2025-06-05,Jorge Reynosa,62 - Lazaro Cardenas (Morelia),,,Lázaro Cárdenas (Morelia) ,OPERATIVA,True,False,False
+170,ops_170,2025-06-04 17:46:49,2025-06-04,Israel Garcia,63 - Madero (Morelia),,,Madero (Morelia),OPERATIVA,True,False,False
+171,ops_171,2025-06-04 16:07:05,2025-06-04,Jorge Reynosa,64 - Huerta,,,Huerta (Moleria),OPERATIVA,True,False,False
+172,ops_172,2025-06-03 14:15:14,2025-06-03,Israel Garcia,49 - Pueblito,,,Pueblito (Queretaro),OPERATIVA,True,False,False
+173,ops_173,2025-06-03 13:56:10,2025-06-03,Jorge Reynosa,51 - Constituyentes,,,Contituyentes (Queretaro),OPERATIVA,True,False,False
+174,ops_174,2025-06-02 15:43:34,2025-06-02,Jorge Reynosa,50 - Patio,,,Patio(Queretaro),OPERATIVA,True,False,False
+175,ops_175,2025-06-02 15:09:56,2025-06-02,Israel Garcia,48 - Refugio,,,Refugio,OPERATIVA,True,False,False
+176,ops_176,2025-05-28 13:59:40,2025-05-28,Israel Garcia,59 - Plaza 3601,,,Plaza Hidalgo (Tampico),OPERATIVA,True,False,False
+177,ops_177,2025-05-28 13:44:12,2025-05-28,Jorge Reynosa,60 - Centro (Tampico),,,Plaza (Tampico),OPERATIVA,True,False,False
+178,ops_178,2025-05-27 15:04:27,2025-05-27,Israel Garcia,61 - Aeropuerto (Tampico),,,Aeropuerto (Tampico),OPERATIVA,True,False,False
+179,ops_179,2025-05-27 14:40:45,2025-05-27,Jorge Reynosa,58 - Universidad (Tampico),,,Universidad (Tampico),OPERATIVA,True,False,False
+180,ops_180,2025-05-20 14:24:47,2025-05-20,Israel Garcia,28 - Guerrero,,,Guerrero Centro ,OPERATIVA,True,False,False
+181,ops_181,2025-05-20 13:48:36,2025-05-20,Jorge Reynosa,30 - Carrizo,,,Carrizo( Nuevo Laredo) ,OPERATIVA,True,False,False
+182,ops_182,2025-05-19 14:29:29,2025-05-19,Jorge Reynosa,81 - Reforma (Ruelas),,,Reforma (Nuevo Laredo),OPERATIVA,True,False,False
+183,ops_183,2025-05-19 13:59:32,2025-05-19,Israel Garcia,80 - Guerrero 2 (Ruelas),,,Guerrero (Ruelas),OPERATIVA,True,False,False
+184,ops_184,2025-05-15 15:27:18,2025-05-15,Jorge Reynosa,66 - Lauro Villar,,,Lauro Villar (Matamoros),OPERATIVA,True,False,False
+185,ops_185,2025-05-15 14:36:07,2025-05-15,Israel Garcia,67 - Centro (Matamoros),,,Quintas Centro ,OPERATIVA,True,False,False
+186,ops_186,2025-05-14 15:37:19,2025-05-14,Jorge Reynosa,69 - Puerto Rico,,,Puerto Rico (Matamoros) ,OPERATIVA,True,False,False
+187,ops_187,2025-05-14 15:06:26,2025-05-14,Israel Garcia,65 - Pedro Cardenas,,,Pedro Cárdenas ,OPERATIVA,True,False,False
+188,ops_188,2025-05-08 13:32:46,2025-05-08,Israel Garcia,43 - Revolucion,,,Revolución ,OPERATIVA,True,False,False
+189,ops_189,2025-05-08 13:18:54,2025-05-08,Jorge Reynosa,45 - Triana,,,Triana,OPERATIVA,True,False,False
+190,ops_190,2025-05-07 14:09:24,2025-05-07,Israel Garcia,44 - Senderos,,,Senderos,OPERATIVA,True,False,False
+191,ops_191,2025-05-07 13:39:48,2025-05-07,Jorge Reynosa,42 - Independencia,,,Independencia ,OPERATIVA,True,False,False
+192,ops_192,2025-05-06 15:11:40,2025-05-06,Israel Garcia,46 - Campestre,,,Campestre ,OPERATIVA,True,False,False
+193,ops_193,2025-05-06 13:56:21,2025-05-06,Jorge Reynosa,47 - San Antonio,,,San Antonio (Gómez Palacio),OPERATIVA,True,False,False
+194,ops_194,2025-04-25 12:39:25,2025-04-25,Jorge Reynosa,78 - Alcala,,,Suc. Alcala Reynosa ,OPERATIVA,True,False,False
+195,ops_195,2025-04-24 13:28:30,2025-04-24,Jorge Reynosa,76 - Aeropuerto (Reynosa),,,Reynosa Aeropuerto ,OPERATIVA,True,False,False
+196,ops_196,2025-04-24 13:06:28,2025-04-24,Israel Garcia,75 - Libramiento (Reynosa),,,Libramiento (Reynosa),OPERATIVA,True,False,False
+197,ops_197,2025-04-23 14:04:42,2025-04-23,Jorge Reynosa,79 - Rio Bravo,,,Río Bravo ,OPERATIVA,True,False,False
+198,ops_198,2025-04-23 13:37:27,2025-04-23,Israel Garcia,74 - Hidalgo (Reynosa),,,Hidalgo,OPERATIVA,True,False,False
+199,ops_199,2025-04-22 14:11:05,2025-04-22,Jorge Reynosa,77 - Boulevard Morelos,,,Reynosa Suc. Morelos ,OPERATIVA,True,False,False
+200,ops_200,2025-04-22 14:07:28,2025-04-22,Israel Garcia,73 - Anzalduas,,,Anzalduas,OPERATIVA,True,False,False
+201,ops_201,2025-04-16 13:32:11,2025-04-16,Israel Garcia,71 - Centrito Valle,,,Comidas Maria Nelly (Centrito),OPERATIVA,True,False,False
+202,ops_202,2025-04-10 13:11:16,2025-04-10,Israel Garcia,70 - Coahuila Comidas,,,Coahuila Comidas Piedras Negras,OPERATIVA,True,False,False
+203,ops_203,2025-04-10 13:07:51,2025-04-10,Jorge Reynosa,72 - Sabinas Hidalgo,,,Sabinas Hidalgo,OPERATIVA,True,False,False
+204,ops_204,2025-04-09 12:56:35,2025-04-09,Jorge Reynosa,57 - Harold R. Pape,,,Monclova,OPERATIVA,True,False,False
+205,ops_205,2025-04-04 13:29:48,2025-04-04,Israel Garcia,Sucursal SC - Santa Catarina,,,Tepeyac,OPERATIVA,True,False,False
+206,ops_206,2025-04-04 13:16:35,2025-04-04,Jorge Reynosa,12 - Concordia,,,Concordia ,OPERATIVA,True,False,False
+207,ops_207,2025-04-03 13:14:29,2025-04-03,Israel Garcia,32 - Allende,,,Allende ,OPERATIVA,True,False,False
+208,ops_208,2025-04-03 12:54:11,2025-04-03,Jorge Reynosa,34 - Montemorelos,,,Montemorelos ,OPERATIVA,True,False,False
+209,ops_209,2025-04-02 13:08:07,2025-04-02,Jorge Reynosa,8 - Gonzalitos,,,Gonzalitos ,OPERATIVA,True,False,False
+210,ops_210,2025-04-02 12:28:01,2025-04-02,Israel Garcia,14 - Aztlan,,,Aztlán ,OPERATIVA,True,False,False
+211,ops_211,2025-04-01 12:47:45,2025-04-01,Israel Garcia,31 - Las Quintas,,,Las Quintas,OPERATIVA,True,False,False
+212,ops_212,2025-04-01 12:25:26,2025-04-01,Jorge Reynosa,38 - Gomez Morin,,,Gómez Morin ,OPERATIVA,True,False,False
+213,ops_213,2025-03-31 13:29:25,2025-03-31,Jorge Reynosa,27 - Santiago,,,Santiago ,OPERATIVA,True,False,False
+214,ops_214,2025-03-31 13:07:42,2025-03-31,Israel Garcia,13 - Escobedo,,,Escobedo,OPERATIVA,True,False,False
+215,ops_215,2025-03-28 13:37:58,2025-03-28,Israel Garcia,20 - Tecnológico,,,Tecnológico ,OPERATIVA,True,False,False
+216,ops_216,2025-03-28 13:05:08,2025-03-28,Jorge Reynosa,10 - Barragan,,,Barragán ,OPERATIVA,True,False,False
+217,ops_217,2025-03-27 12:27:28,2025-03-27,Jorge Reynosa,40 - Plaza 1500,,,Plaza 1500,OPERATIVA,True,False,False
+218,ops_218,2025-03-26 15:04:50,2025-03-26,Israel Garcia,11 - Lincoln,,,Lincoln,OPERATIVA,True,False,False
+219,ops_219,2025-03-26 14:05:56,2025-03-26,Jorge Reynosa,15 - Ruiz Cortinez,,,Ruiz Cortinez,OPERATIVA,True,False,False
+220,ops_220,2025-03-25 13:42:40,2025-03-25,Israel Garcia,25 - Juarez,,,Expo Juarez,OPERATIVA,True,False,False
+221,ops_221,2025-03-25 12:07:47,2025-03-25,Jorge Reynosa,26 - Cadereyta,,,Cadereyta ,OPERATIVA,True,False,False
+222,ops_222,2025-03-24 13:36:28,2025-03-24,Jorge Reynosa,39 - Lazaro Cardenas,,,Lazaro Cárdenas ,OPERATIVA,True,False,False
+223,ops_223,2025-03-24 13:20:10,2025-03-24,Israel Garcia,18 - Linda Vista,,,Linda Vista ,OPERATIVA,True,False,False
+224,ops_224,2025-03-21 12:52:55,2025-03-21,Israel Garcia,21 - Chapultepec,,,Chapultepec ,OPERATIVA,True,False,False
+225,ops_225,2025-03-21 12:48:46,2025-03-21,Jorge Reynosa,37 - Stiva,,,Stiva,OPERATIVA,True,False,False
+226,ops_226,2025-03-20 13:39:57,2025-03-20,Jorge Reynosa,Sucursal LH - La Huasteca,,,Huasteca,OPERATIVA,True,False,False
+227,ops_227,2025-03-20 13:32:08,2025-03-20,Israel Garcia,33 - Eloy Cavazos,,,Eloy Cavazos ,OPERATIVA,True,False,False
+228,ops_228,2025-03-19 13:47:43,2025-03-19,Israel Garcia,17 - Romulo Garza,,,Rómulo Garza ,OPERATIVA,True,False,False
+229,ops_229,2025-03-19 13:29:14,2025-03-19,Jorge Reynosa,41 - Vasconcelos,,,Vasconcelos ,OPERATIVA,True,False,False
+230,ops_230,2025-03-18 13:25:52,2025-03-18,Israel Garcia,29 - Pablo Livas,,,Pablo Livas,OPERATIVA,True,False,False
+231,ops_231,2025-03-18 12:51:29,2025-03-18,Jorge Reynosa,16 - Solidaridad,,,Solidaridad ,OPERATIVA,True,False,False
+232,ops_232,2025-03-14 13:24:29,2025-03-14,Jorge Reynosa,22 - Satelite,,,Satélite ,OPERATIVA,True,False,False
+233,ops_233,2025-03-14 12:39:48,2025-03-14,Israel Garcia,36 - Apodaca Centro,,,Apodaca Centro,OPERATIVA,True,False,False
+234,ops_234,2025-03-13 13:59:01,2025-03-13,Israel Garcia,19 - Valle Soleado,,,Valle Soleado,OPERATIVA,True,False,False
+235,ops_235,2025-03-13 13:57:57,2025-03-13,Jorge Reynosa,9 - Anahuac,,,Pollo Loco Anahuac,OPERATIVA,True,False,False
+236,ops_236,2025-03-12 13:53:29,2025-03-12,Israel Garcia,24 - Exposicion,,,Expo Matriz ,OPERATIVA,True,False,False
+237,ops_237,2025-03-12 13:23:53,2025-03-12,Jorge Reynosa,Sucursal GC - Garcia,,,García ,OPERATIVA,True,False,False
