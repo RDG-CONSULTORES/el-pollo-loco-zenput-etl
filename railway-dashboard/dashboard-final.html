@@ -918,7 +918,7 @@
         // Show sucursal detail
         async function showSucursalDetail(sucursalName, estado, grupoOperativo) {
             try {
-                const response = await fetch(`${API_BASE}/analisis-critico?tipo=sucursal&id=${encodeURIComponent(sucursalName)}&estado=${encodeURIComponent(estado)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}`);
+                const response = await fetch(`${API_BASE}/sucursal-detail?sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}`);
                 const data = await response.json();
                 
                 if (data.sucursal) {
@@ -971,7 +971,7 @@
             if (!map) return;
             
             try {
-                const response = await fetch(`${API_BASE}/${currentType}/mapa`);
+                const response = await fetch(`${API_BASE}/mapa?type=${currentType}`);
                 const locations = await response.json();
                 
                 // Clear existing markers
@@ -1012,7 +1012,7 @@
         // Load historical data
         async function loadHistoricalData() {
             try {
-                const response = await fetch(`${API_BASE}/${currentType}/historico`);
+                const response = await fetch(`${API_BASE}/historico?type=${currentType}`);
                 const data = await response.json();
                 
                 const ctx = document.getElementById('historicalChart');

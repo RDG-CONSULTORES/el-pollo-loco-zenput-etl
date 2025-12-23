@@ -91,6 +91,15 @@ app.get('/final', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard-final.html'));
 });
 
+// ULTIMATE BYPASS - New file name
+app.get('/fixed', (req, res) => {
+    console.log('🚀 ULTIMATE - Dashboard with fixed endpoints');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'dashboard-final.html'));
+});
+
 // Debug route to see what file content
 app.get('/debug-file', (req, res) => {
     const fs = require('fs');
@@ -141,7 +150,8 @@ function classifyTerritory(grupoOperativo) {
 
 app.get('/api/kpis', async (req, res) => {
     try {
-        console.log('📊 KPIs requested');
+        const { type } = req.query;
+        console.log(`📊 KPIs requested - Type: ${type}`);
         
         const queries = await Promise.all([
             pool.query('SELECT COUNT(DISTINCT s.id) as total FROM sucursales s'),
@@ -174,7 +184,8 @@ app.get('/api/kpis', async (req, res) => {
 
 app.get('/api/grupos', async (req, res) => {
     try {
-        console.log('👥 Grupos data requested');
+        const { type } = req.query;
+        console.log(`👥 Grupos data requested - Type: ${type}`);
         
         const result = await pool.query(`
             SELECT 
@@ -221,8 +232,8 @@ app.get('/api/grupos', async (req, res) => {
 
 app.get('/api/mapa', async (req, res) => {
     try {
-        const { grupo, estado } = req.query;
-        console.log(`🗺️ Mapa data requested - Grupo: ${grupo}, Estado: ${estado}`);
+        const { grupo, estado, type } = req.query;
+        console.log(`🗺️ Mapa data requested - Grupo: ${grupo}, Estado: ${estado}, Type: ${type}`);
         
         let whereConditions = ['s.latitud IS NOT NULL', 's.longitud IS NOT NULL'];
         let params = [];
@@ -289,8 +300,8 @@ app.get('/api/mapa', async (req, res) => {
 
 app.get('/api/sucursal-detail', async (req, res) => {
     try {
-        const { sucursal, grupo } = req.query;
-        console.log('🏢 Sucursal Detail requested for:', sucursal, 'from group:', grupo);
+        const { sucursal, grupo, type } = req.query;
+        console.log(`🏢 Sucursal Detail requested for: ${sucursal}, group: ${grupo}, type: ${type}`);
         
         if (!sucursal) {
             return res.status(400).json({ error: 'Sucursal name is required' });
@@ -379,7 +390,8 @@ app.get('/api/sucursal-detail', async (req, res) => {
 
 app.get('/api/historico', async (req, res) => {
     try {
-        console.log('📈 Historico data requested');
+        const { type } = req.query;
+        console.log(`📈 Historico data requested - Type: ${type}`);
         
         // Get weekly performance aggregation
         const result = await pool.query(`
@@ -417,8 +429,8 @@ app.get('/api/historico', async (req, res) => {
 
 app.get('/api/sucursales-ranking', async (req, res) => {
     try {
-        const { grupo, estado, limit = 50 } = req.query;
-        console.log(`🏆 Sucursales ranking - Grupo: ${grupo}, Estado: ${estado}, Limit: ${limit}`);
+        const { grupo, estado, limit = 50, type } = req.query;
+        console.log(`🏆 Sucursales ranking - Grupo: ${grupo}, Estado: ${estado}, Limit: ${limit}, Type: ${type}`);
         
         let whereConditions = ['TRUE'];
         let params = [];
