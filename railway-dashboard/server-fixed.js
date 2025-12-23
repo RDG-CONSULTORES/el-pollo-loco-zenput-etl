@@ -61,16 +61,23 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Serve static files
-app.use(express.static(path.join(__dirname)));
-
 // ============================================================================
-// 📱 HOME PAGE ROUTE - SERVE DASHBOARD COMPLETO
+// 📱 HOME PAGE ROUTE - SERVE DASHBOARD COMPLETO (PRIORITY ROUTE)
 // ============================================================================
 
 app.get('/', (req, res) => {
+    console.log('🏠 Serving dashboard completo:', 'dashboard-ios-completo-original.html');
     res.sendFile(path.join(__dirname, 'dashboard-ios-completo-original.html'));
 });
+
+// Force serve dashboard completo with specific route
+app.get('/dashboard-completo', (req, res) => {
+    console.log('🎯 Force serving dashboard completo');
+    res.sendFile(path.join(__dirname, 'dashboard-ios-completo-original.html'));
+});
+
+// Serve static files (after home route to avoid conflicts)
+app.use(express.static(path.join(__dirname)));
 
 // Request logging middleware
 app.use((req, res, next) => {
