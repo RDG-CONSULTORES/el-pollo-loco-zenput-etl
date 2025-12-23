@@ -66,14 +66,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // ============================================================================
 
 app.get('/', (req, res) => {
-    console.log('🏠 Serving dashboard completo:', 'dashboard-ios-completo-original.html');
-    res.sendFile(path.join(__dirname, 'dashboard-ios-completo-original.html'));
+    console.log('🏠 Serving dashboard anterior funcionando:', 'index-clone-original.html');
+    res.sendFile(path.join(__dirname, 'index-clone-original.html'));
 });
 
-// Force serve dashboard completo with specific route
-app.get('/dashboard-completo', (req, res) => {
-    console.log('🎯 Force serving dashboard completo');
-    res.sendFile(path.join(__dirname, 'dashboard-ios-completo-original.html'));
+// Force serve dashboard con drill-down funcionando
+app.get('/dashboard-funcionando', (req, res) => {
+    console.log('🎯 Serving dashboard con drill-down');
+    res.sendFile(path.join(__dirname, 'index-clone-original.html'));
 });
 
 // Serve static files (after home route to avoid conflicts)

@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAS - Customer Audit System</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            background: #e9ecef;
+            transform: translateY(-1px);
+        }
+
+        .content {
+            min-height: 500px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .filters {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.95em;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #4facfe;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .metric-title {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .metric-change.positive {
+            color: #28a745;
+        }
+
+        .metric-change.negative {
+            color: #dc3545;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .chart-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        #map {
+            height: 500px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .grupo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid #4facfe;
+        }
+
+        .grupo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .grupo-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .grupo-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .grupo-score {
+            font-size: 1.8em;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .score-excellent { background: linear-gradient(135deg, #28a745, #20c997); }
+        .score-good { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+        .score-poor { background: linear-gradient(135deg, #dc3545, #e83e8c); }
+
+        .sucursales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .sucursal-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sucursal-card:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .sucursal-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        .sucursal-score {
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+
+        .loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4facfe;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .modal-score {
+            text-align: center;
+            font-size: 3em;
+            font-weight: 700;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .filter-row {
+                flex-direction: column;
+            }
+
+            .filter-group {
+                min-width: auto;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .tab {
+                padding: 12px 8px;
+                font-size: 1em;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 20px;
+                width: 95%;
+            }
+
+            .grupo-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .sucursales-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header .subtitle {
+                font-size: 1em;
+            }
+
+            .metric-value {
+                font-size: 2em;
+            }
+
+            .grupo-name {
+                font-size: 1.1em;
+            }
+
+            .grupo-score {
+                font-size: 1.5em;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Additional Styles for Enhanced Visuals */
+        .performance-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-excellent {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+        }
+
+        .badge-good {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+        }
+
+        .badge-poor {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+        }
+
+        .trend-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .trend-up::before {
+            content: '↗';
+            color: #28a745;
+        }
+
+        .trend-down::before {
+            content: '↘';
+            color: #dc3545;
+        }
+
+        .trend-stable::before {
+            content: '→';
+            color: #6c757d;
+        }
+
+        /* Chart responsiveness */
+        .chart-container canvas {
+            max-height: 400px !important;
+        }
+
+        /* Table styles for data display */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            font-weight: 600;
+            color: #495057;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Status indicators */
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-online { background: #28a745; }
+        .status-warning { background: #ffc107; }
+        .status-offline { background: #dc3545; }
+
+        /* Enhanced hover effects */
+        .interactive-element {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .interactive-element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Progress bars */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            transition: width 0.3s ease;
+        }
+
+        /* Alert styles */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐔 CAS - Customer Audit System</h1>
+            <div class="subtitle">Dashboard de Supervisión El Pollo Loco</div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('dashboard')">Dashboard</div>
+            <div class="tab" onclick="showTab('mapa')">Mapa</div>
+            <div class="tab" onclick="showTab('historico')">Histórico</div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="content">
+            <div class="filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="periodo">Período:</label>
+                        <select id="periodo" onchange="updateData()">
+                            <option value="hoy">Hoy</option>
+                            <option value="ayer">Ayer</option>
+                            <option value="semana" selected>Esta Semana</option>
+                            <option value="mes">Este Mes</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="territorio">Territorio:</label>
+                        <select id="territorio" onchange="updateData()">
+                            <option value="todos" selected>Todos</option>
+                            <option value="locales">Locales</option>
+                            <option value="foraneas">Foráneas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="performance">Nivel de Performance:</label>
+                        <select id="performance" onchange="updateData()">
+                            <option value="todos" selected>Todos</option>
+                            <option value="excelente">Excelente (90%+)</option>
+                            <option value="bueno">Bueno (70-89%)</option>
+                            <option value="malo">Necesita Mejorar (<70%)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="fechaInicio">Fecha Inicio:</label>
+                        <input type="date" id="fechaInicio" style="display:none;">
+                    </div>
+                    <div class="filter-group">
+                        <label for="fechaFin">Fecha Fin:</label>
+                        <input type="date" id="fechaFin" style="display:none;">
+                    </div>
+                    <div class="filter-group">
+                        <button class="btn" onclick="updateData()">🔄 Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Promedio Global</div>
+                    <div class="metric-value" id="promedioGlobal">87.3%</div>
+                    <div class="metric-change positive">+2.1% vs semana anterior</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Sucursales Activas</div>
+                    <div class="metric-value" id="sucursalesActivas">247</div>
+                    <div class="metric-change positive">+3 nuevas sucursales</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Auditorías Completadas</div>
+                    <div class="metric-value" id="auditoriasCompletadas">1,842</div>
+                    <div class="metric-change positive">+156 vs semana anterior</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Grupos Operativos</div>
+                    <div class="metric-value" id="gruposOperativos">20</div>
+                    <div class="metric-change">Estructura completa</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Performance por Grupo Operativo</div>
+                <canvas id="performanceChart"></canvas>
+            </div>
+
+            <div id="gruposContainer">
+                <div class="loading">Cargando datos de grupos operativos...</div>
+            </div>
+        </div>
+
+        <!-- Mapa Tab -->
+        <div id="mapa" class="content" style="display:none;">
+            <div class="filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="mapaFiltro">Mostrar:</label>
+                        <select id="mapaFiltro" onchange="updateMap()">
+                            <option value="todos" selected>Todas las Sucursales</option>
+                            <option value="excelente">Performance Excelente (90%+)</option>
+                            <option value="bueno">Performance Bueno (70-89%)</option>
+                            <option value="malo">Necesita Mejorar (<70%)</option>
+                            <option value="locales">Solo Locales</option>
+                            <option value="foraneas">Solo Foráneas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="btn" onclick="updateMap()">🗺️ Actualizar Mapa</button>
+                    </div>
+                </div>
+            </div>
+            <div id="map"></div>
+        </div>
+
+        <!-- Historico Tab -->
+        <div id="historico" class="content" style="display:none;">
+            <div class="filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="historicoGrupo">Grupo:</label>
+                        <select id="historicoGrupo" onchange="updateHistorico()">
+                            <option value="todos" selected>Todos los Grupos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="historicoPeriodo">Período:</label>
+                        <select id="historicoPeriodo" onchange="updateHistorico()">
+                            <option value="30dias" selected>Últimos 30 días</option>
+                            <option value="90dias">Últimos 90 días</option>
+                            <option value="6meses">Últimos 6 meses</option>
+                            <option value="1ano">Último año</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Evolución del Performance - Últimos 30 días</div>
+                <canvas id="historicoChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Distribución de Scores por Período</div>
+                <canvas id="distribucionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Sucursal Details -->
+    <div id="sucursalModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Detalles de Sucursal</h2>
+            <div id="modalScore" class="modal-score"></div>
+            <div id="modalDetails" class="detail-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentData = null;
+        let performanceChart = null;
+        let historicoChart = null;
+        let distribucionChart = null;
+        let map = null;
+        let markers = [];
+
+        // Data cache
+        const dataCache = {
+            grupos: null,
+            sucursales: null,
+            historico: null,
+            lastUpdate: null
+        };
+
+        // Configuration
+        const API_BASE_URL = window.location.origin; // Use current Railway URL
+        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+        // Grupo operativo structure with territorial classification
+        // Real grupos operativos from Railway database will be loaded dynamically
+        let gruposOperativos = [];
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing CAS Dashboard...');
+            initializeApp();
+            setupEventHandlers();
+            updateData();
+        });
+
+        function initializeApp() {
+            // Set default date values
+            const today = new Date();
+            const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            document.getElementById('fechaInicio').value = weekAgo.toISOString().split('T')[0];
+            document.getElementById('fechaFin').value = today.toISOString().split('T')[0];
+
+            // Populate historico grupo selector
+            const historicoGrupoSelect = document.getElementById('historicoGrupo');
+            gruposOperativos.forEach(grupo => {
+                const option = document.createElement('option');
+                option.value = grupo.id;
+                option.textContent = grupo.nombre;
+                historicoGrupoSelect.appendChild(option);
+            });
+
+            console.log('App initialized successfully');
+        }
+
+        function setupEventHandlers() {
+            // Period change handler
+            document.getElementById('periodo').addEventListener('change', function() {
+                const customFields = document.querySelectorAll('#fechaInicio, #fechaFin');
+                if (this.value === 'custom') {
+                    customFields.forEach(field => field.style.display = 'block');
+                } else {
+                    customFields.forEach(field => field.style.display = 'none');
+                }
+            });
+
+            // Modal close handler
+            const modal = document.getElementById('sucursalModal');
+            const closeBtn = modal.querySelector('.close');
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            console.log('Event handlers setup completed');
+        }
+
+        function showTab(tabName) {
+            // Hide all content
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.style.display = 'none');
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content and mark tab as active
+            document.getElementById(tabName).style.display = 'block';
+            event.target.classList.add('active');
+            
+            // Initialize specific tab content
+            switch(tabName) {
+                case 'mapa':
+                    initializeMap();
+                    break;
+                case 'historico':
+                    updateHistorico();
+                    break;
+                case 'dashboard':
+                    updateData();
+                    break;
+            }
+
+            console.log(`Switched to tab: ${tabName}`);
+        }
+
+        async function updateData() {
+            console.log('Updating dashboard data...');
+            
+            try {
+                showLoading('gruposContainer');
+                
+                // Check cache first
+                if (isDataCached()) {
+                    console.log('Using cached data');
+                    renderDashboard(dataCache.grupos);
+                    return;
+                }
+
+                // Simulate API call with mock data
+                const data = await fetchMockData();
+                
+                // Cache the data
+                dataCache.grupos = data;
+                dataCache.lastUpdate = Date.now();
+                
+                // Update localStorage
+                localStorage.setItem('casData', JSON.stringify(dataCache));
+                
+                renderDashboard(data);
+                updatePerformanceChart(data);
+
+                console.log('Dashboard data updated successfully');
+                
+            } catch (error) {
+                console.error('Error updating data:', error);
+                showError('gruposContainer', 'Error al cargar los datos. Por favor, intente nuevamente.');
+            }
+        }
+
+        function isDataCached() {
+            const cached = localStorage.getItem('casData');
+            if (!cached) return false;
+            
+            const parsedCache = JSON.parse(cached);
+            const now = Date.now();
+            
+            return parsedCache.lastUpdate && (now - parsedCache.lastUpdate) < CACHE_DURATION;
+        }
+
+        async function fetchMockData() {
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            const filters = getFilters();
+            console.log('Applying filters:', filters);
+
+            return gruposOperativos.map(grupo => {
+                const baseScore = 70 + Math.random() * 25; // 70-95%
+                const sucursales = generateSucursalesForGrupo(grupo);
+                
+                // Filter sucursales based on territory filter
+                let filteredSucursales = sucursales;
+                if (filters.territorio !== 'todos') {
+                    filteredSucursales = sucursales.filter(s => 
+                        (filters.territorio === 'locales' && grupo.tipo === 'local') ||
+                        (filters.territorio === 'foraneas' && grupo.tipo === 'foranea')
+                    );
+                }
+
+                // Filter by performance
+                if (filters.performance !== 'todos') {
+                    filteredSucursales = filteredSucursales.filter(s => {
+                        const score = s.score;
+                        switch(filters.performance) {
+                            case 'excelente': return score >= 90;
+                            case 'bueno': return score >= 70 && score < 90;
+                            case 'malo': return score < 70;
+                            default: return true;
+                        }
+                    });
+                }
+
+                const grupoScore = filteredSucursales.length > 0 
+                    ? filteredSucursales.reduce((sum, s) => sum + s.score, 0) / filteredSucursales.length 
+                    : 0;
+
+                return {
+                    ...grupo,
+                    score: Math.round(grupoScore * 10) / 10,
+                    sucursales: filteredSucursales,
+                    totalSucursales: sucursales.length,
+                    activeSucursales: filteredSucursales.length,
+                    auditorias: Math.floor(Math.random() * 100) + 50,
+                    tendencia: Math.random() > 0.5 ? 'up' : Math.random() > 0.3 ? 'stable' : 'down'
+                };
+            });
+        }
+
+        function generateSucursalesForGrupo(grupo) {
+            const numSucursales = Math.floor(Math.random() * 15) + 8; // 8-22 sucursales por grupo
+            const sucursales = [];
+            
+            for (let i = 0; i < numSucursales; i++) {
+                const baseScore = 65 + Math.random() * 30; // 65-95%
+                const variance = (Math.random() - 0.5) * 10; // ±5%
+                const finalScore = Math.max(0, Math.min(100, baseScore + variance));
+                
+                sucursales.push({
+                    id: `${grupo.id}-${i + 1}`,
+                    nombre: `${grupo.nombre} ${String.fromCharCode(65 + i)}`, // A, B, C, etc.
+                    score: Math.round(finalScore * 10) / 10,
+                    auditoriasCompletadas: Math.floor(Math.random() * 20) + 10,
+                    ultimaAuditoria: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
+                    estado: Math.random() > 0.1 ? 'activo' : 'mantenimiento',
+                    lat: 19.4326 + (Math.random() - 0.5) * 4, // Around Mexico City
+                    lng: -99.1332 + (Math.random() - 0.5) * 4,
+                    tipo: grupo.tipo,
+                    zona: grupo.zona
+                });
+            }
+            
+            return sucursales;
+        }
+
+        function getFilters() {
+            return {
+                periodo: document.getElementById('periodo').value,
+                territorio: document.getElementById('territorio').value,
+                performance: document.getElementById('performance').value,
+                fechaInicio: document.getElementById('fechaInicio').value,
+                fechaFin: document.getElementById('fechaFin').value
+            };
+        }
+
+        function renderDashboard(data) {
+            const container = document.getElementById('gruposContainer');
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="error">No se encontraron datos para los filtros seleccionados.</div>';
+                return;
+            }
+
+            // Update global metrics
+            updateGlobalMetrics(data);
+            
+            // Sort groups by score descending
+            data.sort((a, b) => b.score - a.score);
+            
+            const html = data.map(grupo => `
+                <div class="grupo-card interactive-element" onclick="toggleGrupoDetails('${grupo.id}')">
+                    <div class="grupo-header">
+                        <div>
+                            <div class="grupo-name">
+                                ${grupo.nombre}
+                                <span class="performance-badge ${getPerformanceBadgeClass(grupo.score)}">
+                                    ${grupo.tipo.toUpperCase()}
+                                </span>
+                            </div>
+                            <div class="trend-indicator trend-${grupo.tendencia}">
+                                Tendencia ${grupo.tendencia === 'up' ? 'positiva' : grupo.tendencia === 'down' ? 'negativa' : 'estable'}
+                            </div>
+                        </div>
+                        <div class="grupo-score ${getScoreClass(grupo.score)}">${grupo.score}%</div>
+                    </div>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">Sucursales Activas</div>
+                            <div class="detail-value">${grupo.activeSucursales}/${grupo.totalSucursales}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Auditorías</div>
+                            <div class="detail-value">${grupo.auditorias}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Zona</div>
+                            <div class="detail-value">${grupo.zona}</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${grupo.score}%"></div>
+                    </div>
+                    <div id="sucursales-${grupo.id}" class="sucursales-grid" style="display:none; margin-top: 20px;">
+                        ${grupo.sucursales.map(sucursal => `
+                            <div class="sucursal-card interactive-element" onclick="showSucursalDetails('${sucursal.id}', '${sucursal.nombre}', ${sucursal.score})">
+                                <div class="sucursal-name">${sucursal.nombre}</div>
+                                <div class="sucursal-score ${getScoreClass(sucursal.score)}">${sucursal.score}%</div>
+                                <div class="status-indicator ${sucursal.estado === 'activo' ? 'status-online' : 'status-warning'}"></div>
+                                <small>${sucursal.estado}</small>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
+        }
+
+        function updateGlobalMetrics(data) {
+            const totalSucursales = data.reduce((sum, grupo) => sum + grupo.activeSucursales, 0);
+            const totalAuditorias = data.reduce((sum, grupo) => sum + grupo.auditorias, 0);
+            const globalScore = data.length > 0 
+                ? data.reduce((sum, grupo) => sum + grupo.score, 0) / data.length 
+                : 0;
+
+            document.getElementById('promedioGlobal').textContent = `${Math.round(globalScore * 10) / 10}%`;
+            document.getElementById('sucursalesActivas').textContent = totalSucursales;
+            document.getElementById('auditoriasCompletadas').textContent = totalAuditorias.toLocaleString();
+            document.getElementById('gruposOperativos').textContent = data.length;
+        }
+
+        function updatePerformanceChart(data) {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            if (performanceChart) {
+                performanceChart.destroy();
+            }
+            
+            const labels = data.map(grupo => grupo.nombre);
+            const scores = data.map(grupo => grupo.score);
+            const colors = scores.map(score => {
+                if (score >= 90) return 'rgba(40, 167, 69, 0.8)';
+                if (score >= 70) return 'rgba(255, 193, 7, 0.8)';
+                return 'rgba(220, 53, 69, 0.8)';
+            });
+            
+            performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Performance (%)',
+                        data: scores,
+                        backgroundColor: colors,
+                        borderColor: colors.map(color => color.replace('0.8', '1')),
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const grupo = data[index];
+                            toggleGrupoDetails(grupo.id);
+                        }
+                    }
+                }
+            });
+        }
+
+        function toggleGrupoDetails(grupoId) {
+            const sucursalesContainer = document.getElementById(`sucursales-${grupoId}`);
+            if (sucursalesContainer.style.display === 'none') {
+                sucursalesContainer.style.display = 'grid';
+                sucursalesContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                sucursalesContainer.style.display = 'none';
+            }
+        }
+
+        function showSucursalDetails(sucursalId, nombre, score) {
+            const modal = document.getElementById('sucursalModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalScore = document.getElementById('modalScore');
+            const modalDetails = document.getElementById('modalDetails');
+            
+            modalTitle.textContent = `Sucursal: ${nombre}`;
+            modalScore.textContent = `${score}%`;
+            modalScore.className = `modal-score ${getScoreClass(score)}`;
+            
+            // Generate mock detailed metrics
+            const details = [
+                { label: 'Calidad del Servicio', value: `${Math.round(score + (Math.random() - 0.5) * 10)}%` },
+                { label: 'Limpieza', value: `${Math.round(score + (Math.random() - 0.5) * 10)}%` },
+                { label: 'Temperatura Alimentos', value: `${Math.round(score + (Math.random() - 0.5) * 10)}%` },
+                { label: 'Tiempo de Servicio', value: `${Math.round(score + (Math.random() - 0.5) * 10)}%` },
+                { label: 'Presentación Personal', value: `${Math.round(score + (Math.random() - 0.5) * 10)}%` },
+                { label: 'Auditorías Completadas', value: Math.floor(Math.random() * 20) + 10 },
+                { label: 'Última Auditoría', value: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toLocaleDateString('es-MX') },
+                { label: 'Próxima Auditoría', value: new Date(Date.now() + Math.random() * 7 * 24 * 60 * 60 * 1000).toLocaleDateString('es-MX') }
+            ];
+            
+            modalDetails.innerHTML = details.map(detail => `
+                <div class="detail-item">
+                    <div class="detail-label">${detail.label}</div>
+                    <div class="detail-value">${detail.value}</div>
+                </div>
+            `).join('');
+            
+            modal.style.display = 'block';
+        }
+
+        function getScoreClass(score) {
+            if (score >= 90) return 'score-excellent';
+            if (score >= 70) return 'score-good';
+            return 'score-poor';
+        }
+
+        function getPerformanceBadgeClass(score) {
+            if (score >= 90) return 'badge-excellent';
+            if (score >= 70) return 'badge-good';
+            return 'badge-poor';
+        }
+
+        function showLoading(containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '<div class="loading">Cargando datos...</div>';
+        }
+
+        function showError(containerId, message) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Map functionality
+        function initializeMap() {
+            if (map) {
+                map.remove();
+            }
+            
+            map = L.map('map').setView([19.4326, -99.1332], 6);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            updateMap();
+        }
+
+        async function updateMap() {
+            if (!map) return;
+            
+            console.log('Updating map...');
+            
+            // Clear existing markers
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+            
+            try {
+                const data = await fetchMockData();
+                const filter = document.getElementById('mapaFiltro').value;
+                
+                data.forEach(grupo => {
+                    grupo.sucursales.forEach(sucursal => {
+                        if (shouldShowOnMap(sucursal, filter)) {
+                            const color = getMarkerColor(sucursal.score);
+                            const marker = L.circleMarker([sucursal.lat, sucursal.lng], {
+                                radius: 8,
+                                fillColor: color,
+                                color: '#fff',
+                                weight: 2,
+                                opacity: 1,
+                                fillOpacity: 0.8
+                            }).addTo(map);
+                            
+                            marker.bindPopup(`
+                                <strong>${sucursal.nombre}</strong><br>
+                                Score: ${sucursal.score}%<br>
+                                Tipo: ${sucursal.tipo}<br>
+                                Zona: ${sucursal.zona}<br>
+                                Estado: ${sucursal.estado}
+                            `);
+                            
+                            markers.push(marker);
+                        }
+                    });
+                });
+                
+                console.log(`Map updated with ${markers.length} markers`);
+                
+            } catch (error) {
+                console.error('Error updating map:', error);
+            }
+        }
+
+        function shouldShowOnMap(sucursal, filter) {
+            switch (filter) {
+                case 'excelente': return sucursal.score >= 90;
+                case 'bueno': return sucursal.score >= 70 && sucursal.score < 90;
+                case 'malo': return sucursal.score < 70;
+                case 'locales': return sucursal.tipo === 'local';
+                case 'foraneas': return sucursal.tipo === 'foranea';
+                default: return true;
+            }
+        }
+
+        function getMarkerColor(score) {
+            if (score >= 90) return '#28a745';
+            if (score >= 70) return '#ffc107';
+            return '#dc3545';
+        }
+
+        // Historical data functionality
+        async function updateHistorico() {
+            console.log('Updating historical data...');
+            
+            try {
+                const grupoId = document.getElementById('historicoGrupo').value;
+                const periodo = document.getElementById('historicoPeriodo').value;
+                
+                const historicoData = generateHistoricoData(grupoId, periodo);
+                
+                updateHistoricoChart(historicoData);
+                updateDistribucionChart(historicoData);
+                
+                console.log('Historical data updated successfully');
+                
+            } catch (error) {
+                console.error('Error updating historical data:', error);
+            }
+        }
+
+        function generateHistoricoData(grupoId, periodo) {
+            const days = periodo === '30dias' ? 30 : periodo === '90dias' ? 90 : periodo === '6meses' ? 180 : 365;
+            const data = [];
+            const today = new Date();
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
+                const baseScore = 75 + Math.sin(i / 10) * 10 + Math.random() * 10;
+                data.push({
+                    fecha: date.toISOString().split('T')[0],
+                    score: Math.max(0, Math.min(100, baseScore))
+                });
+            }
+            
+            return data;
+        }
+
+        function updateHistoricoChart(data) {
+            const ctx = document.getElementById('historicoChart').getContext('2d');
+            
+            if (historicoChart) {
+                historicoChart.destroy();
+            }
+            
+            const labels = data.map(d => new Date(d.fecha).toLocaleDateString('es-MX', { month: 'short', day: 'numeric' }));
+            const scores = data.map(d => d.score);
+            
+            historicoChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Performance (%)',
+                        data: scores,
+                        borderColor: 'rgba(79, 172, 254, 1)',
+                        backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: 'rgba(79, 172, 254, 1)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDistribucionChart(data) {
+            const ctx = document.getElementById('distribucionChart').getContext('2d');
+            
+            if (distribucionChart) {
+                distribucionChart.destroy();
+            }
+            
+            const excelente = data.filter(d => d.score >= 90).length;
+            const bueno = data.filter(d => d.score >= 70 && d.score < 90).length;
+            const malo = data.filter(d => d.score < 70).length;
+            
+            distribucionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Excelente (≥90%)', 'Bueno (70-89%)', 'Necesita Mejorar (<70%)'],
+                    datasets: [{
+                        data: [excelente, bueno, malo],
+                        backgroundColor: [
+                            'rgba(40, 167, 69, 0.8)',
+                            'rgba(255, 193, 7, 0.8)',
+                            'rgba(220, 53, 69, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(40, 167, 69, 1)',
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(220, 53, 69, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Utility functions for debugging
+        window.debugCAS = {
+            clearCache: () => {
+                localStorage.removeItem('casData');
+                dataCache.grupos = null;
+                dataCache.lastUpdate = null;
+                console.log('Cache cleared');
+            },
+            
+            showCache: () => {
+                console.log('Current cache:', dataCache);
+                console.log('LocalStorage:', localStorage.getItem('casData'));
+            },
+            
+            simulateError: () => {
+                showError('gruposContainer', 'Error simulado para pruebas');
+            },
+            
+            getGruposData: () => {
+                return dataCache.grupos;
+            }
+        };
+
+        console.log('CAS Dashboard loaded successfully. Use window.debugCAS for debugging utilities.');
+    </script>
+</body>
+</html>
