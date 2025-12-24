@@ -787,6 +787,143 @@ app.get('/health', async (req, res) => {
 });
 
 // ============================================================================
+// 🗺️ API ENDPOINT: /api/normalize-estados - NORMALIZAR ESTADOS POR GPS
+// ============================================================================
+
+app.get('/api/normalize-estados', async (req, res) => {
+    try {
+        console.log('🗺️ Starting GPS-based estado normalization...');
+        
+        // 1. Create function to classify estados by GPS coordinates
+        const createFunctionSQL = `
+            CREATE OR REPLACE FUNCTION classify_estado_by_coordinates(latitud DECIMAL, longitud DECIMAL) 
+            RETURNS VARCHAR AS $$
+            BEGIN
+                -- Verificar que las coordenadas sean válidas
+                IF latitud IS NULL OR longitud IS NULL THEN 
+                    RETURN 'Desconocido';
+                END IF;
+                
+                -- NUEVO LEÓN: Centro: 25.6866, -100.3161 (Monterrey)
+                -- Rango aproximado: Lat 23.5-27.8, Lng -99.0-101.5  
+                IF latitud BETWEEN 23.5 AND 27.8 AND longitud BETWEEN -101.5 AND -99.0 THEN
+                    RETURN 'Nuevo León';
+                    
+                -- COAHUILA: Centro: 25.4232, -101.0 
+                -- Rango aproximado: Lat 24.0-29.9, Lng -102.9-100.1
+                ELSIF latitud BETWEEN 24.0 AND 29.9 AND longitud BETWEEN -102.9 AND -100.1 THEN
+                    RETURN 'Coahuila';
+                    
+                -- TAMAULIPAS: Centro frontera: 25.9, -97.5
+                -- Rango aproximado: Lat 22.2-27.7, Lng -99.5-97.1
+                ELSIF latitud BETWEEN 22.2 AND 27.7 AND longitud BETWEEN -99.5 AND -97.1 THEN
+                    RETURN 'Tamaulipas';
+                    
+                -- DURANGO: Centro: 25.5, -104.0 (Torreón/Laguna)
+                -- Rango aproximado: Lat 22.3-26.9, Lng -107.1-102.3
+                ELSIF latitud BETWEEN 22.3 AND 26.9 AND longitud BETWEEN -107.1 AND -102.3 THEN
+                    RETURN 'Durango';
+                    
+                -- QUERÉTARO: Centro: 20.6, -100.4
+                -- Rango aproximado: Lat 20.0-21.7, Lng -101.0-99.0
+                ELSIF latitud BETWEEN 20.0 AND 21.7 AND longitud BETWEEN -101.0 AND -99.0 THEN
+                    RETURN 'Querétaro';
+                    
+                -- MICHOACÁN: Centro Morelia: 19.7, -101.2
+                -- Rango aproximado: Lat 18.3-20.4, Lng -103.7-100.0
+                ELSIF latitud BETWEEN 18.3 AND 20.4 AND longitud BETWEEN -103.7 AND -100.0 THEN
+                    RETURN 'Michoacán';
+                    
+                -- GUANAJUATO: Centro: 21.0, -101.3
+                -- Rango aproximado: Lat 19.9-21.7, Lng -102.1-100.0
+                ELSIF latitud BETWEEN 19.9 AND 21.7 AND longitud BETWEEN -102.1 AND -100.0 THEN
+                    RETURN 'Guanajuato';
+                    
+                -- SAN LUIS POTOSÍ: Centro: 22.2, -100.9
+                -- Rango aproximado: Lat 21.1-24.5, Lng -102.2-98.3
+                ELSIF latitud BETWEEN 21.1 AND 24.5 AND longitud BETWEEN -102.2 AND -98.3 THEN
+                    RETURN 'San Luis Potosí';
+                    
+                -- Default para coordenadas fuera de rango conocido
+                ELSE 
+                    RETURN 'Otro Estado';
+                END IF;
+            END;
+            $$ LANGUAGE plpgsql;
+        `;
+        
+        await pool.query(createFunctionSQL);
+        console.log('✅ GPS classification function created');
+
+        // 2. Preview changes
+        const preview = await pool.query(`
+            SELECT 
+                nombre,
+                grupo_operativo,
+                estado as estado_actual,
+                latitud,
+                longitud,
+                classify_estado_by_coordinates(latitud, longitud) as estado_nuevo
+            FROM sucursales 
+            WHERE latitud IS NOT NULL AND longitud IS NOT NULL
+            ORDER BY grupo_operativo, nombre
+            LIMIT 20
+        `);
+        
+        // 3. Get summary of changes
+        const summary = await pool.query(`
+            SELECT 
+                classify_estado_by_coordinates(latitud, longitud) as estado_nuevo,
+                COUNT(*) as sucursales,
+                COUNT(DISTINCT grupo_operativo) as grupos
+            FROM sucursales 
+            WHERE latitud IS NOT NULL AND longitud IS NOT NULL
+            GROUP BY classify_estado_by_coordinates(latitud, longitud)
+            ORDER BY sucursales DESC
+        `);
+
+        // 4. Update estados based on GPS coordinates
+        const updateResult = await pool.query(`
+            UPDATE sucursales 
+            SET estado = classify_estado_by_coordinates(latitud, longitud)
+            WHERE latitud IS NOT NULL AND longitud IS NOT NULL
+        `);
+
+        // 5. Verify final distribution
+        const finalDistribution = await pool.query(`
+            SELECT 
+                estado,
+                COUNT(DISTINCT grupo_operativo) as grupos,
+                COUNT(*) as sucursales
+            FROM sucursales 
+            GROUP BY estado 
+            ORDER BY sucursales DESC
+        `);
+
+        const response = {
+            success: true,
+            message: 'Estados normalizados exitosamente usando coordenadas GPS',
+            updated_count: updateResult.rowCount,
+            preview: preview.rows,
+            summary_by_new_estado: summary.rows,
+            final_distribution: finalDistribution.rows,
+            timestamp: new Date().toISOString()
+        };
+
+        console.log(`✅ Estados normalization completed: ${updateResult.rowCount} sucursales updated`);
+        res.json(response);
+
+    } catch (error) {
+        console.error('❌ Error normalizing estados:', error);
+        res.status(500).json({ 
+            success: false,
+            error: error.message,
+            message: 'Error normalizando estados por coordenadas GPS'
+        });
+    }
+});
+
+// ============================================================================
 // 🚀 SERVER START
 // ============================================================================
 
