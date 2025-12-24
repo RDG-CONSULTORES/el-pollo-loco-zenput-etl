@@ -122,7 +122,7 @@ app.use((req, res, next) => {
 });
 
 // ============================================================================
-// 🏗️ UTILITY FUNCTIONS - TERRITORIAL CLASSIFICATION
+// 🏗️ UTILITY FUNCTIONS - TERRITORIAL CLASSIFICATION & FILTERS
 // ============================================================================
 
 function classifyTerritory(grupoOperativo) {
@@ -148,6 +148,114 @@ function classifyTerritory(grupoOperativo) {
     // Roberto specified: "la mayoría son Foráneos"
     // Any remaining unknowns default to foránea
     return 'foranea';
+}
+
+// Función para obtener rango de performance por nivel
+function getPerformanceRange(level) {
+    switch(level) {
+        case 'excellent': return { min: 95, max: 100 };
+        case 'very-good': return { min: 90, max: 95 };
+        case 'good': return { min: 80, max: 90 };
+        case 'regular': return { min: 70, max: 80 };
+        case 'poor': return { min: 0, max: 70 };
+        default: return { min: 0, max: 100 };
+    }
+}
+
+// Función para construir condiciones WHERE con filtros
+function buildFilterConditions(query, baseConditions = [], startParamIndex = 1) {
+    const { territory, performance_level, period_cas, estado, type } = query;
+    let whereConditions = [...baseConditions];
+    let params = [];
+    let paramIndex = startParamIndex;
+
+    // Filtro por tipo de supervisión
+    if (type && (type === 'operativas' || type === 'seguridad')) {
+        whereConditions.push(`sup.tipo_supervision = $${paramIndex}`);
+        params.push(type);
+        paramIndex++;
+    }
+
+    // Filtro por territorio (requiere clasificación en tiempo real)
+    if (territory && territory !== 'all') {
+        // Usar la función classify_territorio que deberíamos crear
+        const territoryCondition = getTerritoryCondition(territory, paramIndex);
+        if (territoryCondition) {
+            whereConditions.push(territoryCondition.condition);
+            params.push(...territoryCondition.params);
+            paramIndex += territoryCondition.params.length;
+        }
+    }
+
+    // Filtro por nivel de performance
+    if (performance_level && performance_level !== 'all') {
+        const range = getPerformanceRange(performance_level);
+        whereConditions.push(`sup.calificacion_general >= $${paramIndex} AND sup.calificacion_general < $${paramIndex + 1}`);
+        params.push(range.min, range.max);
+        paramIndex += 2;
+    }
+
+    // Filtro por período CAS
+    if (period_cas && period_cas !== 'all') {
+        // Usar la función de período que ya existe
+        whereConditions.push(`
+            CASE 
+                WHEN s.estado = 'Nuevo León' OR s.grupo_operativo = 'GRUPO SALTILLO' THEN
+                    CASE 
+                        WHEN sup.fecha_supervision >= '2025-03-12' AND sup.fecha_supervision <= '2025-04-16' THEN 'T1-2025'
+                        WHEN sup.fecha_supervision >= '2025-06-11' AND sup.fecha_supervision <= '2025-08-18' THEN 'T2-2025'
+                        WHEN sup.fecha_supervision >= '2025-08-19' AND sup.fecha_supervision <= '2025-10-09' THEN 'T3-2025'
+                        WHEN sup.fecha_supervision >= '2025-10-30' THEN 'T4-2025'
+                        ELSE 'OTRO'
+                    END
+                ELSE
+                    CASE 
+                        WHEN sup.fecha_supervision >= '2025-04-10' AND sup.fecha_supervision <= '2025-06-09' THEN 'S1-2025'
+                        WHEN sup.fecha_supervision >= '2025-07-30' AND sup.fecha_supervision <= '2025-11-07' THEN 'S2-2025'
+                        ELSE 'OTRO'
+                    END
+            END = $${paramIndex}
+        `);
+        params.push(period_cas);
+        paramIndex++;
+    }
+
+    // Filtro por estado
+    if (estado && estado !== 'all') {
+        whereConditions.push(`s.estado = $${paramIndex}`);
+        params.push(estado);
+        paramIndex++;
+    }
+
+    return {
+        conditions: whereConditions,
+        params: params,
+        nextParamIndex: paramIndex
+    };
+}
+
+// Función para obtener condición de territorio
+function getTerritoryCondition(territory, paramIndex) {
+    switch(territory) {
+        case 'local':
+            return {
+                condition: `(s.estado = 'Nuevo León' OR s.grupo_operativo = 'GRUPO SALTILLO')`,
+                params: []
+            };
+        case 'foranea':
+            return {
+                condition: `(s.estado != 'Nuevo León' AND s.grupo_operativo != 'GRUPO SALTILLO')`,
+                params: []
+            };
+        case 'mixed':
+            // Para grupos mixtos, podemos usar una lógica más compleja si es necesario
+            return {
+                condition: `s.grupo_operativo IN ('TEC', 'EXPO', 'GRUPO SALTILLO')`,
+                params: []
+            };
+        default:
+            return null;
+    }
 }
 
 // ============================================================================
@@ -804,19 +912,29 @@ app.get('/api/normalize-estados', async (req, res) => {
                     RETURN 'Desconocido';
                 END IF;
                 
-                -- NUEVO LEÓN: Centro: 25.6866, -100.3161 (Monterrey)
-                -- Rango aproximado: Lat 23.5-27.8, Lng -99.0-101.5  
-                IF latitud BETWEEN 23.5 AND 27.8 AND longitud BETWEEN -101.5 AND -99.0 THEN
-                    RETURN 'Nuevo León';
-                    
-                -- COAHUILA: Centro: 25.4232, -101.0 
-                -- Rango aproximado: Lat 24.0-29.9, Lng -102.9-100.1
-                ELSIF latitud BETWEEN 24.0 AND 29.9 AND longitud BETWEEN -102.9 AND -100.1 THEN
+                -- COAHUILA PRIMERO: Saltillo y área (más específico para evitar conflicto)
+                -- Incluye: Saltillo, Ramos Arizpe, Monclova
+                IF latitud BETWEEN 25.2 AND 27.0 AND longitud BETWEEN -101.6 AND -100.85 THEN
                     RETURN 'Coahuila';
                     
-                -- TAMAULIPAS: Centro frontera: 25.9, -97.5
-                -- Rango aproximado: Lat 22.2-27.7, Lng -99.5-97.1
-                ELSIF latitud BETWEEN 22.2 AND 27.7 AND longitud BETWEEN -99.5 AND -97.1 THEN
+                -- NUEVO LEÓN ÁREA METRO: Monterrey y zona conurbada (más restrictivo)
+                -- Rango preciso: Lat 25.5-26.0, Lng -100.6--99.8  
+                ELSIF latitud BETWEEN 25.5 AND 26.0 AND longitud BETWEEN -100.6 AND -99.8 THEN
+                    RETURN 'Nuevo León';
+                    
+                -- NUEVO LEÓN EXTENDIDO: Para sucursales fuera del área metro
+                -- Incluye: Sabinas Hidalgo, Santiago, Cadereyta, Allende
+                ELSIF latitud BETWEEN 25.0 AND 27.8 AND longitud BETWEEN -100.6 AND -99.0 THEN
+                    RETURN 'Nuevo León';
+                    
+                -- TAMAULIPAS FRONTERA: Nuevo Laredo área específica
+                -- Incluye: Nuevo Laredo, zona fronteriza
+                ELSIF latitud BETWEEN 27.0 AND 28.0 AND longitud BETWEEN -99.8 AND -99.3 THEN
+                    RETURN 'Tamaulipas';
+                    
+                -- TAMAULIPAS GENERAL: Costa del Golfo y frontera este
+                -- Incluye: Matamoros, Reynosa, Tampico, Río Bravo  
+                ELSIF latitud BETWEEN 22.2 AND 27.0 AND longitud BETWEEN -99.5 AND -97.0 THEN
                     RETURN 'Tamaulipas';
                     
                 -- DURANGO: Centro: 25.5, -104.0 (Torreón/Laguna)
@@ -919,6 +1037,139 @@ app.get('/api/normalize-estados', async (req, res) => {
             success: false,
             error: error.message,
             message: 'Error normalizando estados por coordenadas GPS'
+        });
+    }
+});
+
+// ============================================================================
+// 🗺️ API ENDPOINT: /api/fix-saltillo-estados - CORREGIR CLASIFICACIÓN SALTILLO
+// ============================================================================
+
+app.get('/api/fix-saltillo-estados', async (req, res) => {
+    try {
+        console.log('🔧 Re-executing GPS normalization with corrected ranges...');
+        
+        // 1. Update function with corrected GPS ranges (same as above but re-execute)
+        const updateFunctionSQL = `
+            CREATE OR REPLACE FUNCTION classify_estado_by_coordinates(latitud DECIMAL, longitud DECIMAL) 
+            RETURNS VARCHAR AS $$
+            BEGIN
+                -- Verificar que las coordenadas sean válidas
+                IF latitud IS NULL OR longitud IS NULL THEN 
+                    RETURN 'Desconocido';
+                END IF;
+                
+                -- COAHUILA PRIMERO: Saltillo y área (más específico para evitar conflicto)
+                -- Incluye: Saltillo, Ramos Arizpe, Monclova
+                IF latitud BETWEEN 25.2 AND 27.0 AND longitud BETWEEN -101.6 AND -100.85 THEN
+                    RETURN 'Coahuila';
+                    
+                -- NUEVO LEÓN ÁREA METRO: Monterrey y zona conurbada (más restrictivo)
+                -- Rango preciso: Lat 25.5-26.0, Lng -100.6--99.8  
+                ELSIF latitud BETWEEN 25.5 AND 26.0 AND longitud BETWEEN -100.6 AND -99.8 THEN
+                    RETURN 'Nuevo León';
+                    
+                -- NUEVO LEÓN EXTENDIDO: Para sucursales fuera del área metro
+                -- Incluye: Sabinas Hidalgo, Santiago, Cadereyta, Allende
+                ELSIF latitud BETWEEN 25.0 AND 27.8 AND longitud BETWEEN -100.6 AND -99.0 THEN
+                    RETURN 'Nuevo León';
+                    
+                -- TAMAULIPAS FRONTERA: Nuevo Laredo área específica
+                -- Incluye: Nuevo Laredo, zona fronteriza
+                ELSIF latitud BETWEEN 27.0 AND 28.0 AND longitud BETWEEN -99.8 AND -99.3 THEN
+                    RETURN 'Tamaulipas';
+                    
+                -- TAMAULIPAS GENERAL: Costa del Golfo y frontera este
+                -- Incluye: Matamoros, Reynosa, Tampico, Río Bravo  
+                ELSIF latitud BETWEEN 22.2 AND 27.0 AND longitud BETWEEN -99.5 AND -97.0 THEN
+                    RETURN 'Tamaulipas';
+                    
+                -- DURANGO: Centro: 25.5, -104.0 (Torreón/Laguna)
+                -- Rango aproximado: Lat 22.3-26.9, Lng -107.1-102.3
+                ELSIF latitud BETWEEN 22.3 AND 26.9 AND longitud BETWEEN -107.1 AND -102.3 THEN
+                    RETURN 'Durango';
+                    
+                -- QUERÉTARO: Centro: 20.6, -100.4
+                -- Rango aproximado: Lat 20.0-21.7, Lng -101.0-99.0
+                ELSIF latitud BETWEEN 20.0 AND 21.7 AND longitud BETWEEN -101.0 AND -99.0 THEN
+                    RETURN 'Querétaro';
+                    
+                -- MICHOACÁN: Centro Morelia: 19.7, -101.2
+                -- Rango aproximado: Lat 18.3-20.4, Lng -103.7-100.0
+                ELSIF latitud BETWEEN 18.3 AND 20.4 AND longitud BETWEEN -103.7 AND -100.0 THEN
+                    RETURN 'Michoacán';
+                    
+                -- GUANAJUATO: Centro: 21.0, -101.3
+                -- Rango aproximado: Lat 19.9-21.7, Lng -102.1-100.0
+                ELSIF latitud BETWEEN 19.9 AND 21.7 AND longitud BETWEEN -102.1 AND -100.0 THEN
+                    RETURN 'Guanajuato';
+                    
+                -- SAN LUIS POTOSÍ: Centro: 22.2, -100.9
+                -- Rango aproximado: Lat 21.1-24.5, Lng -102.2-98.3
+                ELSIF latitud BETWEEN 21.1 AND 24.5 AND longitud BETWEEN -102.2 AND -98.3 THEN
+                    RETURN 'San Luis Potosí';
+                    
+                -- Default para coordenadas fuera de rango conocido
+                ELSE 
+                    RETURN 'Otro Estado';
+                END IF;
+            END;
+            $$ LANGUAGE plpgsql;
+        `;
+        
+        await pool.query(updateFunctionSQL);
+        console.log('✅ Corrected GPS classification function updated');
+
+        // 2. Preview specific changes for Saltillo group
+        const saltilloPreview = await pool.query(`
+            SELECT 
+                nombre,
+                grupo_operativo,
+                estado as estado_actual,
+                latitud,
+                longitud,
+                classify_estado_by_coordinates(latitud, longitud) as estado_nuevo
+            FROM sucursales 
+            WHERE grupo_operativo = 'GRUPO SALTILLO'
+            ORDER BY nombre
+        `);
+
+        // 3. Update all estados with corrected function
+        const updateResult = await pool.query(`
+            UPDATE sucursales 
+            SET estado = classify_estado_by_coordinates(latitud, longitud)
+            WHERE latitud IS NOT NULL AND longitud IS NOT NULL
+        `);
+
+        // 4. Get final distribution
+        const finalDistribution = await pool.query(`
+            SELECT 
+                estado,
+                COUNT(*) as sucursales,
+                COUNT(DISTINCT grupo_operativo) as grupos
+            FROM sucursales 
+            GROUP BY estado 
+            ORDER BY sucursales DESC
+        `);
+
+        const response = {
+            success: true,
+            message: 'Estados corregidos - Saltillo ahora en Coahuila',
+            updated_count: updateResult.rowCount,
+            saltillo_changes: saltilloPreview.rows,
+            final_distribution: finalDistribution.rows,
+            timestamp: new Date().toISOString()
+        };
+
+        console.log(`✅ Estados correction completed: ${updateResult.rowCount} sucursales updated`);
+        res.json(response);
+
+    } catch (error) {
+        console.error('❌ Error fixing Saltillo estados:', error);
+        res.status(500).json({ 
+            success: false,
+            error: error.message,
+            message: 'Error corrigiendo estados de Saltillo'
         });
     }
 });
