@@ -667,6 +667,378 @@
                 padding-bottom: max(83px, calc(83px + env(safe-area-inset-bottom)));
             }
         }
+
+        /* ========================================================================= */
+        /* iOS NATIVE ADVANCED FILTERS SYSTEM */
+        /* ========================================================================= */
+
+        .ios-filter-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--ios-background);
+            border-radius: 20px 20px 0 0;
+            max-height: 85vh;
+            overflow: hidden;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .ios-filter-sheet {
+            transform: translateY(0);
+        }
+
+        /* Sheet Header */
+        .ios-sheet-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px 8px;
+            border-bottom: 1px solid var(--ios-separator);
+            background: var(--ios-secondary-background);
+            border-radius: 20px 20px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .ios-sheet-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            background: var(--ios-gray-5);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--ios-label);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ios-sheet-close:hover {
+            background: var(--ios-gray-4);
+            transform: scale(1.05);
+        }
+
+        .ios-sheet-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ios-label);
+            margin: 0;
+        }
+
+        .ios-sheet-reset {
+            background: none;
+            border: none;
+            color: var(--ios-blue);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .ios-sheet-reset:hover {
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        /* Sheet Content */
+        .ios-sheet-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 0 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .ios-filter-section {
+            margin-bottom: 32px;
+        }
+
+        .ios-section-header {
+            padding: 0 20px 12px;
+        }
+
+        .ios-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ios-label);
+            margin: 0 0 4px;
+        }
+
+        .ios-section-subtitle {
+            font-size: 14px;
+            color: var(--ios-tertiary-label);
+            margin: 0;
+        }
+
+        .ios-filter-options {
+            background: var(--ios-secondary-background);
+            margin: 0 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .ios-filter-option {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--ios-separator);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .ios-filter-option:last-child {
+            border-bottom: none;
+        }
+
+        .ios-filter-option:hover {
+            background: var(--ios-gray-6);
+        }
+
+        .ios-filter-option.active {
+            background: rgba(0, 122, 255, 0.08);
+        }
+
+        .ios-option-content {
+            flex: 1;
+            margin-right: 12px;
+        }
+
+        .ios-option-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--ios-label);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .ios-option-subtitle {
+            font-size: 13px;
+            color: var(--ios-tertiary-label);
+            display: block;
+        }
+
+        .ios-option-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--ios-gray-3);
+            margin-left: auto;
+            position: relative;
+            transition: all 0.2s ease;
+            background: var(--ios-secondary-background);
+        }
+
+        .ios-filter-option.active .ios-option-indicator {
+            border-color: var(--ios-blue);
+            background: var(--ios-blue);
+        }
+
+        .ios-filter-option.active .ios-option-indicator::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* Badge Styles for Filter Options */
+        .territory-badge, .performance-badge, .period-badge {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: capitalize;
+            margin-right: 8px;
+        }
+
+        /* Territory Badges */
+        .territory-badge.local {
+            background: var(--territory-local-bg);
+            color: var(--territory-local);
+        }
+
+        .territory-badge.foranea {
+            background: var(--territory-foranea-bg);
+            color: var(--territory-foranea);
+        }
+
+        .territory-badge.mixed {
+            background: var(--territory-mixed-bg);
+            color: var(--territory-mixed);
+        }
+
+        /* Performance Badges in Filters */
+        .performance-badge.excellent {
+            background: var(--performance-excellent-bg);
+            color: var(--performance-excellent);
+        }
+
+        .performance-badge.very-good {
+            background: var(--performance-very-good-bg);
+            color: var(--performance-very-good);
+        }
+
+        .performance-badge.good {
+            background: var(--performance-good-bg);
+            color: var(--performance-good);
+        }
+
+        .performance-badge.regular {
+            background: var(--performance-regular-bg);
+            color: var(--performance-regular);
+        }
+
+        .performance-badge.poor {
+            background: var(--performance-poor-bg);
+            color: var(--performance-poor);
+        }
+
+        /* Period Badges */
+        .period-badge {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--ios-blue);
+            font-weight: 700;
+        }
+
+        .period-badge.current {
+            background: var(--performance-excellent-bg);
+            color: var(--performance-excellent);
+        }
+
+        .period-badge.t1, .period-badge.t2, .period-badge.t3, .period-badge.t4 {
+            background: rgba(0, 122, 255, 0.12);
+            color: var(--ios-blue);
+        }
+
+        .period-badge.s1, .period-badge.s2 {
+            background: rgba(255, 159, 10, 0.12);
+            color: var(--ios-orange);
+        }
+
+        /* Sheet Footer */
+        .ios-sheet-footer {
+            background: var(--ios-secondary-background);
+            padding: 16px 20px;
+            border-top: 1px solid var(--ios-separator);
+            position: sticky;
+            bottom: 0;
+        }
+
+        .ios-apply-button {
+            width: 100%;
+            background: var(--ios-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        }
+
+        .ios-apply-button:hover {
+            background: #0056D6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+
+        .ios-apply-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 4px rgba(0, 122, 255, 0.3);
+        }
+
+        .ios-apply-icon {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Enhanced responsive for filters */
+        @media (max-width: 667px) {
+            .ios-filter-sheet {
+                max-height: 90vh;
+                border-radius: 16px 16px 0 0;
+            }
+            
+            .ios-sheet-header {
+                padding: 12px 16px 8px;
+            }
+            
+            .ios-filter-options {
+                margin: 0 12px;
+                border-radius: 10px;
+            }
+            
+            .ios-filter-option {
+                padding: 12px 14px;
+                min-height: 56px;
+            }
+            
+            .ios-option-title {
+                font-size: 15px;
+            }
+            
+            .ios-option-subtitle {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .ios-filter-sheet {
+                max-width: 500px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100%);
+                border-radius: 20px;
+                max-height: 80vh;
+            }
+            
+            .modal-overlay.active .ios-filter-sheet {
+                transform: translateX(-50%) translateY(20px);
+            }
+            
+            .ios-sheet-header {
+                border-radius: 20px 20px 0 0;
+            }
+        }
+
+        /* Active filter indicator on nav button */
+        .nav-button.has-filters {
+            background: var(--ios-blue);
+            color: white;
+            position: relative;
+        }
+
+        .nav-button.has-filters::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background: var(--ios-red);
+            border-radius: 4px;
+            border: 1px solid var(--ios-background);
+        }
     </style>
 </head>
 <body>
@@ -894,16 +1266,213 @@
     </div>
 
     <!-- Filter Modal -->
+    <!-- iOS Native Advanced Filters Modal -->
     <div class="modal-overlay" id="filterModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title">Filtros</h3>
-                <button class="modal-close" onclick="closeFilters()">Cerrar</button>
+        <div class="ios-filter-sheet">
+            <div class="ios-sheet-header">
+                <button class="ios-sheet-close" onclick="closeFilters()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 class="ios-sheet-title">Filtros Avanzados</h2>
+                <button class="ios-sheet-reset" onclick="resetFilters()">Limpiar</button>
             </div>
-            <div class="modal-content">
-                <p style="color: var(--ios-gray); text-align: center;">
-                    Funcionalidad de filtros en desarrollo
-                </p>
+            
+            <div class="ios-sheet-content">
+                <!-- Territory Filter Section -->
+                <div class="ios-filter-section">
+                    <div class="ios-section-header">
+                        <h3 class="ios-section-title">Territorio</h3>
+                        <span class="ios-section-subtitle">Clasificación geográfica</span>
+                    </div>
+                    <div class="ios-filter-options">
+                        <div class="ios-filter-option active" data-filter="territory" data-value="all">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Todos los Territorios</span>
+                                <span class="ios-option-subtitle">Local + Foránea + Mixto</span>
+                            </div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="territory" data-value="local">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Local</span>
+                                <span class="ios-option-subtitle">Nuevo León + Saltillo</span>
+                            </div>
+                            <div class="territory-badge local">local</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="territory" data-value="foranea">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Foránea</span>
+                                <span class="ios-option-subtitle">Otros estados</span>
+                            </div>
+                            <div class="territory-badge foranea">foránea</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="territory" data-value="mixed">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Mixto</span>
+                                <span class="ios-option-subtitle">Combinación local/foránea</span>
+                            </div>
+                            <div class="territory-badge mixed">mixto</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Filter Section -->
+                <div class="ios-filter-section">
+                    <div class="ios-section-header">
+                        <h3 class="ios-section-title">Rendimiento</h3>
+                        <span class="ios-section-subtitle">Nivel de calificación</span>
+                    </div>
+                    <div class="ios-filter-options">
+                        <div class="ios-filter-option active" data-filter="performance" data-value="all">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Todos los Niveles</span>
+                                <span class="ios-option-subtitle">Sin filtro de rendimiento</span>
+                            </div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="performance" data-value="excellent">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Excelente</span>
+                                <span class="ios-option-subtitle">95% - 100%</span>
+                            </div>
+                            <div class="performance-badge excellent">95%+</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="performance" data-value="very-good">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Muy Bueno</span>
+                                <span class="ios-option-subtitle">90% - 94%</span>
+                            </div>
+                            <div class="performance-badge very-good">90%+</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="performance" data-value="good">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Bueno</span>
+                                <span class="ios-option-subtitle">80% - 89%</span>
+                            </div>
+                            <div class="performance-badge good">80%+</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="performance" data-value="regular">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Regular</span>
+                                <span class="ios-option-subtitle">70% - 79%</span>
+                            </div>
+                            <div class="performance-badge regular">70%+</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="performance" data-value="poor">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Bajo</span>
+                                <span class="ios-option-subtitle">Menos de 70%</span>
+                            </div>
+                            <div class="performance-badge poor"><70%</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Period Filter Section -->
+                <div class="ios-filter-section">
+                    <div class="ios-section-header">
+                        <h3 class="ios-section-title">Período CAS</h3>
+                        <span class="ios-section-subtitle">Trimestres y semestres 2025</span>
+                    </div>
+                    <div class="ios-filter-options">
+                        <div class="ios-filter-option active" data-filter="period" data-value="all">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Todos los Períodos</span>
+                                <span class="ios-option-subtitle">T1-T4, S1-S2 • 2025</span>
+                            </div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="current">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Período Actual</span>
+                                <span class="ios-option-subtitle">NL-T4 • Fo-S2</span>
+                            </div>
+                            <div class="period-badge current">T4•S2</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="T1-2025">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">T1 - 2025</span>
+                                <span class="ios-option-subtitle">Mar 12 - Abr 16 • Local</span>
+                            </div>
+                            <div class="period-badge t1">T1</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="T2-2025">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">T2 - 2025</span>
+                                <span class="ios-option-subtitle">Jun 11 - Ago 18 • Local</span>
+                            </div>
+                            <div class="period-badge t2">T2</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="T3-2025">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">T3 - 2025</span>
+                                <span class="ios-option-subtitle">Ago 19 - Oct 9 • Local</span>
+                            </div>
+                            <div class="period-badge t3">T3</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="T4-2025">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">T4 - 2025</span>
+                                <span class="ios-option-subtitle">Oct 30 - Dic 31 • Local</span>
+                            </div>
+                            <div class="period-badge t4">T4</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="S1-2025">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">S1 - 2025</span>
+                                <span class="ios-option-subtitle">Abr 10 - Jun 9 • Foránea</span>
+                            </div>
+                            <div class="period-badge s1">S1</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <div class="ios-filter-option" data-filter="period" data-value="S2-2025">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">S2 - 2025</span>
+                                <span class="ios-option-subtitle">Jul 30 - Nov 7 • Foránea</span>
+                            </div>
+                            <div class="period-badge s2">S2</div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado Filter Section -->
+                <div class="ios-filter-section">
+                    <div class="ios-section-header">
+                        <h3 class="ios-section-title">Estado</h3>
+                        <span class="ios-section-subtitle">Localización geográfica</span>
+                    </div>
+                    <div class="ios-filter-options" id="estado-filter-options">
+                        <div class="ios-filter-option active" data-filter="estado" data-value="all">
+                            <div class="ios-option-content">
+                                <span class="ios-option-title">Todos los Estados</span>
+                                <span class="ios-option-subtitle">Sin filtro geográfico</span>
+                            </div>
+                            <div class="ios-option-indicator"></div>
+                        </div>
+                        <!-- Estados will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="ios-sheet-footer">
+                <button class="ios-apply-button" onclick="applyFilters()">
+                    <span class="ios-apply-text">Aplicar Filtros</span>
+                    <span class="ios-apply-icon">✓</span>
+                </button>
             </div>
         </div>
     </div>
@@ -917,13 +1486,32 @@
         let performanceChart = null;
         let historicalChart = null;
 
+        // Advanced Filters State
+        let activeFilters = {
+            territory: 'all',
+            performance: 'all',
+            period: 'all',
+            estado: 'all'
+        };
+
+        let availableEstados = [];
+
         // API Base URL
         const API_BASE = window.location.origin + '/api';
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
             initializeEventListeners();
-            loadDashboard();
+            
+            // Load saved filters from session
+            const hasLoadedFilters = loadFiltersFromSession();
+            
+            // Load dashboard (with or without filters)
+            if (hasLoadedFilters && Object.values(activeFilters).some(value => value !== 'all')) {
+                loadDashboardWithFilters();
+            } else {
+                loadDashboard();
+            }
         });
 
         // Event Listeners
@@ -1182,20 +1770,37 @@
                 
                 const container = document.getElementById('group-sucursales');
                 container.innerHTML = sucursales.length > 0 
-                    ? sucursales.map((suc, index) => `
+                    ? sucursales.map((suc, index) => {
+                        const performance = parseFloat(suc.promedio) || 0;
+                        const performanceClass = getPerformanceClass(performance);
+                        
+                        return `
                         <div class="list-item" onclick="showSucursalDetail('${suc.sucursal}', '${suc.estado}', '${suc.grupo_operativo}')">
                             <div class="list-item-main">
-                                <div class="list-item-number rank-good">${index + 1}</div>
+                                <div class="list-item-number" style="
+                                    background: var(--performance-${performanceClass});
+                                    color: white;
+                                    width: 28px;
+                                    height: 28px;
+                                    border-radius: 14px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    margin-right: 12px;
+                                ">${index + 1}</div>
                                 <div class="list-item-content">
                                     <div class="list-item-title">${suc.sucursal || suc.location_name}</div>
                                     <div class="list-item-subtitle">${suc.estado} • ${suc.evaluaciones} evaluaciones</div>
                                 </div>
                             </div>
                             <div class="list-item-end">
-                                <div class="list-item-value">${(parseFloat(suc.promedio) || 0).toFixed(1)}%</div>
+                                <div class="performance-badge ${performanceClass}">${performance.toFixed(1)}%</div>
                             </div>
                         </div>
-                    `).join('')
+                        `;
+                    }).join('')
                     : '<div style="padding: 20px; text-align: center; color: var(--ios-gray);">No hay datos disponibles</div>';
                     
             } catch (error) {
@@ -1250,11 +1855,11 @@
             }
         }
         
-        // Load sucursal tendencia chart
+        // Load sucursal tendencia chart - CAS PERIODS
         let sucursalTendenciaChart = null;
         async function loadSucursalTendencia(sucursalName, grupoOperativo) {
             try {
-                const response = await fetch(`${API_BASE}/sucursal-tendencia?sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}&periodo=6months`);
+                const response = await fetch(`${API_BASE}/sucursal-tendencia?sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}&periodo=cas_periods`);
                 const tendenciaData = await response.json();
                 
                 const ctx = document.getElementById('sucursalTendenciaChart');
@@ -1264,23 +1869,50 @@
                     sucursalTendenciaChart.destroy();
                 }
                 
+                // Generate period labels and performance-based colors
+                const labels = tendenciaData.map(d => {
+                    const periodo = d.periodo_cas || d.periodo;
+                    // Convert period code to display label
+                    if (periodo.includes('T1')) return 'T1-2025';
+                    if (periodo.includes('T2')) return 'T2-2025';
+                    if (periodo.includes('T3')) return 'T3-2025';
+                    if (periodo.includes('T4')) return 'T4-2025';
+                    if (periodo.includes('S1')) return 'S1-2025';
+                    if (periodo.includes('S2')) return 'S2-2025';
+                    return periodo;
+                });
+                
+                // Generate point colors based on performance
+                const pointColors = tendenciaData.map(d => {
+                    const performance = d.promedio_periodo || d.promedio_mensual || 0;
+                    if (performance >= 95) return '#30D158';      // excellent
+                    if (performance >= 90) return '#007AFF';      // very-good
+                    if (performance >= 80) return '#FF9F0A';      // good
+                    if (performance >= 70) return '#FFD60A';      // regular
+                    return '#FF453A';                              // poor
+                });
+                
+                const isLocal = tendenciaData.length > 0 && tendenciaData[0].tipo_sucursal === 'LOCAL';
+                const chartTitle = isLocal ? 
+                    'Histórico por Trimestres CAS (Local)' : 
+                    'Histórico por Semestres CAS (Foránea)';
+                
                 sucursalTendenciaChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: tendenciaData.map(d => new Date(d.month).toLocaleDateString('es-ES', { 
-                            year: 'numeric',
-                            month: 'short'
-                        })),
+                        labels: labels,
                         datasets: [{
-                            label: 'Rendimiento Mensual',
-                            data: tendenciaData.map(d => d.promedio_mensual),
+                            label: 'Rendimiento por Período CAS',
+                            data: tendenciaData.map(d => d.promedio_periodo || d.promedio_mensual),
                             borderColor: '#007AFF',
                             backgroundColor: 'rgba(0, 122, 255, 0.1)',
                             fill: true,
                             tension: 0.4,
-                            pointRadius: 4,
-                            pointHoverRadius: 6,
-                            pointBackgroundColor: '#007AFF'
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            pointBackgroundColor: pointColors,
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2
                         }]
                     },
                     options: {
@@ -1289,10 +1921,30 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: `Tendencia de Rendimiento - Últimos 6 meses`,
+                                text: chartTitle,
                                 font: { size: 14, weight: '600' }
                             },
-                            legend: { display: false }
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        const dataIndex = context[0].dataIndex;
+                                        const periodo = tendenciaData[dataIndex];
+                                        const inicio = new Date(periodo.periodo_inicio).toLocaleDateString('es-ES');
+                                        const fin = new Date(periodo.periodo_fin).toLocaleDateString('es-ES');
+                                        return `${labels[dataIndex]} (${inicio} - ${fin})`;
+                                    },
+                                    label: function(context) {
+                                        const dataIndex = context.dataIndex;
+                                        const periodo = tendenciaData[dataIndex];
+                                        return [
+                                            `Rendimiento: ${context.parsed.y.toFixed(1)}%`,
+                                            `Evaluaciones: ${periodo.evaluaciones_count}`,
+                                            `Tipo: ${periodo.tipo_sucursal}`
+                                        ];
+                                    }
+                                }
+                            }
                         },
                         scales: {
                             y: {
@@ -1317,7 +1969,7 @@
                     }
                 });
                 
-                console.log(`📈 Loaded tendencia chart for ${sucursalName}: ${tendenciaData.length} months`);
+                console.log(`📈 Loaded CAS tendencia chart for ${sucursalName}: ${tendenciaData.length} periods (${isLocal ? 'LOCAL' : 'FORÁNEA'})`);
                 
             } catch (error) {
                 console.error('Error loading sucursal tendencia:', error);
@@ -1362,13 +2014,20 @@
             }
         }
 
-        // Load map data
+        // Load map data with filters
         async function loadMapData() {
             if (!map) return;
             
             try {
-                const response = await fetch(`${API_BASE}/mapa?type=${currentType}`);
-                const locations = await response.json();
+                const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'all');
+                const filterParams = hasActiveFilters ? buildFilterParams() : `type=${currentType}`;
+                const response = await fetch(`${API_BASE}/mapa?${filterParams}`);
+                let locations = await response.json();
+
+                // Apply client-side filtering for performance and territory filters
+                if (hasActiveFilters) {
+                    locations = applyClientSideFilters(locations);
+                }
                 
                 // Clear existing markers
                 map.eachLayer(layer => {
@@ -1380,9 +2039,14 @@
                 locations.forEach(location => {
                     if (location.latitud && location.longitud) {
                         const score = parseFloat(location.average_performance) || 0;
-                        const color = score >= 90 ? '#34C759' 
-                                    : score >= 80 ? '#007AFF' 
-                                    : score >= 70 ? '#FF9500' : '#FF3B30';
+                        const performanceClass = getPerformanceClass(score);
+                        
+                        // Use iOS performance colors
+                        const color = score >= 95 ? '#30D158' :  // excellent
+                                    score >= 90 ? '#007AFF' :    // very-good
+                                    score >= 80 ? '#FF9F0A' :    // good
+                                    score >= 70 ? '#FFD60A' :    // regular
+                                    '#FF453A';                   // poor
                         
                         const marker = L.circleMarker([location.latitud, location.longitud], {
                             radius: 8,
@@ -1393,19 +2057,30 @@
                             fillOpacity: 0.8
                         });
                         
-                        // Interactive popup with drill-down button
+                        // Enhanced popup with territory badge
+                        const territoryClass = location.territory || 'unknown';
                         marker.bindPopup(`
-                            <div style="text-align: center; min-width: 200px;">
+                            <div style="text-align: center; min-width: 220px;">
                                 <strong style="font-size: 14px;">${location.sucursal_nombre || location.location_name}</strong><br>
                                 <div style="margin: 8px 0;">
                                     <span style="color: #666;">Grupo:</span> ${location.grupo_operativo}<br>
                                     <span style="color: #666;">Estado:</span> ${location.estado}<br>
-                                    <span style="color: #666;">Rendimiento:</span> <strong style="color: ${color};">${score.toFixed(1)}%</strong><br>
+                                    <span style="color: #666;">Territorio:</span> 
+                                    <span style="
+                                        font-size: 10px; 
+                                        padding: 2px 6px; 
+                                        border-radius: 4px;
+                                        background: var(--territory-${territoryClass}-bg);
+                                        color: var(--territory-${territoryClass});
+                                        text-transform: capitalize;
+                                    ">${territoryClass}</span><br>
+                                    <span style="color: #666;">Rendimiento:</span> 
+                                    <strong style="color: ${color};">${score.toFixed(1)}%</strong><br>
                                     <span style="color: #666;">Supervisiones:</span> ${location.supervisions_count || 0}
                                 </div>
                                 <button 
                                     onclick="showSucursalDetail('${location.sucursal_nombre || location.location_name}', '${location.estado}', '${location.grupo_operativo}')" 
-                                    style="background: #007AFF; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">
+                                    style="background: var(--ios-blue); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">
                                     Ver Detalles
                                 </button>
                             </div>
@@ -1418,9 +2093,40 @@
                     }
                 });
                 
+                console.log(`🗺️ Map loaded with ${locations.length} filtered locations`);
+                
             } catch (error) {
                 console.error('Error loading map data:', error);
             }
+        }
+
+        // Apply client-side filters to data
+        function applyClientSideFilters(data) {
+            let filtered = [...data];
+            
+            // Performance level filtering
+            if (activeFilters.performance !== 'all') {
+                filtered = filtered.filter(item => {
+                    const performance = item.average_performance || item.performance || 0;
+                    switch (activeFilters.performance) {
+                        case 'excellent': return performance >= 95;
+                        case 'very-good': return performance >= 90 && performance < 95;
+                        case 'good': return performance >= 80 && performance < 90;
+                        case 'regular': return performance >= 70 && performance < 80;
+                        case 'poor': return performance < 70;
+                        default: return true;
+                    }
+                });
+            }
+
+            // Territory filtering
+            if (activeFilters.territory !== 'all') {
+                filtered = filtered.filter(item => 
+                    item.territory === activeFilters.territory
+                );
+            }
+
+            return filtered;
         }
 
         // Load historical data
@@ -1489,17 +2195,527 @@
             }
         }
 
-        // Utility functions
+        // ====================================================================
+        // iOS NATIVE ADVANCED FILTERS SYSTEM
+        // ====================================================================
+
+        // Initialize filter system
+        async function initializeFilters() {
+            await loadAvailableEstados();
+            setupFilterEventListeners();
+            updateFilterUI();
+        }
+
+        // Load available estados from API
+        async function loadAvailableEstados() {
+            try {
+                const response = await fetch(`${API_BASE}/estados`);
+                availableEstados = await response.json();
+                populateEstadosFilter();
+            } catch (error) {
+                console.error('Error loading estados:', error);
+            }
+        }
+
+        // Populate estados in filter UI
+        function populateEstadosFilter() {
+            const container = document.getElementById('estado-filter-options');
+            const allOption = container.querySelector('[data-value="all"]');
+            
+            // Clear existing estados (keep "all" option)
+            const existingEstados = container.querySelectorAll('[data-filter="estado"]:not([data-value="all"])');
+            existingEstados.forEach(el => el.remove());
+
+            // Add estados dynamically
+            availableEstados.forEach(estado => {
+                if (estado.sucursales_count > 0) {
+                    const option = document.createElement('div');
+                    option.className = 'ios-filter-option';
+                    option.dataset.filter = 'estado';
+                    option.dataset.value = estado.estado;
+                    
+                    option.innerHTML = `
+                        <div class="ios-option-content">
+                            <span class="ios-option-title">${estado.estado}</span>
+                            <span class="ios-option-subtitle">${estado.sucursales_count} sucursales • ${estado.supervisions_count} supervisiones</span>
+                        </div>
+                        <div class="ios-option-indicator"></div>
+                    `;
+                    
+                    container.appendChild(option);
+                }
+            });
+        }
+
+        // Setup event listeners for filter options
+        function setupFilterEventListeners() {
+            // Filter option selection
+            document.addEventListener('click', function(e) {
+                const filterOption = e.target.closest('.ios-filter-option');
+                if (!filterOption) return;
+
+                const filterType = filterOption.dataset.filter;
+                const filterValue = filterOption.dataset.value;
+
+                // Update active state
+                const filterSection = filterOption.closest('.ios-filter-section');
+                const allOptions = filterSection.querySelectorAll('.ios-filter-option');
+                allOptions.forEach(opt => opt.classList.remove('active'));
+                filterOption.classList.add('active');
+
+                // Update filter state
+                activeFilters[filterType] = filterValue;
+                
+                console.log('🔧 Filter updated:', filterType, '=', filterValue);
+                updateFilterIndicator();
+            });
+        }
+
+        // Show filters modal
         function showFilters() {
+            initializeFilters();
             document.getElementById('filterModal').classList.add('active');
         }
 
+        // Close filters modal
         function closeFilters() {
             document.getElementById('filterModal').classList.remove('active');
         }
 
+        // Reset all filters
+        function resetFilters() {
+            activeFilters = {
+                territory: 'all',
+                performance: 'all', 
+                period: 'all',
+                estado: 'all'
+            };
+            
+            updateFilterUI();
+            updateFilterIndicator();
+            console.log('🔄 All filters reset');
+        }
+
+        // Update filter UI to reflect current state
+        function updateFilterUI() {
+            Object.keys(activeFilters).forEach(filterType => {
+                const filterValue = activeFilters[filterType];
+                const filterSections = document.querySelectorAll(`[data-filter="${filterType}"]`);
+                
+                filterSections.forEach(option => {
+                    option.classList.remove('active');
+                    if (option.dataset.value === filterValue) {
+                        option.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Apply filters and reload data
+        async function applyFilters() {
+            console.log('✅ Applying filters:', activeFilters);
+            
+            // Show loading state
+            const applyButton = document.querySelector('.ios-apply-button');
+            const originalText = applyButton.innerHTML;
+            applyButton.innerHTML = '<span class="ios-apply-text">Aplicando...</span><i class="fas fa-spinner fa-spin"></i>';
+            applyButton.disabled = true;
+
+            try {
+                // Close modal
+                closeFilters();
+                
+                // Update filter indicator
+                updateFilterIndicator();
+                
+                // Reload all data with filters
+                await loadDashboardWithFilters();
+                
+                // Update navigation title to show active filters
+                updateNavigationTitle();
+                
+                console.log('🎯 Filters applied successfully');
+                
+            } catch (error) {
+                console.error('❌ Error applying filters:', error);
+            } finally {
+                // Restore button state
+                applyButton.innerHTML = originalText;
+                applyButton.disabled = false;
+            }
+        }
+
+        // Update filter indicator on nav button
+        function updateFilterIndicator() {
+            const filterButton = document.querySelector('button[onclick="showFilters()"]');
+            const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'all');
+            
+            if (hasActiveFilters) {
+                filterButton.classList.add('has-filters');
+            } else {
+                filterButton.classList.remove('has-filters');
+            }
+        }
+
+        // Update navigation title with filter info
+        function updateNavigationTitle() {
+            const navTitle = document.getElementById('nav-title');
+            const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'all');
+            
+            if (hasActiveFilters) {
+                const activeFilterCount = Object.values(activeFilters).filter(value => value !== 'all').length;
+                navTitle.textContent = `Dashboard CAS • ${activeFilterCount} filtro${activeFilterCount > 1 ? 's' : ''}`;
+            } else {
+                navTitle.textContent = 'Dashboard CAS';
+            }
+        }
+
+        // Load dashboard data with applied filters
+        async function loadDashboardWithFilters() {
+            if (currentTab !== 'dashboard') return;
+            
+            try {
+                await Promise.all([
+                    loadKPIsWithFilters(),
+                    loadGroupsWithFilters(),
+                    loadPerformanceChartWithFilters()
+                ]);
+            } catch (error) {
+                console.error('Error loading dashboard with filters:', error);
+            }
+        }
+
+        // Utility function to build filter query parameters
+        function buildFilterParams() {
+            const params = new URLSearchParams();
+            params.append('type', currentType);
+
+            // Add filter parameters
+            if (activeFilters.territory !== 'all') {
+                params.append('territory', activeFilters.territory);
+            }
+            if (activeFilters.performance !== 'all') {
+                params.append('performance_level', activeFilters.performance);
+            }
+            if (activeFilters.period !== 'all') {
+                params.append('period_cas', activeFilters.period);
+            }
+            if (activeFilters.estado !== 'all') {
+                params.append('estado', activeFilters.estado);
+            }
+
+            return params.toString();
+        }
+
+        // Load KPIs with filters
+        async function loadKPIsWithFilters() {
+            try {
+                const filterParams = buildFilterParams();
+                const response = await fetch(`${API_BASE}/kpis?${filterParams}`);
+                const kpis = await response.json();
+                
+                // Update KPIs with performance color
+                const promedio = parseFloat(kpis.promedio_general) || 0;
+                const performanceClass = getPerformanceClass(promedio);
+                const promedioElement = document.getElementById('kpi-promedio');
+                
+                promedioElement.textContent = `${promedio.toFixed(1)}%`;
+                promedioElement.style.color = `var(--performance-${performanceClass})`;
+                promedioElement.parentElement.style.borderLeft = `4px solid var(--performance-${performanceClass})`;
+                
+                document.getElementById('kpi-supervisiones').textContent = kpis.total_supervisiones;
+                document.getElementById('kpi-sucursales').textContent = kpis.total_sucursales;
+                document.getElementById('kpi-grupos').textContent = kpis.total_grupos;
+                
+            } catch (error) {
+                console.error('Error loading filtered KPIs:', error);
+            }
+        }
+
+        // Load groups with filters
+        async function loadGroupsWithFilters() {
+            try {
+                const filterParams = buildFilterParams();
+                const response = await fetch(`${API_BASE}/grupos?${filterParams}`);
+                const groups = await response.json();
+                
+                // Apply client-side filtering for more complex filters
+                let filteredGroups = groups;
+                
+                // Performance level filtering
+                if (activeFilters.performance !== 'all') {
+                    filteredGroups = filteredGroups.filter(group => {
+                        const performance = group.performance || 0;
+                        switch (activeFilters.performance) {
+                            case 'excellent': return performance >= 95;
+                            case 'very-good': return performance >= 90 && performance < 95;
+                            case 'good': return performance >= 80 && performance < 90;
+                            case 'regular': return performance >= 70 && performance < 80;
+                            case 'poor': return performance < 70;
+                            default: return true;
+                        }
+                    });
+                }
+
+                // Territory filtering
+                if (activeFilters.territory !== 'all') {
+                    filteredGroups = filteredGroups.filter(group => 
+                        group.territory === activeFilters.territory
+                    );
+                }
+
+                allGroups = filteredGroups;
+                renderFilteredGroups(filteredGroups);
+                
+            } catch (error) {
+                console.error('Error loading filtered groups:', error);
+            }
+        }
+
+        // Render filtered groups
+        function renderFilteredGroups(groups) {
+            const container = document.getElementById('grupos-list');
+            
+            if (groups.length === 0) {
+                container.innerHTML = `
+                    <div style="padding: 40px 20px; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">🔍</div>
+                        <h3 style="color: var(--ios-label); margin-bottom: 8px;">No hay datos</h3>
+                        <p style="color: var(--ios-tertiary-label);">No se encontraron grupos con los filtros aplicados</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = groups.map((group, index) => {
+                const performance = parseFloat(group.performance) || 0;
+                const performanceClass = getPerformanceClass(performance);
+                const territoryClass = group.territory || 'unknown';
+                
+                return `
+                    <div class="list-item" onclick="showGroupDetail('${group.name}')">
+                        <div class="performance-indicator ${performanceClass}"></div>
+                        <div class="list-item-main">
+                            <div class="list-item-number" style="
+                                background: var(--performance-${performanceClass});
+                                color: white;
+                                width: 28px;
+                                height: 28px;
+                                border-radius: 14px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                font-weight: 700;
+                                margin-right: 12px;
+                            ">${index + 1}</div>
+                            <div class="list-item-content">
+                                <div class="list-item-title" style="display: flex; align-items: center; gap: 8px;">
+                                    ${group.name}
+                                    <span class="territory-badge ${territoryClass}">${territoryClass}</span>
+                                </div>
+                                <div class="list-item-subtitle">${group.sucursales} sucursales • ${group.supervisiones} supervisiones</div>
+                            </div>
+                        </div>
+                        <div class="list-item-end">
+                            <div class="performance-badge ${performanceClass}">${performance.toFixed(1)}%</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load performance chart with filters 
+        async function loadPerformanceChartWithFilters() {
+            try {
+                if (!allGroups || allGroups.length === 0) return;
+                
+                const ranges = {
+                    'Excelente (95-100%)': 0,
+                    'Muy Bueno (90-94%)': 0,
+                    'Bueno (80-89%)': 0,
+                    'Regular (70-79%)': 0,
+                    'Bajo (<70%)': 0
+                };
+                
+                allGroups.forEach(group => {
+                    const score = group.performance;
+                    if (score >= 95) ranges['Excelente (95-100%)']++;
+                    else if (score >= 90) ranges['Muy Bueno (90-94%)']++;
+                    else if (score >= 80) ranges['Bueno (80-89%)']++;
+                    else if (score >= 70) ranges['Regular (70-79%)']++;
+                    else ranges['Bajo (<70%)']++;
+                });
+                
+                const ctx = document.getElementById('performanceChart');
+                
+                if (performanceChart) {
+                    performanceChart.destroy();
+                }
+                
+                performanceChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(ranges),
+                        datasets: [{
+                            data: Object.values(ranges),
+                            backgroundColor: [
+                                '#30D158',  // excellent
+                                '#007AFF',  // very-good
+                                '#FF9F0A',  // good
+                                '#FFD60A',  // regular
+                                '#FF453A'   // poor
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 15,
+                                    font: {
+                                        family: '-apple-system, BlinkMacSystemFont',
+                                        size: 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading filtered performance chart:', error);
+            }
+        }
+
+        // Update existing loadDashboard to use filters
         function refreshData() {
-            loadDashboard();
+            if (Object.values(activeFilters).some(value => value !== 'all')) {
+                loadDashboardWithFilters();
+            } else {
+                loadDashboard();
+            }
+            
+            // Also refresh map if in map tab
+            if (currentTab === 'mapa') {
+                loadMapData();
+            }
+        }
+
+        // ====================================================================
+        // FILTER PERSISTENCE (SESSION STORAGE)
+        // ====================================================================
+
+        // Save filters to session storage
+        function saveFiltersToSession() {
+            try {
+                sessionStorage.setItem('cas_active_filters', JSON.stringify(activeFilters));
+                sessionStorage.setItem('cas_filter_timestamp', Date.now().toString());
+            } catch (error) {
+                console.error('Error saving filters to session:', error);
+            }
+        }
+
+        // Load filters from session storage
+        function loadFiltersFromSession() {
+            try {
+                const savedFilters = sessionStorage.getItem('cas_active_filters');
+                const filterTimestamp = sessionStorage.getItem('cas_filter_timestamp');
+                
+                // Check if filters are recent (within 1 hour)
+                const oneHour = 60 * 60 * 1000;
+                const now = Date.now();
+                
+                if (savedFilters && filterTimestamp && (now - parseInt(filterTimestamp)) < oneHour) {
+                    const parsedFilters = JSON.parse(savedFilters);
+                    
+                    // Validate filter structure
+                    if (parsedFilters && typeof parsedFilters === 'object' && 
+                        parsedFilters.territory && parsedFilters.performance && 
+                        parsedFilters.period && parsedFilters.estado) {
+                        
+                        activeFilters = parsedFilters;
+                        updateFilterIndicator();
+                        updateNavigationTitle();
+                        console.log('📥 Filters loaded from session:', activeFilters);
+                        return true;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading filters from session:', error);
+            }
+            
+            return false;
+        }
+
+        // Clear filters from session storage
+        function clearFiltersFromSession() {
+            try {
+                sessionStorage.removeItem('cas_active_filters');
+                sessionStorage.removeItem('cas_filter_timestamp');
+            } catch (error) {
+                console.error('Error clearing filters from session:', error);
+            }
+        }
+
+        // Enhanced apply filters with persistence
+        async function applyFilters() {
+            console.log('✅ Applying filters:', activeFilters);
+            
+            // Show loading state
+            const applyButton = document.querySelector('.ios-apply-button');
+            const originalText = applyButton.innerHTML;
+            applyButton.innerHTML = '<span class="ios-apply-text">Aplicando...</span><i class="fas fa-spinner fa-spin"></i>';
+            applyButton.disabled = true;
+
+            try {
+                // Save filters to session
+                saveFiltersToSession();
+                
+                // Close modal
+                closeFilters();
+                
+                // Update filter indicator
+                updateFilterIndicator();
+                
+                // Reload all data with filters
+                await loadDashboardWithFilters();
+                
+                // Update navigation title to show active filters
+                updateNavigationTitle();
+                
+                console.log('🎯 Filters applied and saved successfully');
+                
+            } catch (error) {
+                console.error('❌ Error applying filters:', error);
+            } finally {
+                // Restore button state
+                applyButton.innerHTML = originalText;
+                applyButton.disabled = false;
+            }
+        }
+
+        // Enhanced reset filters with persistence
+        function resetFilters() {
+            activeFilters = {
+                territory: 'all',
+                performance: 'all', 
+                period: 'all',
+                estado: 'all'
+            };
+            
+            // Clear from session
+            clearFiltersFromSession();
+            
+            updateFilterUI();
+            updateFilterIndicator();
+            updateNavigationTitle();
+            console.log('🔄 All filters reset and cleared from session');
         }
 
         // Handle modal clicks to close

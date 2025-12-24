@@ -133,7 +133,10 @@ function classifyTerritory(grupoOperativo) {
 
     const pureForanea = [
         'OCHTER TAMPICO', 'GRUPO MATAMOROS', 'RAP', 'CRR', 'PLOG LAGUNA', 
-        'PLOG QUERETARO', 'PLOG BAJIO', 'PLOG GOLFO', 'LGO', 'PLOG TIJUANA', 'PLOG PACIFICO'
+        'PLOG QUERETARO', 'PLOG BAJIO', 'PLOG GOLFO', 'LGO', 'PLOG TIJUANA', 'PLOG PACIFICO',
+        // Previously unknown groups - now classified as foráneas per Roberto's specification
+        'GRUPO REYNOSA', 'PLOG NORTE', 'GRUPO VICTORIA', 'PLOG CENTRO', 
+        'GRUPO COAHUILA', 'PLOG SUR', 'GRUPO TAMAULIPAS'
     ];
 
     const mixed = ['TEC', 'EXPO', 'GRUPO SALTILLO'];
@@ -141,7 +144,10 @@ function classifyTerritory(grupoOperativo) {
     if (pureLocal.includes(grupoOperativo)) return 'local';
     if (pureForanea.includes(grupoOperativo)) return 'foranea';
     if (mixed.includes(grupoOperativo)) return 'mixed';
-    return 'unknown';
+    
+    // Roberto specified: "la mayoría son Foráneos"
+    // Any remaining unknowns default to foránea
+    return 'foranea';
 }
 
 // ============================================================================
@@ -568,35 +574,53 @@ app.get('/api/sucursales-ranking', async (req, res) => {
 });
 
 // ============================================================================
-// 📈 API ENDPOINT: /api/sucursal-tendencia - SUCURSAL PERFORMANCE TREND
+// 📈 API ENDPOINT: /api/sucursal-tendencia - SUCURSAL PERFORMANCE TREND (CAS PERIODS)
 // ============================================================================
 
 app.get('/api/sucursal-tendencia', async (req, res) => {
     try {
-        const { sucursal, grupo, type, periodo = '6months' } = req.query;
+        const { sucursal, grupo, type, periodo = 'cas_periods' } = req.query;
         console.log(`📈 Sucursal tendencia - Sucursal: ${sucursal}, Grupo: ${grupo}, Type: ${type}, Periodo: ${periodo}`);
         
         if (!sucursal) {
             return res.status(400).json({ error: 'Sucursal name is required' });
         }
         
-        // Build period filter
-        let dateFilter = '';
-        switch(periodo) {
-            case '1month':
-                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '1 month'";
-                break;
-            case '3months':
-                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '3 months'";
-                break;
-            case '6months':
-                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '6 months'";
-                break;
-            case '1year':
-                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '1 year'";
-                break;
-            default:
-                dateFilter = "AND sup.fecha_supervision >= CURRENT_DATE - INTERVAL '6 months'";
+        // First determine if sucursal is LOCAL or FORÁNEA
+        const sucursalInfoResult = await pool.query(`
+            SELECT s.*, 
+                   CASE 
+                       WHEN s.estado = 'Nuevo León' OR s.grupo_operativo = 'GRUPO SALTILLO' THEN 'LOCAL'
+                       ELSE 'FORANEA'
+                   END as tipo_territorial
+            FROM sucursales s
+            WHERE s.nombre = $1
+        `, [sucursal]);
+        
+        if (sucursalInfoResult.rows.length === 0) {
+            return res.status(404).json({ error: 'Sucursal not found' });
+        }
+        
+        const sucursalInfo = sucursalInfoResult.rows[0];
+        const isLocal = sucursalInfo.tipo_territorial === 'LOCAL';
+        
+        // Build CAS period filter based on sucursal type
+        let periodFilters = [];
+        
+        if (isLocal) {
+            // LOCAL: Use trimestres T1-T4
+            periodFilters = [
+                "sup.fecha_supervision >= '2025-03-12' AND sup.fecha_supervision <= '2025-04-16'", // NL-T1
+                "sup.fecha_supervision >= '2025-06-11' AND sup.fecha_supervision <= '2025-08-18'", // NL-T2
+                "sup.fecha_supervision >= '2025-08-19' AND sup.fecha_supervision <= '2025-10-09'", // NL-T3
+                "sup.fecha_supervision >= '2025-10-30'"  // NL-T4 (current)
+            ];
+        } else {
+            // FORÁNEA: Use semestres S1-S2
+            periodFilters = [
+                "sup.fecha_supervision >= '2025-04-10' AND sup.fecha_supervision <= '2025-06-09'", // FOR-S1
+                "sup.fecha_supervision >= '2025-07-30' AND sup.fecha_supervision <= '2025-11-07'"  // FOR-S2
+            ];
         }
         
         // Build query with filters
@@ -616,37 +640,69 @@ app.get('/api/sucursal-tendencia', async (req, res) => {
             paramIndex++;
         }
         
+        // Add CAS period filter
+        const periodCondition = `(${periodFilters.join(' OR ')})`;
+        whereConditions.push(periodCondition);
+        
         const whereClause = whereConditions.join(' AND ');
         
-        // Get monthly performance trend for the sucursal
+        // Get CAS period performance trend for the sucursal
         const result = await pool.query(`
             SELECT 
-                DATE_TRUNC('month', sup.fecha_supervision) as month_start,
+                CASE 
+                    WHEN sup.fecha_supervision >= '2025-03-12' AND sup.fecha_supervision <= '2025-04-16' THEN 'T1-2025'
+                    WHEN sup.fecha_supervision >= '2025-06-11' AND sup.fecha_supervision <= '2025-08-18' THEN 'T2-2025'
+                    WHEN sup.fecha_supervision >= '2025-08-19' AND sup.fecha_supervision <= '2025-10-09' THEN 'T3-2025'
+                    WHEN sup.fecha_supervision >= '2025-10-30' THEN 'T4-2025'
+                    WHEN sup.fecha_supervision >= '2025-04-10' AND sup.fecha_supervision <= '2025-06-09' THEN 'S1-2025'
+                    WHEN sup.fecha_supervision >= '2025-07-30' AND sup.fecha_supervision <= '2025-11-07' THEN 'S2-2025'
+                    ELSE 'OTRO'
+                END as periodo_cas,
                 COUNT(sup.id) as evaluaciones_count,
-                ROUND(AVG(sup.calificacion_general), 2) as promedio_mensual,
-                MIN(sup.calificacion_general) as min_mensual,
-                MAX(sup.calificacion_general) as max_mensual
+                ROUND(AVG(sup.calificacion_general), 2) as promedio_periodo,
+                MIN(sup.calificacion_general) as min_periodo,
+                MAX(sup.calificacion_general) as max_periodo,
+                MIN(sup.fecha_supervision) as periodo_inicio,
+                MAX(sup.fecha_supervision) as periodo_fin
             FROM sucursales s
             JOIN supervisiones sup ON s.id = sup.sucursal_id
-            WHERE ${whereClause} ${dateFilter}
-            GROUP BY DATE_TRUNC('month', sup.fecha_supervision)
-            ORDER BY month_start ASC
+            WHERE ${whereClause}
+            GROUP BY periodo_cas
+            HAVING periodo_cas != 'OTRO'
+            ORDER BY 
+                CASE periodo_cas
+                    WHEN 'T1-2025' THEN 1
+                    WHEN 'S1-2025' THEN 2
+                    WHEN 'T2-2025' THEN 3
+                    WHEN 'T3-2025' THEN 4
+                    WHEN 'S2-2025' THEN 5
+                    WHEN 'T4-2025' THEN 6
+                END
         `, params);
         
         const tendenciaData = result.rows.map(row => ({
-            month: row.month_start,
-            month_start: row.month_start,
+            periodo: row.periodo_cas,
+            periodo_cas: row.periodo_cas,
+            tipo_sucursal: isLocal ? 'LOCAL' : 'FORANEA',
             evaluaciones_count: parseInt(row.evaluaciones_count) || 0,
-            promedio_mensual: parseFloat(row.promedio_mensual) || 0,
-            min_mensual: parseFloat(row.min_mensual) || 0,
-            max_mensual: parseFloat(row.max_mensual) || 0
+            promedio_periodo: parseFloat(row.promedio_periodo) || 0,
+            min_periodo: parseFloat(row.min_periodo) || 0,
+            max_periodo: parseFloat(row.max_periodo) || 0,
+            periodo_inicio: row.periodo_inicio,
+            periodo_fin: row.periodo_fin,
+            // Legacy compatibility
+            month: row.periodo_inicio,
+            month_start: row.periodo_inicio,
+            promedio_mensual: parseFloat(row.promedio_periodo) || 0,
+            min_mensual: parseFloat(row.min_periodo) || 0,
+            max_mensual: parseFloat(row.max_periodo) || 0
         }));
         
-        console.log(`✅ Sucursal tendencia: ${sucursal} with ${tendenciaData.length} months`);
+        console.log(`✅ Sucursal tendencia CAS: ${sucursal} (${isLocal ? 'LOCAL' : 'FORANEA'}) with ${tendenciaData.length} periods`);
         res.json(tendenciaData);
         
     } catch (err) {
-        console.error('❌ Error sucursal tendencia:', err);
+        console.error('❌ Error sucursal tendencia CAS:', err);
         res.status(500).json({ error: err.message });
     }
 });
