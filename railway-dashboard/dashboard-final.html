@@ -20,26 +20,76 @@
         }
 
         :root {
-            /* iOS System Colors */
+            /* iOS 17+ System Colors */
             --ios-blue: #007AFF;
             --ios-green: #34C759;
             --ios-red: #FF3B30;
             --ios-yellow: #FFCC00;
             --ios-orange: #FF9500;
+            --ios-purple: #5856D6;
+            --ios-pink: #FF2D92;
+            --ios-indigo: #5856D6;
+            --ios-teal: #5AC8FA;
+            --ios-cyan: #32D2FA;
+            --ios-mint: #00C7BE;
+            
+            /* iOS Gray Scale */
             --ios-gray: #8E8E93;
             --ios-gray-2: #AEAEB2;
             --ios-gray-3: #C7C7CC;
             --ios-gray-4: #D1D1D6;
             --ios-gray-5: #E5E5EA;
             --ios-gray-6: #F2F2F7;
+            
+            /* iOS Semantic Colors */
             --ios-background: #F2F2F7;
             --ios-secondary-background: #FFFFFF;
+            --ios-tertiary-background: #FFFFFF;
             --ios-grouped-background: #F2F2F7;
+            --ios-secondary-grouped-background: #FFFFFF;
+            --ios-tertiary-grouped-background: #F2F2F7;
+            
+            /* iOS Label Colors */
             --ios-label: #000000;
             --ios-secondary-label: #3C3C43;
-            --ios-tertiary-label: #3C3C43;
-            --ios-quaternary-label: #3C3C43;
-            --ios-separator: rgba(60, 60, 67, 0.12);
+            --ios-tertiary-label: #3C3C4399;
+            --ios-quaternary-label: #3C3C434D;
+            --ios-placeholder-text: #3C3C434D;
+            
+            /* iOS Separators */
+            --ios-separator: rgba(60, 60, 67, 0.29);
+            --ios-opaque-separator: #C6C6C8;
+            
+            /* Performance Semantic Colors - CAS Specific */
+            --performance-excellent: #30D158;    /* iOS Green - 95-100% */
+            --performance-very-good: #007AFF;    /* iOS Blue - 90-94% */
+            --performance-good: #FF9F0A;         /* iOS Orange - 80-89% */
+            --performance-regular: #FFD60A;      /* iOS Yellow - 70-79% */
+            --performance-poor: #FF453A;         /* iOS Red - <70% */
+            
+            /* Performance Background Colors */
+            --performance-excellent-bg: rgba(48, 209, 88, 0.1);
+            --performance-very-good-bg: rgba(0, 122, 255, 0.1);
+            --performance-good-bg: rgba(255, 159, 10, 0.1);
+            --performance-regular-bg: rgba(255, 214, 10, 0.1);
+            --performance-poor-bg: rgba(255, 69, 58, 0.1);
+            
+            /* Territory Colors */
+            --territory-local: #007AFF;          /* iOS Blue */
+            --territory-foranea: #FF9F0A;        /* iOS Orange */
+            --territory-mixed: #5856D6;          /* iOS Purple */
+            --territory-unknown: #8E8E93;        /* iOS Gray */
+            
+            /* Territory Background Colors */
+            --territory-local-bg: rgba(0, 122, 255, 0.1);
+            --territory-foranea-bg: rgba(255, 159, 10, 0.1);
+            --territory-mixed-bg: rgba(88, 86, 214, 0.1);
+            --territory-unknown-bg: rgba(142, 142, 147, 0.1);
+            
+            /* Period Indicator Colors */
+            --periodo-actual-bg: #007AFF;
+            --periodo-actual-text: #FFFFFF;
+            --periodo-badge-shadow: 0 2px 10px rgba(0, 122, 255, 0.3);
         }
 
         body {
@@ -84,6 +134,35 @@
             border: none;
             padding: 8px;
             cursor: pointer;
+        }
+        
+        /* Period Indicator - iOS Badge Style */
+        .period-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--periodo-actual-bg);
+            color: var(--periodo-actual-text);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--periodo-badge-shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .period-indicator-text {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .period-indicator-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
         }
 
         /* Large Title */
@@ -220,11 +299,99 @@
             padding: 12px 16px;
             border-bottom: 0.5px solid var(--ios-separator);
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
         .list-item:hover {
             background-color: var(--ios-gray-6);
+            transform: scale(1.002);
+        }
+        
+        /* Performance Indicators */
+        .performance-indicator {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 0 2px 2px 0;
+        }
+        
+        .performance-indicator.excellent { background: var(--performance-excellent); }
+        .performance-indicator.very-good { background: var(--performance-very-good); }
+        .performance-indicator.good { background: var(--performance-good); }
+        .performance-indicator.regular { background: var(--performance-regular); }
+        .performance-indicator.poor { background: var(--performance-poor); }
+        
+        /* Performance Badge */
+        .performance-badge {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 50px;
+        }
+        
+        .performance-badge.excellent {
+            background: var(--performance-excellent-bg);
+            color: var(--performance-excellent);
+            border: 1px solid var(--performance-excellent);
+        }
+        
+        .performance-badge.very-good {
+            background: var(--performance-very-good-bg);
+            color: var(--performance-very-good);
+            border: 1px solid var(--performance-very-good);
+        }
+        
+        .performance-badge.good {
+            background: var(--performance-good-bg);
+            color: var(--performance-good);
+            border: 1px solid var(--performance-good);
+        }
+        
+        .performance-badge.regular {
+            background: var(--performance-regular-bg);
+            color: var(--performance-regular);
+            border: 1px solid var(--performance-regular);
+        }
+        
+        .performance-badge.poor {
+            background: var(--performance-poor-bg);
+            color: var(--performance-poor);
+            border: 1px solid var(--performance-poor);
+        }
+        
+        /* Territory Badge */
+        .territory-badge {
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .territory-badge.local {
+            background: var(--territory-local-bg);
+            color: var(--territory-local);
+        }
+        
+        .territory-badge.foranea {
+            background: var(--territory-foranea-bg);
+            color: var(--territory-foranea);
+        }
+        
+        .territory-badge.mixed {
+            background: var(--territory-mixed-bg);
+            color: var(--territory-mixed);
+        }
+        
+        .territory-badge.unknown {
+            background: var(--territory-unknown-bg);
+            color: var(--territory-unknown);
         }
 
         .list-item:last-child {
@@ -416,14 +583,77 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Responsive adjustments */
+        /* Mobile-First Responsive Design */
+        
+        /* Mobile portrait (default) */
+        @media (max-width: 414px) {
+            .nav-bar {
+                padding: 0 12px;
+            }
+            
+            .period-indicator {
+                font-size: 12px;
+                padding: 3px 8px;
+                gap: 6px;
+            }
+            
+            .period-indicator-badge {
+                padding: 1px 4px;
+                font-size: 10px;
+            }
+            
+            .card {
+                margin: 12px;
+                border-radius: 10px;
+            }
+            
+            .list-item {
+                padding: 10px 12px;
+            }
+            
+            .list-item-number {
+                width: 24px !important;
+                height: 24px !important;
+                font-size: 12px !important;
+                margin-right: 8px !important;
+            }
+            
+            .performance-badge {
+                font-size: 12px;
+                padding: 3px 6px;
+                min-width: 45px;
+            }
+            
+            .territory-badge {
+                font-size: 10px;
+                padding: 1px 6px;
+            }
+        }
+        
+        /* Tablet */
         @media (min-width: 768px) {
             .kpi-grid {
                 grid-template-columns: repeat(4, 1fr);
+                margin: 24px;
+            }
+            
+            .card {
+                margin: 24px;
             }
             
             .modal {
-                width: 400px;
+                width: 500px;
+                border-radius: 16px;
+            }
+            
+            .nav-bar {
+                height: 52px;
+                padding: 0 24px;
+            }
+            
+            .period-indicator {
+                font-size: 14px;
+                padding: 6px 16px;
             }
         }
 
@@ -444,6 +674,10 @@
     <nav class="nav-bar">
         <button class="nav-button" onclick="showFilters()">Filtrar</button>
         <div class="nav-title" id="nav-title">Dashboard CAS</div>
+        <div class="period-indicator" id="period-indicator">
+            <span class="period-indicator-text">NL-T4</span>
+            <span class="period-indicator-badge">Fo-S2</span>
+        </div>
         <button class="nav-button" onclick="refreshData()">Actualizar</button>
     </nav>
 
@@ -784,7 +1018,15 @@
                 const response = await fetch(`${API_BASE}/kpis?type=${currentType}`);
                 const kpis = await response.json();
                 
-                document.getElementById('kpi-promedio').textContent = `${kpis.promedio_general}%`;
+                // Update promedio with performance color
+                const promedio = parseFloat(kpis.promedio_general) || 0;
+                const performanceClass = getPerformanceClass(promedio);
+                const promedioElement = document.getElementById('kpi-promedio');
+                
+                promedioElement.textContent = `${promedio.toFixed(1)}%`;
+                promedioElement.style.color = `var(--performance-${performanceClass})`;
+                promedioElement.parentElement.style.borderLeft = `4px solid var(--performance-${performanceClass})`;
+                
                 document.getElementById('kpi-supervisiones').textContent = kpis.total_supervisiones;
                 document.getElementById('kpi-sucursales').textContent = kpis.total_sucursales;
                 document.getElementById('kpi-grupos').textContent = kpis.total_grupos;
@@ -794,6 +1036,15 @@
             }
         }
 
+        // Helper function to get performance class
+        function getPerformanceClass(performance) {
+            if (performance >= 95) return 'excellent';
+            if (performance >= 90) return 'very-good'; 
+            if (performance >= 80) return 'good';
+            if (performance >= 70) return 'regular';
+            return 'poor';
+        }
+
         // Load groups
         async function loadGroups() {
             try {
@@ -801,20 +1052,42 @@
                 allGroups = await response.json();
                 
                 const container = document.getElementById('grupos-list');
-                container.innerHTML = allGroups.map(group => `
-                    <div class="list-item" onclick="showGroupDetail('${group.name}')">
-                        <div class="list-item-main">
-                            <div class="list-item-number rank-${group.rank}">${group.rank}</div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">${group.name}</div>
-                                <div class="list-item-subtitle">${group.sucursales} sucursales • ${group.supervisiones} supervisiones</div>
+                container.innerHTML = allGroups.map((group, index) => {
+                    const performance = parseFloat(group.performance) || 0;
+                    const performanceClass = getPerformanceClass(performance);
+                    const territoryClass = group.territory || 'unknown';
+                    
+                    return `
+                        <div class="list-item" onclick="showGroupDetail('${group.name}')">
+                            <div class="performance-indicator ${performanceClass}"></div>
+                            <div class="list-item-main">
+                                <div class="list-item-number" style="
+                                    background: var(--performance-${performanceClass});
+                                    color: white;
+                                    width: 28px;
+                                    height: 28px;
+                                    border-radius: 14px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    margin-right: 12px;
+                                ">${index + 1}</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title" style="display: flex; align-items: center; gap: 8px;">
+                                        ${group.name}
+                                        <span class="territory-badge ${territoryClass}">${territoryClass}</span>
+                                    </div>
+                                    <div class="list-item-subtitle">${group.sucursales} sucursales • ${group.supervisiones} supervisiones</div>
+                                </div>
+                            </div>
+                            <div class="list-item-end">
+                                <div class="performance-badge ${performanceClass}">${performance.toFixed(1)}%</div>
                             </div>
                         </div>
-                        <div class="list-item-end">
-                            <div class="list-item-value performance-value">${(parseFloat(group.performance) || 0).toFixed(1)}%</div>
-                        </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
                 
             } catch (error) {
                 console.error('Error loading groups:', error);
