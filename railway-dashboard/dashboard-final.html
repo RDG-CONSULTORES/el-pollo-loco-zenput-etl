@@ -1567,14 +1567,20 @@
             // Show selected view
             document.getElementById(`${tab}-view`).classList.add('active');
             
-            // Load tab-specific data
+            // Load tab-specific data with active filters
             switch(tab) {
                 case 'dashboard':
-                    loadDashboard();
+                    // Check if filters are active and load accordingly
+                    const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'all');
+                    if (hasActiveFilters) {
+                        loadDashboardWithFilters();
+                    } else {
+                        loadDashboard();
+                    }
                     break;
                 case 'mapa':
                     if (!map) initializeMap();
-                    loadMapData();
+                    loadMapData(); // This already handles filters
                     break;
                 case 'tendencias':
                     loadHistoricalData();
@@ -1753,20 +1759,33 @@
             const group = allGroups.find(g => g.name === groupName);
             if (!group) return;
 
-            // Update modal header
+            // Update modal header with performance colors
             document.getElementById('detail-group-name').textContent = group.name;
-            document.getElementById('detail-performance').textContent = (parseFloat(group.performance) || 0).toFixed(2) + '%';
-            document.getElementById('detail-performance').style.color = 
-                group.performance >= 90 ? '#34C759' :
-                group.performance >= 80 ? '#007AFF' :
-                group.performance >= 70 ? '#FFCC00' : '#FF3B30';
+            const performance = parseFloat(group.performance) || 0;
+            const performanceClass = getPerformanceClass(performance);
+            
+            document.getElementById('detail-performance').textContent = performance.toFixed(1) + '%';
+            document.getElementById('detail-performance').style.color = `var(--performance-${performanceClass})`;
             document.getElementById('detail-meta').textContent = 
                 `${group.sucursales} sucursales • ${group.supervisiones} supervisiones`;
 
-            // Load sucursales
+            // Load sucursales with current filters applied
             try {
-                const response = await fetch(`${API_BASE}/sucursales-ranking?grupo=${encodeURIComponent(groupName)}&type=${currentType}`);
-                const sucursales = await response.json();
+                // Build filter parameters for sucursales endpoint
+                const filterParams = buildFilterParams();
+                const groupParam = `grupo=${encodeURIComponent(groupName)}`;
+                const finalParams = filterParams ? `${groupParam}&${filterParams}` : groupParam;
+                
+                const response = await fetch(`${API_BASE}/sucursales-ranking?${finalParams}`);
+                const allSucursales = await response.json();
+                
+                // Apply client-side filtering if needed
+                let sucursales = allSucursales;
+                const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'all');
+                
+                if (hasActiveFilters) {
+                    sucursales = applyClientSideFilters(allSucursales);
+                }
                 
                 const container = document.getElementById('group-sucursales');
                 container.innerHTML = sucursales.length > 0 
@@ -1819,7 +1838,12 @@
         // Show sucursal detail
         async function showSucursalDetail(sucursalName, estado, grupoOperativo) {
             try {
-                const response = await fetch(`${API_BASE}/sucursal-detail?sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}`);
+                // Build filter parameters for sucursal detail
+                const filterParams = buildFilterParams();
+                const sucursalParams = `sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}`;
+                const finalParams = filterParams ? `${sucursalParams}&${filterParams}` : sucursalParams;
+                
+                const response = await fetch(`${API_BASE}/sucursal-detail?${finalParams}`);
                 const data = await response.json();
                 
                 if (data.sucursal) {
@@ -1859,14 +1883,73 @@
         let sucursalTendenciaChart = null;
         async function loadSucursalTendencia(sucursalName, grupoOperativo) {
             try {
-                const response = await fetch(`${API_BASE}/sucursal-tendencia?sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&type=${currentType}&periodo=cas_periods`);
-                const tendenciaData = await response.json();
+                // Build filter parameters for sucursal tendencia
+                const filterParams = buildFilterParams();
+                const tendenciaParams = `sucursal=${encodeURIComponent(sucursalName)}&grupo=${encodeURIComponent(grupoOperativo)}&periodo=cas_periods`;
+                const finalParams = filterParams ? `${tendenciaParams}&${filterParams}` : tendenciaParams;
+                
+                const response = await fetch(`${API_BASE}/sucursal-tendencia?${finalParams}`);
+                
+                // Check if response is ok
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const responseData = await response.json();
+                
+                // Validate response data
+                let tendenciaData = [];
+                if (Array.isArray(responseData)) {
+                    tendenciaData = responseData;
+                } else if (responseData.periods && Array.isArray(responseData.periods)) {
+                    tendenciaData = responseData.periods;
+                } else if (responseData.error) {
+                    throw new Error(responseData.error);
+                } else {
+                    console.warn('Invalid response format:', responseData);
+                    tendenciaData = [];
+                }
                 
                 const ctx = document.getElementById('sucursalTendenciaChart');
                 
                 // Destroy existing chart
                 if (sucursalTendenciaChart) {
                     sucursalTendenciaChart.destroy();
+                }
+                
+                // Handle no data case
+                if (tendenciaData.length === 0) {
+                    const noDataChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Sin datos'],
+                            datasets: [{
+                                label: 'Sin datos de tendencia',
+                                data: [],
+                                borderColor: '#8E8E93',
+                                backgroundColor: 'rgba(142, 142, 147, 0.1)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: `No hay datos de tendencia para ${sucursalName}`,
+                                    font: { size: 14, weight: '600' }
+                                },
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: { display: false },
+                                x: { display: false }
+                            }
+                        }
+                    });
+                    
+                    console.log(`📊 No tendencia data available for ${sucursalName}`);
+                    return;
                 }
                 
                 // Generate period labels and performance-based colors
@@ -1894,8 +1977,8 @@
                 
                 const isLocal = tendenciaData.length > 0 && tendenciaData[0].tipo_sucursal === 'LOCAL';
                 const chartTitle = isLocal ? 
-                    'Histórico por Trimestres CAS (Local)' : 
-                    'Histórico por Semestres CAS (Foránea)';
+                    `Histórico Trimestres CAS (Local) - Últimos ${Math.min(tendenciaData.length, 4)} períodos` : 
+                    `Histórico Semestres CAS (Foránea) - Últimos ${Math.min(tendenciaData.length, 4)} períodos`;
                 
                 sucursalTendenciaChart = new Chart(ctx, {
                     type: 'line',
@@ -1903,7 +1986,7 @@
                         labels: labels,
                         datasets: [{
                             label: 'Rendimiento por Período CAS',
-                            data: tendenciaData.map(d => d.promedio_periodo || d.promedio_mensual),
+                            data: tendenciaData.map(d => d.promedio_periodo || d.promedio_mensual || 0),
                             borderColor: '#007AFF',
                             backgroundColor: 'rgba(0, 122, 255, 0.1)',
                             fill: true,
@@ -1930,18 +2013,28 @@
                                     title: function(context) {
                                         const dataIndex = context[0].dataIndex;
                                         const periodo = tendenciaData[dataIndex];
-                                        const inicio = new Date(periodo.periodo_inicio).toLocaleDateString('es-ES');
-                                        const fin = new Date(periodo.periodo_fin).toLocaleDateString('es-ES');
-                                        return `${labels[dataIndex]} (${inicio} - ${fin})`;
+                                        if (periodo && periodo.periodo_inicio && periodo.periodo_fin) {
+                                            const inicio = new Date(periodo.periodo_inicio).toLocaleDateString('es-ES');
+                                            const fin = new Date(periodo.periodo_fin).toLocaleDateString('es-ES');
+                                            return `${labels[dataIndex]} (${inicio} - ${fin})`;
+                                        }
+                                        return labels[dataIndex];
                                     },
                                     label: function(context) {
                                         const dataIndex = context.dataIndex;
                                         const periodo = tendenciaData[dataIndex];
-                                        return [
-                                            `Rendimiento: ${context.parsed.y.toFixed(1)}%`,
-                                            `Evaluaciones: ${periodo.evaluaciones_count}`,
-                                            `Tipo: ${periodo.tipo_sucursal}`
-                                        ];
+                                        const labels = [`Rendimiento: ${context.parsed.y.toFixed(1)}%`];
+                                        
+                                        if (periodo) {
+                                            if (periodo.evaluaciones_count) {
+                                                labels.push(`Evaluaciones: ${periodo.evaluaciones_count}`);
+                                            }
+                                            if (periodo.tipo_sucursal) {
+                                                labels.push(`Tipo: ${periodo.tipo_sucursal}`);
+                                            }
+                                        }
+                                        
+                                        return labels;
                                     }
                                 }
                             }
@@ -1973,6 +2066,41 @@
                 
             } catch (error) {
                 console.error('Error loading sucursal tendencia:', error);
+                
+                // Show error chart
+                const ctx = document.getElementById('sucursalTendenciaChart');
+                if (sucursalTendenciaChart) {
+                    sucursalTendenciaChart.destroy();
+                }
+                
+                const errorChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Error'],
+                        datasets: [{
+                            label: 'Error al cargar datos',
+                            data: [],
+                            borderColor: '#FF453A',
+                            backgroundColor: 'rgba(255, 69, 58, 0.1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Error al cargar tendencia para ${sucursalName}`,
+                                font: { size: 14, weight: '600' }
+                            },
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { display: false },
+                            x: { display: false }
+                        }
+                    }
+                });
             }
         }
 
